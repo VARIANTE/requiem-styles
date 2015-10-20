@@ -1,25 +1,30 @@
 /**
- * Requiem
+ * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-@mixin labels {
-  a      { @content; }
-  p      { @content; }
-  li     { @content; }
-  em     { @content; }
-  strong { @content; }
-  h1     { @content; }
-  h2     { @content; }
-  h3     { @content; }
-  h4     { @content; }
-  h5     { @content; }
-  h6     { @content; }
-  label  { @content; }
-  span   { @content; }
+@mixin labels($type:'all') {
+  @if $type == 'all' or $type == 'body' {
+    a      { @content; }
+    p      { @content; }
+    li     { @content; }
+    em     { @content; }
+    strong { @content; }
+    label  { @content; }
+    span   { @content; }
+  }
+
+  @if $type == 'all' or $type == 'header' {
+    h1     { @content; }
+    h2     { @content; }
+    h3     { @content; }
+    h4     { @content; }
+    h5     { @content; }
+    h6     { @content; }
+  }
 }
 
 @mixin statics {

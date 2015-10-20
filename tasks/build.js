@@ -1,5 +1,5 @@
 /**
- * Requiem
+ * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
  * Build tasks.
@@ -31,52 +31,95 @@ gulp.task('clean', function(done) {
 });
 
 /**
- * Wires dependencies into the Sass library.
+ * Builds the CSS library.
  */
-gulp.task('wiredeps', function() {
-  return gulp.src(config.tasks.wiredeps.normalize.input)
-    .pipe($rename(config.tasks.wiredeps.normalize.outputFile))
-    .pipe(gulp.dest(config.tasks.wiredeps.normalize.output));
-});
-
-/**
- * Builds the stylesheet library. There are 3 different outputs:
- * 1. CSS library, uncompressed
- * 2. CSS library, compressed
- * 3. Sass library
- */
-gulp.task('build', ['wiredeps'], function() {
+gulp.task('build:css', function() {
   return merge(
     // Compile Sass to CSS.
-    gulp.src(config.tasks.build.css.input)
+    gulp.src(config.tasks.build.css.pretty.input)
       .pipe($sourcemaps.init())
-      .pipe($sass(config.tasks.build.css.sass))
+      .pipe($sass(config.tasks.build.css.pretty.sass))
       .pipe($postcss([autoprefixer(config.tasks.build.autoprefixer)]))
       .pipe($sourcemaps.write('./'))
       .pipe($size({
         title: '[build:css:pretty]',
         gzip: true
       }))
-      .pipe(gulp.dest(config.tasks.build.css.output)),
+      .pipe(gulp.dest(config.tasks.build.css.pretty.output)),
 
     // Compile Sass to CSS (minified).
-    gulp.src(config.tasks.build.css.input)
-      .pipe($sass(config.tasks.build.css.sass))
+    gulp.src(config.tasks.build.css.ugly.input)
+      .pipe($sass(config.tasks.build.css.ugly.sass))
       .pipe($postcss([autoprefixer(config.tasks.build.autoprefixer)]))
-      .pipe($csso())
-      .pipe($rename(config.tasks.build.css.outputFile))
+      .pipe($rename(config.tasks.build.css.ugly.outputFile))
       .pipe($size({
         title: '[build:css:ugly]',
         gzip: true
       }))
-      .pipe(gulp.dest(config.tasks.build.css.output)),
-
-    // Copy Sass to dist directory.
-    gulp.src(config.tasks.build.sass.input)
-      .pipe($size({
-        title: '[build:sass]',
-        gzip: true
-      }))
-      .pipe(gulp.dest(config.tasks.build.sass.output))
+      .pipe(gulp.dest(config.tasks.build.css.ugly.output))
   );
+});
+
+/**
+ * Builds the Sass library.
+ */
+gulp.task('build:sass', function() {
+  return gulp.src(config.tasks.build.sass.input)
+    .pipe($size({
+      title: '[build:sass]',
+      gzip: true
+    }))
+    .pipe(gulp.dest(config.tasks.build.sass.output));
+});
+
+/**
+ * Builds the LESS library.
+ */
+gulp.task('build:less', function() {
+  return gulp.src(config.tasks.build.less.input)
+    .pipe($size({
+      title: '[build:less]',
+      gzip: true
+    }))
+    .pipe(gulp.dest(config.tasks.build.less.output));
+});
+
+/**
+ * Builds the Stylus library.
+ */
+gulp.task('build:stylus', function() {
+  return gulp.src(config.tasks.build.stylus.input)
+    .pipe($size({
+      title: '[build:stylus]',
+      gzip: true
+    }))
+    .pipe(gulp.dest(config.tasks.build.stylus.output));
+});
+
+/**
+ * Builds the entire stylesheet library. There are 4 different outputs:
+ * 1. CSS library
+ * 2. Sass library
+ * 3. LESS library
+ * 4. Stylus library
+ */
+gulp.task('build', function(done) {
+  var seq = [['build:css', 'build:sass', 'build:less', 'build:stylus']];
+
+  if (config.env.clean) {
+    seq.unshift('clean');
+  }
+
+  seq.push(function() {
+    if (config.env.watch) {
+      for (var i = 0; i < config.tasks.watch.build.length; i++) {
+        var entry = config.tasks.watch.build[i];
+        gulp.watch(entry.files, entry.tasks);
+      }
+    }
+
+    done();
+  });
+
+  sequence.apply(null, seq);
 });

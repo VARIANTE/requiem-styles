@@ -1,5 +1,5 @@
 
-@import '../../../dist/requiem';
+@import 'requiem';
 
 @include controller('Playground') {
   @include auto-fit();

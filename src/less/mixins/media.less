@@ -1,0 +1,211 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Media query for screens in portrait orientation.
+ */
+.screen-portrait(@rules) { @media only screen and (orientation: portrait) { @rules(); } }
+
+/**
+ * Media query for screens in landscape orientation.
+ */
+.screen-landscape(@rules) { @media only screen and (orientation: landscape) { @rules(); } }
+
+/**
+ * Media query for screens at a specified minimum width.
+ *
+ * @param {Number} @minWidth
+ */
+.screen-min-width(@minWidth, @rules) { @media only screen and (min-width: unit(@minWidth,px)) { @rules(); } }
+
+/**
+ * Media query for screens at a specified maximum width.
+ *
+ * @param {Number} @maxWidth
+ */
+.screen-max-width(@maxWidth, @rules) { @media only screen and (max-width: unit(@maxWidth,px)) { @rules(); } }
+
+/**
+ * Media query for screens at a specified minimum height.
+ *
+ * @param {Number} @minHeight
+ */
+.screen-min-height(@minHeight, @rules) { @media only screen and (min-height: unit(@minHeight,px)) { @rules(); } }
+
+/**
+ * Media query for screens at a specified maximum height.
+ *
+ * @param {Number} @maxHeight
+ */
+.screen-max-height(@maxHeight, @rules) { @media only screen and (max-height: unit(@maxHeight,px)) { @rules(); } }
+
+/**
+ * Media query for the minimum width/height threshold of the specified screen
+ * type.
+ *
+ * @param {String}  @screen       Screen type (i.e. mobile, phablet, tablet,
+ *                                desktop).
+ * @param {Boolean} @exclusive    Specifies whether the media queries should be
+ *                                exclusive to this screen type. If false, the
+ *                                generated media query will use the minimum
+ *                                threshold of the selected screen type. If
+ *                                true, the generated media query will be
+ *                                bounded by the minimum and the maximum
+ *                                thresholds.
+ * @param {Boolean} @invert       Inverts the generated media query.
+ * @param {String}  @measurement  Specifies width or height measurement.
+ * @param {Boolean} @touch        Specifues whether the condition is only valid
+ *                                for touch devices(requires Modernizr feature
+ *                                detection), namely the '.touch' class. If
+ *                                false (default), it does NOT use the
+ *                                '.no-touch' class, but instead applies content
+ *                                normally.
+ */
+.screen(@screen, @exclusive:false, @invert:false, @measurement:'width', @touch:false, @rules) {
+  & when (@screen = mobile) {
+    @min-threshold: 0px;
+    @max-threshold: 599px;
+  }
+
+  & when (@screen = phablet) {
+    @min-threshold: 600px;
+    @max-threshold: 767px;
+  }
+
+  & when (@screen = tablet) {
+    @min-threshold: 768px;
+    @max-threshold: 1024px;
+  }
+
+  & when (@screen = desktop) {
+    @min-threshold: 1025px;
+    @max-threshold: 10000px; // some ridiculously large arbituary number
+  }
+
+  & when not (@min-threshold = '') and not (@max-threshold = '') {
+    & when (@exclusive = true) {
+      & when (@invert = true) {
+        & when (@measurement = 'width') {
+          @media screen and (max-width: unit((@min-threshold - 1), px)) { .touch(@touch, false) { @rules(); } }
+          @media screen and (min-width: unit((@max-threshold + 1), px)) { .touch(@touch, false) { @rules(); } }
+        }
+
+        & when (@measurement = 'height') {
+          @media screen and (max-height: unit((@min-threshold - 1), px)) { .touch(@touch, false) { @rules(); } }
+          @media screen and (min-height: unit((@max-threshold + 1), px)) { .touch(@touch, false) { @rules(); } }
+        }
+      }
+
+      & when not (@invert = true) {
+        & when (@measurement = 'width') {
+          @media screen and (min-width: unit(@min-threshold, px)) and (max-width: unit(@max-threshold,px)) { .touch(@touch, false) { @rules(); } }
+        }
+
+        & when (@measurement = 'height') {
+          @media screen and (min-height: unit(@min-threshold, px)) and (max-height: unit(@max-threshold,px)) { .touch(@touch, false) { @rules(); } }
+        }
+      }
+    }
+
+    & when not (@exclusive = true) {
+      & when (@invert = true) {
+        & when (@measurement = 'width') {
+          @media screen and (max-width: unit((@min-threshold - 1),px)) { .touch(@touch, false) { @rules(); } }
+        }
+
+        & when (@measurement = 'height') {
+          @media screen and (max-height: unit((@min-threshold - 1),px)) { .touch(@touch, false) { @rules(); } }
+        }
+      }
+
+      & when not (@invert = true) {
+        & when (@measurement = 'width') {
+          @media screen and (min-width: unit(@min-threshold,px)) { .touch(@touch, false) { @rules(); } }
+        }
+
+        & when (@measurement = 'height') {
+          @media screen and (min-height: unit(@min-threshold,px)) { .touch(@touch, false) { @rules(); } }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Sets the background-size and background-position of a target element which is
+ * using an image map to the corresponding item in the map.
+ *
+ * @param {String} @path       Path of sprite map.
+ * @param {Number} @row-index  0-based index of the row of the target item.
+ * @param {Number} @col-index  0-based index of the column of the target item.
+ * @param {Number} @num-rows   Total number of rows in the image map.
+ * @param {Number} @num-cols   Total number of columns in the image map.
+ */
+.image-map-item(@path, @row-index, @col-index, @num-rows, @num-cols) {
+  & when not (@path = '') {
+    background-image: url(@path);
+  }
+
+  @x: 0;
+  @y: 0;
+
+  & when (@num-cols > 1) { @x: ((100 / (@num-cols - 1)) * @col-index); }
+  & when (@num-rows > 1) { @y: ((100 / (@num-rows - 1)) * @row-index); }
+
+  background-size: unit((@num-cols * 100), ~'%') unit((@num-rows * 100), ~'%');
+  background-position: unit(@x, ~'%') unit(@y, ~'%');
+}
+
+/**
+ * Auto generates a list of class names of the target selector, where each
+ * class represents a sprite as provided by the sprite map.
+ *
+ * @param {String} @path  Path of sprite map.
+ * @param {List}   @map   List (1D or 2D) of class names. The position of each
+ *                        list item directly corresponds to the sprite position
+ *                        on the sprite map.
+ *
+ * @note This mixin is quite slow in performance due to the nested loop.
+ */
+.image-map(@path:~'', @map:~'') {
+  & when not (@path = '') {
+    background-image: url(@path);
+  }
+
+  & when not (@map = '') {
+    @max-rows: length(@map);
+
+    & when (@max-rows > 0) {
+      @m: extract(@map, 1);
+
+      & when (length(@m) > 1) {
+        @max-cols: length(@m);
+
+        .loop(@i: @max-rows) when (@i > 0) {
+          @row: extract(@map, @i);
+
+          .loop(@j: length(extract(@map, @i))) when (@j > 0) {
+            @col: extract(@row, @j);
+            &.@{col} { .image-map-item(~'', @i - 1, @j - 1, @max-rows, @max-cols); }
+            .loop((@j - 1));
+          }
+
+          .loop((@i - 1));
+        }
+      }
+
+      & when (length(@m) = 1) {
+        .loop(@i: @max-rows) when (@i > 0) {
+          @col: extract(@map, @i);
+          &.@{col} { .image-map-item(~'', 0, @i - 1, 1, @max-rows); }
+          .loop((@i - 1));
+        }
+      }
+    }
+  }
+}

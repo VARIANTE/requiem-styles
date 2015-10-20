@@ -1,0 +1,173 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Selector for elements with the r-controller attribute.
+ *
+ * @param {String} @name r-controller attribute value.
+ */
+.controller(@name, @rules) {
+  [data-r-controller='@{name}'] { @rules(); }
+  [r-controller='@{name}']      { @rules(); }
+}
+
+/**
+ * Selector for elements with the r-instance attribute.
+ *
+ * @param {String} @name r-instance attribute value.
+ */
+.instance(@name, @rules) {
+  [data-r-instance='@{name}'] { @rules(); }
+  [r-instance='@{name}']       { @rules(); }
+}
+
+/**
+ * Selects elements with the specified r-property key and value.
+ *
+ * @param {String} @key    r-property key.
+ * @param {String} @value  r-property value, if applicable.
+ * @param {String} @scope  Specifies the scope relative to the target selector
+ *                         in which this property applies to (any, this, parent,
+ *                         or child).
+ */
+.property(@key, @value:~'', @scope:'this', @rules) {
+  @attr1: ~'r-property-@{key}';
+  @attr2: ~'data-@{attr1}';
+
+  & when (@value = '') {
+    & when (@scope = 'any') {
+      :root [@{attr1}] { @rules(); }
+      :root [@{attr2}] { @rules(); }
+    }
+
+    & when (@scope = 'this') {
+      &[@{attr1}] { @rules(); }
+      &[@{attr2}] { @rules(); }
+    }
+
+    & when (@scope = 'parent') {
+      [@{attr1}] & { @rules(); }
+      [@{attr2}] & { @rules(); }
+    }
+
+    & when (@scope = 'child') {
+      &[@{attr1}] * { @rules(); }
+      &[@{attr2}] * { @rules(); }
+    }
+  }
+
+  & when not (@value = '') {
+    & when (@scope = 'any') {
+      :root [@{attr1}='@{value}'] { @rules(); }
+      :root [@{attr2}='@{value}'] { @rules(); }
+    }
+
+    & when (@scope = 'this') {
+      &[@{attr1}='@{value}'] { @rules(); }
+      &[@{attr2}='@{value}'] { @rules(); }
+    }
+
+    & when (@scope = 'parent') {
+      [@{attr1}='@{value}'] & { @rules(); }
+      [@{attr2}='@{value}'] & { @rules(); }
+    }
+
+    & when (@scope = 'child') {
+      &[@{attr1}='@{value}'] * { @rules(); }
+      &[@{attr2}='@{value}'] * { @rules(); }
+    }
+  }
+}
+
+/**
+ * Binds the content to one/multiple r-states of the target selector. Option to
+ * specify whether the state(s) are default.
+ *
+ * @param {List}    @states   List of state names.
+ * @param {Boolean} @default  Specifies whether the class(es) are default.
+ */
+.state(@states, @default:false, @rules) {
+  .loop(@i: length(@states)) when (@i > 0) {
+    @state: extract(@states, @i);
+
+    & when (@state = 'hover') {
+      & when (@modernizr-enabled = true) {
+        .no-touch &:hover                 { @rules(); }
+        .no-touch &[data-r-state='hover'] { @rules(); }
+        .no-touch &[r-state='hover']      { @rules(); }
+      }
+
+      & when not (@modernizr-enabled = true) {
+        &:hover                 { @rules(); }
+        &[data-r-state='hover'] { @rules(); }
+        &[r-state='hover']      { @rules(); }
+      }
+    }
+
+    & when not (@state = 'hover') {
+      &[data-r-state='@{state}'] { @rules(); }
+      &[r-state='@{state}']      { @rules(); }
+    }
+
+    .loop((@i - 1));
+  }
+
+  & when (@default = true) {
+    @rules();
+  }
+}
+
+/**
+ * Binds the content to a r-style of the target selector. Option to specify
+ * whether the style is default.
+ *
+ * @param {String}  @style    Style name.
+ * @param {Boolean} @default  Specifies whether the class(es) are default.
+ * @param {String}  @scope    Specifies the scope relative to the target
+ *                           selector in which this property applies to (any,
+ *                           this, parent, or child).
+ */
+.style(@style, @default:false, @scope:'this', @rules) {
+  & when (@scope = 'any') {
+    :root [data-r-style='@{style}'] { @rules(); }
+    :root [r-style='@{style}']      { @rules(); }
+
+    & when (@default = true) {
+      :root * { @rules(); }
+    }
+  }
+
+  & when (@scope = 'this') {
+    &[data-r-style='@{style}'] { @rules(); }
+    &[r-style='@{style}']      { @rules(); }
+
+    & when (@default = true) {
+        @rules();
+    }
+  }
+
+  & when (@scope = 'parent') {
+    [data-r-style='@{style}'] & { @rules(); }
+    [r-style='@{style}'] &      { @rules(); }
+
+    & when (@default = true) {
+      @rules();
+    }
+  }
+
+  & when (@scope = 'child') {
+    &[data-r-style='@{style}'] * { @rules(); }
+    &[r-style='@{style}'] *      { @rules(); }
+
+    & when (@default = true) {
+      & * {
+        @rules();
+      }
+    }
+  }
+}

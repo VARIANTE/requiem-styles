@@ -1,5 +1,5 @@
 /**
- * Requiem
+ * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
@@ -11,8 +11,7 @@
  *
  * @param {String} $name r-controller attribute value.
  */
-@mixin controller($name)
-{
+@mixin controller($name) {
   [data-r-controller='#{$name}'] { @content; }
   [r-controller='#{name}']       { @content; }
 }
@@ -22,8 +21,7 @@
  *
  * @param {String} $name r-instance attribute value.
  */
-@mixin instance($name)
-{
+@mixin instance($name) {
   [data-r-instance='#{$name}'] { @content; }
   [r-instance='#{name}']       { @content; }
 }
@@ -41,37 +39,37 @@
   @if $value == null {
     @if $scope == 'any' {
       @at-root [data-r-property-#{$key}] { @content; }
-      @at-root [r-property-#{key}]       { @content; }
+      @at-root [r-property-#{$key}]       { @content; }
     }
     @else if $scope == 'this' {
       &[data-r-property-#{$key}] { @content; }
-      &[r-property-#{key}]       { @content; }
+      &[r-property-#{$key}]      { @content; }
     }
     @else if $scope == 'parent' {
       [data-r-property-#{$key}] & { @content; }
-      [r-property-#{key}] &       { @content; }
+      [r-property-#{$key}] &      { @content; }
     }
     @else if $scope == 'child' {
       &[data-r-property-#{$key}] * { @content; }
-      &[r-property-#{key}] *      { @content; }
+      &[r-property-#{$key}] *      { @content; }
     }
   }
   @else {
     @if $scope == 'any' {
       @at-root [data-r-property-#{$key}='#{$value}'] { @content; }
-      @at-root [r-property-#{key}='#{value}']        { @content; }
+      @at-root [r-property-#{$key}='#{value}']       { @content; }
     }
     @else if $scope == 'this' {
       &[data-r-property-#{$key}='#{$value}'] { @content; }
-      &[r-property-#{key}='#{value}']        { @content; }
+      &[r-property-#{$key}='#{value}']       { @content; }
     }
     @else if $scope == 'parent' {
       [data-r-property-#{$key}='#{$value}'] & { @content; }
-      [r-property-#{key}='#{value}'] &        { @content; }
+      [r-property-#{$key}='#{value}'] &       { @content; }
     }
     @else if $scope == 'child' {
       &[data-r-property-#{$key}='#{$value}'] * { @content; }
-      &[r-property-#{key}='#{value}'] *       { @content; }
+      &[r-property-#{$key}='#{value}'] *       { @content; }
     }
   }
 }
@@ -145,7 +143,7 @@
   }
   @else if $scope == 'child' {
     &[data-r-style='#{$style}'] * { @content; }
-    &[r-style='#{$style}'] *     { @content; }
+    &[r-style='#{$style}'] *      { @content; }
 
     @if $default == true {
       & * {

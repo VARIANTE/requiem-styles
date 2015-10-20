@@ -1,0 +1,83 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Binds the content to the target selector based on the 'csstransitions'
+ * feature (requires Modernizr).
+ *
+ * @param {Boolean} @enabled  Specifies whether 'csstransitions' class is
+ *                           required.
+ */
+.transition(@enabled:true, @rules) {
+  & when (@enabled = true) and (@modernizr-enabled = true) {
+    .csstransitions & {
+      @rules();
+    }
+  }
+
+  & when not (@enabled = true), not (@modernizr-enabled = true) {
+    @rules();
+  }
+}
+
+/**
+ * Binds the content to the target selector based on the 'cssanimations' feature
+ * (requires Modernizr).
+ *
+ * @param {Boolean} @enabled  Specifies whether 'cssanimations' class is
+ *                           required.
+ */
+.animation(@enabled:true, @rules) {
+  & when (@enabled = true) and (@modernizr-enabled = true) {
+    .cssanimations & {
+      @rules();
+    }
+  }
+  & when not (@enabled = true), not (@modernizr-enabled = true) {
+    @rules();
+  }
+}
+
+/**
+ * Binds the content to the target selector based on the 'touch' and 'no-touch'
+ * feature (requires Modernizr).
+ *
+ * @param {Boolean} @enabled    Specifies whether 'touch' class is required.
+ * @param {Boolean} @exclusive  Specifies whether 'no-touch' class is required
+ *                             if @enabled is false.
+ */
+.touch(@enabled:true, @exclusive:false, @rules) {
+  & when (@enabled = true) and (@modernizr-enabled = true) {
+    .touch & {
+      @rules();
+    }
+  }
+
+  & when not (@enabled = true), not (@modernizr-enabled = true) {
+    & when (@exclusive = true) and (@modernizr-enabled = true) {
+      .no-touch & {
+        @rules();
+      }
+    }
+
+    & when not (@exclusive = true), not (@modernizr-enabled = true) {
+      @rules();
+    }
+  }
+}
+
+/**
+ * Enables hardware acceleration for containing selector.
+ */
+.hardware-acceleration {
+  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  perspective: 1000;
+}

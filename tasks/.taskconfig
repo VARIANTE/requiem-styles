@@ -1,5 +1,5 @@
 /**
- * Requiem
+ * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
  * Configuration for Gulp tasks.
@@ -29,26 +29,35 @@ var tasks = {
   clean: {
     input: paths.dist
   },
-  wiredeps: {
-    normalize: {
-      input: path.join(paths.modules, 'normalize.css', 'normalize.css'),
-      outputFile: 'normalize.scss',
-      output: path.join(paths.src)
-    }
-  },
   build: {
     css: {
-      input: path.join(paths.src, 'requiem.scss'),
-      outputFile: 'requiem.min.css',
-      output: path.join(paths.dist),
-      sass: {
-        outputStyle: 'nested',
-        precision: 10
+      pretty: {
+        input: path.join(paths.src, 'sass', 'requiem.scss'),
+        output: path.join(paths.dist, 'css'),
+        sass: {
+          outputStyle: 'nested'
+        }
+      },
+      ugly: {
+        input: path.join(paths.src, 'sass', 'requiem.scss'),
+        outputFile: 'requiem.min.css',
+        output: path.join(paths.dist, 'css'),
+        sass: {
+          outputStyle: 'compressed'
+        }
       }
     },
     sass: {
-      input: path.join(paths.src, '**', '*.scss'),
+      input: path.join(paths.src, '**', '*.{scss,sass}'),
       output: path.join(paths.dist)
+    },
+    less: {
+      input: path.join(paths.src, 'less', '**', '*.less'),
+      output: path.join(paths.dist, 'less')
+    },
+    stylus: {
+      input: path.join(paths.src, 'stylus', '**', '*.styl'),
+      output: path.join(paths.dist, 'stylus')
     },
     autoprefixer: {
       browsers: ['last 2 version', 'ie 9']
@@ -59,11 +68,32 @@ var tasks = {
       input: path.join(paths.play, 'build')
     },
     styles: {
-      input: path.join(paths.play, 'src', 'stylesheets', '*.scss'),
-      output: path.join(paths.play, 'build', 'stylesheets'),
+      css: {
+        input: path.join(paths.play, 'src', 'stylesheets', 'css', '*.css'),
+        output: path.join(paths.play, 'build', 'stylesheets')
+      },
       sass: {
-        outputStyle: 'nested',
-        includePaths: [path.join(paths.dist)]
+        input: path.join(paths.play, 'src', 'stylesheets', 'sass', '*.{scss,sass}'),
+        output: path.join(paths.play, 'build', 'stylesheets'),
+        options: {
+          outputStyle: 'nested',
+          includePaths: [path.join(paths.dist, 'sass')]
+        }
+      },
+      less: {
+        input: path.join(paths.play, 'src', 'stylesheets', 'less', '*.less'),
+        output: path.join(paths.play, 'build', 'stylesheets'),
+        options: {
+          paths: [path.join(paths.dist, 'less')]
+        }
+      },
+      stylus: {
+        input: path.join(paths.play, 'src', 'stylesheets', 'stylus', '*.stylus'),
+        output: path.join(paths.play, 'build', 'stylesheets'),
+        options: {
+          'include css': true,
+          include: [path.join(paths.dist, 'stylus')]
+        }
       }
     },
     scripts: {
@@ -115,18 +145,47 @@ var tasks = {
   },
   watch: {
     build: [{
-        files: path.join(paths.src, '**', '*.scss'),
+        files: path.join(paths.src, '**', '*.{scss,sass}'),
         tasks: [
-          'build'
+          'build:css',
+          'build:sass'
+        ]
+      }, {
+        files: path.join(paths.src, '**', '*.less'),
+        tasks: [
+          'build:less'
+        ]
+      }, {
+        files: path.join(paths.src, '**', '*.styl'),
+        tasks: [
+          'build:stylus'
         ]
       }
     ],
     play: [{
       files: [
+        path.join(paths.play, 'src', '**', '*.css'),
+        path.join(paths.dist, '**', '*.css')
+      ],
+      tasks: ['styles:css:play']
+    }, {
+      files: [
         path.join(paths.play, 'src', '**', '*.scss'),
         path.join(paths.dist, '**', '*.scss')
       ],
-      tasks: ['styles:play']
+      tasks: ['styles:sass:play']
+    }, {
+      files: [
+        path.join(paths.play, 'src', '**', '*.less'),
+        path.join(paths.dist, '**', '*.less')
+      ],
+      tasks: ['styles:less:play']
+    }, {
+      files: [
+        path.join(paths.play, 'src', '**', '*.styl'),
+        path.join(paths.dist, '**', '*.styl')
+      ],
+      tasks: ['styles:stylus:play']
     }, {
       files: path.join(paths.play, 'src', '**', '*.jade'),
       tasks: ['templates:play']

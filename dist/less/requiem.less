@@ -1,12 +1,14 @@
 /**
- * Requiem
+ * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
  * This software is released under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-$modernizr-enabled: false !default;
+@modernizr-enabled: false;
+
+@import (inline) '../../node_modules/normalize.css/normalize.css';
 
 @import 'mixins/selectors';
 @import 'mixins/alignments';
@@ -14,5 +16,4 @@ $modernizr-enabled: false !default;
 @import 'mixins/features';
 @import 'mixins/media';
 
-@import 'normalize';
 @import 'reset';

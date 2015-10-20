@@ -1,5 +1,5 @@
 /**
- * Requiem
+ * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
  * Gulp tasks.
@@ -20,19 +20,8 @@ var sequence = require('run-sequence');
  *
  * @param {Boolean} --watch
  */
-gulp.task('default', function(done) {
+gulp.task('default', function() {
   var seq = ['clean', 'build'];
-
-  seq.push(function() {
-    if (config.env.watch) {
-      for (var i = 0; i < config.tasks.watch.build.length; i++) {
-        var entry = config.tasks.watch.build[i];
-        gulp.watch(entry.files, entry.tasks);
-      }
-    }
-
-    done();
-  });
 
   sequence.apply(null, seq);
 });

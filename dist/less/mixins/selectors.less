@@ -1,0 +1,87 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+.labels(@type:'all', @rules) {
+  & when (@type = 'all'), (@type = 'body') {
+    a      { @rules(); }
+    p      { @rules(); }
+    li     { @rules(); }
+    em     { @rules(); }
+    strong { @rules(); }
+    label  { @rules(); }
+    span   { @rules(); }
+  }
+
+  & when (@type = 'all'), (@type = 'header') {
+    h1     { @rules(); }
+    h2     { @rules(); }
+    h3     { @rules(); }
+    h4     { @rules(); }
+    h5     { @rules(); }
+    h6     { @rules(); }
+  }
+}
+
+.statics(@rules) {
+  form { @rules(); }
+}
+
+.buttons(@rules) {
+  a[type='button']       { @rules(); }
+  input[type='submit']   { @rules(); }
+  input[type='button']   { @rules(); }
+  input[type='checkbox'] { @rules(); }
+  button                 { @rules(); }
+}
+
+.textfields(@rules) {
+  input[type='text']           { @rules(); }
+  input[type='password']       { @rules(); }
+  input[type='number']         { @rules(); }
+  input[type='date']           { @rules(); }
+  input[type='month']          { @rules(); }
+  input[type='week']           { @rules(); }
+  input[type='time']           { @rules(); }
+  input[type='datetime']       { @rules(); }
+  input[type='datetime-local'] { @rules(); }
+  input[type='email']          { @rules(); }
+  input[type='search']         { @rules(); }
+  input[type='tel']            { @rules(); }
+  input[type='url']            { @rules(); }
+  textarea                     { @rules(); }
+}
+
+.boxes(@rules) {
+  article    { @rules(); }
+  aside      { @rules(); }
+  details    { @rules(); }
+  dialog     { @rules(); }
+  summary    { @rules(); }
+  footer     { @rules(); }
+  header     { @rules(); }
+  main       { @rules(); }
+  figcaption { @rules(); }
+  figure     { @rules(); }
+  hgroup     { @rules(); }
+  nav        { @rules(); }
+  section    { @rules(); }
+  div        { @rules(); }
+  table      { @rules(); }
+  tr         { @rules(); }
+  td         { @rules(); }
+  th         { @rules(); }
+  tbody      { @rules(); }
+  thead      { @rules(); }
+  tfoot      { @rules(); }
+  col        { @rules(); }
+}
+
+.lists(@rules) {
+  ul { @rules(); }
+  ol { @rules(); }
+}

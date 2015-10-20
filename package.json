@@ -1,6 +1,6 @@
 {
   "name": "requiem-styles",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://variante.io",
   "license": "MIT",
   "private": true,
@@ -21,15 +21,19 @@
     "gulp": "^3.8.11",
     "gulp-csso": "^1.0.0",
     "gulp-jade": "^1.1.0",
+    "gulp-less": "^3.0.3",
     "gulp-postcss": "^6.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
     "gulp-size": "^2.0.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.1.0",
     "gulp-util": "^3.0.6",
     "merge-stream": "^1.0.0",
-    "normalize.css": "^3.0.3",
     "run-sequence": "^1.1.4",
     "webpack": "^1.12.2"
+  },
+  "dependencies": {
+    "normalize.css": "^3.0.3"
   }
 }
