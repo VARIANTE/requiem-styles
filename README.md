@@ -1,6 +1,6 @@
 # Requiem-Styles
 
-Stylesheet library (currently supports Sass and vanilla CSS) that pairs well with [Requiem](https://github.com/VARIANTE/requiem).
+Stylesheet library (supports vanilla CSS, Sass, LESS, and Stylus) that pairs well with [Requiem](https://github.com/VARIANTE/requiem).
 
 ## License
 

@@ -1,0 +1,136 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+labels($type='all')
+  if $type == 'all' or $type == 'body'
+    a
+      {block}
+    p
+      {block}
+    li
+      {block}
+    em
+      {block}
+    strong
+      {block}
+    label
+      {block}
+    span
+      {block}
+
+  if $type == 'all' or $type == 'header'
+    h1
+      {block}
+    h2
+      {block}
+    h3
+      {block}
+    h4
+      {block}
+    h5
+      {block}
+    h6
+      {block}
+
+statics()
+  form
+    {block}
+
+buttons()
+  a[type='button']
+    {block}
+  input[type='submit']
+    {block}
+  input[type='button']
+    {block}
+  input[type='checkbox']
+    {block}
+  button
+    {block}
+
+textfields()
+  input[type='text']
+    {block}
+  input[type='password']
+    {block}
+  input[type='number']
+    {block}
+  input[type='date']
+    {block}
+  input[type='month']
+    {block}
+  input[type='week']
+    {block}
+  input[type='time']
+    {block}
+  input[type='datetime']
+    {block}
+  input[type='datetime-local']
+    {block}
+  input[type='email']
+    {block}
+  input[type='search']
+    {block}
+  input[type='tel']
+    {block}
+  input[type='url']
+    {block}
+  textarea
+    {block}
+
+boxes()
+  article
+    {block}
+  aside
+    {block}
+  details
+    {block}
+  dialog
+    {block}
+  summary
+    {block}
+  footer
+    {block}
+  header
+    {block}
+  main
+    {block}
+  figcaption
+    {block}
+  figure
+    {block}
+  hgroup
+    {block}
+  nav
+    {block}
+  section
+    {block}
+  div
+    {block}
+  table
+    {block}
+  tr
+    {block}
+  td
+    {block}
+  th
+    {block}
+  tbody
+    {block}
+  thead
+    {block}
+  tfoot
+    {block}
+  col
+    {block}
+
+lists()
+  ul
+    {block}
+  ol
+    {block}

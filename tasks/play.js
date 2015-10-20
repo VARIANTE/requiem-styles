@@ -39,9 +39,13 @@ gulp.task('clean:play', function(done) {
  * Compiles CSS stylesheets for the playground.
  */
 gulp.task('styles:css:play', function() {
-  return gulp.src(config.tasks.play.styles.css.input)
-    .pipe($postcss([autoprefixer()]))
-    .pipe(gulp.dest(config.tasks.play.styles.css.output));
+  return merge(
+    gulp.src(path.join(config.tasks.build.css.ugly.output, config.tasks.build.css.ugly.outputFile))
+      .pipe(gulp.dest(config.tasks.play.styles.css.output)),
+    gulp.src(config.tasks.play.styles.css.input)
+      .pipe($postcss([autoprefixer()]))
+      .pipe(gulp.dest(config.tasks.play.styles.css.output))
+  );
 });
 
 /**

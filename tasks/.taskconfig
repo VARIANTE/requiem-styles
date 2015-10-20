@@ -88,7 +88,7 @@ var tasks = {
         }
       },
       stylus: {
-        input: path.join(paths.play, 'src', 'stylesheets', 'stylus', '*.stylus'),
+        input: path.join(paths.play, 'src', 'stylesheets', 'stylus', '*.styl'),
         output: path.join(paths.play, 'build', 'stylesheets'),
         options: {
           'include css': true,

@@ -13,7 +13,7 @@
  */
 @mixin controller($name) {
   [data-r-controller='#{$name}'] { @content; }
-  [r-controller='#{name}']       { @content; }
+  [r-controller='#{$name}']      { @content; }
 }
 
 /**
@@ -23,7 +23,7 @@
  */
 @mixin instance($name) {
   [data-r-instance='#{$name}'] { @content; }
-  [r-instance='#{name}']       { @content; }
+  [r-instance='#{$name}']      { @content; }
 }
 
 /**
@@ -32,14 +32,14 @@
  * @param {String} $key    r-property key.
  * @param {String} $value  r-property value, if applicable.
  * @param {String} $scope  Specifies the scope relative to the target selector
- *                        in which this property applies to (any, this, parent,
- *                        or child).
+ *                         in which this property applies to (any, this, parent,
+ *                         or child).
  */
 @mixin property($key, $value:null, $scope:'this') {
   @if $value == null {
     @if $scope == 'any' {
       @at-root [data-r-property-#{$key}] { @content; }
-      @at-root [r-property-#{$key}]       { @content; }
+      @at-root [r-property-#{$key}]      { @content; }
     }
     @else if $scope == 'this' {
       &[data-r-property-#{$key}] { @content; }
@@ -57,19 +57,19 @@
   @else {
     @if $scope == 'any' {
       @at-root [data-r-property-#{$key}='#{$value}'] { @content; }
-      @at-root [r-property-#{$key}='#{value}']       { @content; }
+      @at-root [r-property-#{$key}='#{$value}']      { @content; }
     }
     @else if $scope == 'this' {
       &[data-r-property-#{$key}='#{$value}'] { @content; }
-      &[r-property-#{$key}='#{value}']       { @content; }
+      &[r-property-#{$key}='#{$value}']      { @content; }
     }
     @else if $scope == 'parent' {
       [data-r-property-#{$key}='#{$value}'] & { @content; }
-      [r-property-#{$key}='#{value}'] &       { @content; }
+      [r-property-#{$key}='#{$value}'] &      { @content; }
     }
     @else if $scope == 'child' {
       &[data-r-property-#{$key}='#{$value}'] * { @content; }
-      &[r-property-#{$key}='#{value}'] *       { @content; }
+      &[r-property-#{$key}='#{$value}'] *      { @content; }
     }
   }
 }
@@ -113,13 +113,13 @@
  * @param {String}  $style    Style name.
  * @param {Boolean} $default  Specifies whether the class(es) are default.
  * @param {String}  $scope    Specifies the scope relative to the target
- *                           selector in which this property applies to (any,
- *                           this, parent, or child).
+ *                            selector in which this property applies to (any,
+ *                            this, parent, or child).
  */
 @mixin style($style, $default:false, $scope:'this') {
   @if $scope == 'any' {
     @at-root [data-r-style='#{$style}'] { @content; }
-    @at-root [r-style='#{$style}'] { @content; }
+    @at-root [r-style='#{$style}']      { @content; }
 
     @if $default == true {
       @at-root * { @content; }

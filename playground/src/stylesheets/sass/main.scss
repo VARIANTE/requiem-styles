@@ -3,6 +3,5 @@
 
 @include controller('Playground') {
   @include auto-fit();
-
   background-color: #000;
 }

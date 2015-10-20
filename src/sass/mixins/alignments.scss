@@ -79,13 +79,13 @@
  * elements according to the specified params.
  *
  * @param  {List}    $alignH     Horizontal alignment of child elements (i.e.
- *                              left, center, right). Option to specify
- *                              left/right paddings respectively.
+ *                               left, center, right). Option to specify
+ *                               left/right paddings respectively.
  * @param  {List}    $alignV     Vertical alignment of child elements (i.e. top,
- *                              middle, bottom). Option to specify top/bottom
- *                              paddings respectively.
+ *                               middle, bottom). Option to specify top/bottom
+ *                               paddings respectively.
  * @param  {Boolean} $direction  Determines the main axis (i.e. row,
- *                              row-reverse, column, column-reverse).
+ *                               row-reverse, column, column-reverse).
  * @param  {Boolean} $wrap       Determines if wrapping is enabled.
  * @param  {String}  $inline     Specifies if this flexbox is inline.
  */
@@ -161,10 +161,10 @@
 /**
  * Aligns containing selector to specified x/y directions in absolute position.
  *
- * @param {List} $alignH     Horizontal alignment (left|center|right, left|right
- *                          offset, right offset).
- * @param {List} $alignV     Vertical alignment (top|center|middle|bottom,
- *                          top|bottom offset, bottom offset).
+ * @param {List} $alignH  Horizontal alignment (left|center|right, left|right
+ *                        offset, right offset).
+ * @param {List} $alignV  Vertical alignment (top|center|middle|bottom,
+ *                        top|bottom offset, bottom offset).
  */
 @mixin abs-align($alignH:'left', $alignV:'top') {
   position: absolute;
@@ -219,10 +219,10 @@
 /**
  * Aligns containing selector to specified x/y directions in fixed position.
  *
- * @param {List} $alignH     Horizontal alignment (left|center|right, left|right
- *                          offset, right offset).
- * @param {List} $alignV     Vertical alignment (top|center|middle|bottom,
- *                          top|bottom offset, bottom offset).
+ * @param {List} $alignH  Horizontal alignment (left|center|right, left|right
+ *                        offset, right offset).
+ * @param {List} $alignV  Vertical alignment (top|center|middle|bottom,
+ *                        top|bottom offset, bottom offset).
  */
 @mixin fixed-align($alignH:'left', $alignV:'top') {
   position: fixed;
@@ -276,8 +276,8 @@
  * Aligns containing inline-block to specified x/y directions in relative
  * position.
  *
- * @param {String} $alignH     Horizontal alignment (i.e. left, center, right).
- * @param {String} $alignV     Vertical alignment (i.e. top, middle, bottom).
+ * @param {String} $alignH  Horizontal alignment (i.e. left, center, right).
+ * @param {String} $alignV  Vertical alignment (i.e. top, middle, bottom).
  */
 @mixin inline-align($alignH:'left', $alignV:'top') {
   position: relative;
@@ -293,7 +293,7 @@
 /**
  * Transforms target selector into a container for parallax elements.
  *
- * @param {Number} $perspective    Tweak this value to adjust perspective.
+ * @param {Number} $perspective  Tweak this value to adjust perspective.
  *
  * @see parallax-element
  */

@@ -1,0 +1,180 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Media query for screens in portrait orientation.
+ */
+screen-portrait()
+  @media only screen and (orientation: portrait)
+    {block}
+
+/**
+ * Media query for screens in landscape orientation.
+ */
+screen-landscape()
+  @media only screen and (orientation: landscape)
+    {block}
+
+/**
+ * Media query for screens at a specified minimum width.
+ *
+ * @param {Number} $minWidth
+ */
+screen-min-width($minWidth)
+  @media only screen and (min-width: unit($minWidth, px))
+    {block}
+
+/**
+ * Media query for screens at a specified maximum width.
+ *
+ * @param {Number} $maxWidth
+ */
+screen-max-width($maxWidth)
+  @media only screen and (max-width: unit($maxWidth, px))
+    {block}
+
+/**
+ * Media query for screens at a specified minimum height.
+ *
+ * @param {Number} $minHeight
+ */
+screen-min-height($minHeight)
+  @media only screen and (min-height: unit($minHeight, px))
+    {block}
+
+/**
+ * Media query for screens at a specified maximum height.
+ *
+ * @param {Number} $maxHeight
+ */
+screen-max-height($maxHeight)
+  @media only screen and (max-height: unit($maxHeight, px))
+    {block}
+
+/**
+ * Media query for the minimum width/height threshold of the specified screen
+ * type.
+ *
+ * @param {String}  $screen       Screen type (i.e. mobile, phablet, tablet,
+ *                                desktop).
+ * @param {Boolean} $exclusive    Specifies whether the media queries should be
+ *                                exclusive to this screen type. If false, the
+ *                                generated media query will use the minimum
+ *                                threshold of the selected screen type. If
+ *                                true, the generated media query will be
+ *                                bounded by the minimum and the maximum
+ *                                thresholds.
+ * @param {Boolean} $invert       Inverts the generated media query.
+ * @param {String}  $measurement  Specifies width or height measurement.
+ * @param {Boolean} $touch        Specifues whether the condition is only valid
+ *                                for touch devices(requires Modernizr feature
+ *                                detection), namely the '.touch' class. If
+ *                                false (default), it does NOT use the
+ *                                '.no-touch' class, but instead applies content
+ *                                normally.
+ */
+screen($screen, $exclusive=false, $invert=false, $measurement='width', $touch=false)
+  if $screen == 'mobile'
+    $min-threshold = 0
+    $max-threshold = 599
+
+  else if $screen == 'phablet'
+    $min-threshold = 600
+    $max-threshold = 767
+
+  else if $screen == 'tablet'
+    $min-threshold = 768
+    $max-threshold = 1024
+
+  else if $screen == 'desktop'
+    $min-threshold = 1025
+    $max-threshold = 10000 // some ridiculously large arbituary number
+
+  if $min-threshold != null and $max-threshold != null
+    if $exclusive == true
+      if $invert == true
+        @media screen and (max-{$measurement}: unit($min-threshold - 1, px))
+          +touch($touch, false)
+            {block}
+
+        @media screen and (min-{$measurement}: unit($max-threshold + 1, px))
+          +touch($touch, false)
+            {block}
+      else
+        @media screen and (min-{$measurement}: unit($min-threshold, px)) and (max-{$measurement}: unit($max-threshold, px))
+          +touch($touch, false)
+            {block}
+    else
+      if $invert == true
+          @media screen and (max-{$measurement}: unit($min-threshold - 1, px))
+            +touch($touch, false)
+              {block}
+      else
+          @media screen and (min-{$measurement}: unit($min-threshold, px))
+            +touch($touch, false)
+              {block}
+
+/**
+ * Sets the background-size and background-position of a target element which is
+ * using an image map to the corresponding item in the map.
+ *
+ * @param {String} $path       Path of sprite map.
+ * @param {Number} $row-index  0-based index of the row of the target item.
+ * @param {Number} $col-index  0-based index of the column of the target item.
+ * @param {Number} $num-rows   Total number of rows in the image map.
+ * @param {Number} $num-cols   Total number of columns in the image map.
+ */
+image-map-item($path, $row-index, $col-index, $num-rows, $num-cols)
+  if $path != null
+    background-image: url($path)
+
+  $x = 0
+  $y = 0
+
+  if $num-cols > 1
+    $x = (100 / ($num-cols - 1)) * $col-index
+  if $num-rows > 1
+    $y = (100 / ($num-rows - 1)) * $row-index
+
+  background-size: unit($num-cols * 100, '%') unit($num-rows * 100, '%')
+  background-position: unit($x, '%') unit($y, '%')
+
+/**
+ * Auto generates a list of class names of the target selector, where each
+ * class represents a sprite as provided by the sprite map.
+ *
+ * @param {String} $path  Path of sprite map.
+ * @param {List}   $map   List (1D or 2D) of class names. The position of each
+ *                        list item directly corresponds to the sprite position
+ *                        on the sprite map.
+ *
+ * @note This mixin is quite slow in performance due to the nested loop.
+ */
+image-map($path=null, $map=null)
+  if $path != null
+    background-image: url($path)
+
+  if $map != null
+    $max-rows = length($map)
+
+    if $max-rows > 0
+      if length($map[0]) > 1
+        $max-cols = length($map[0])
+
+        for $i in (0..$max-rows)
+          $row = $map[$i]
+
+          for $j in (0..length($row))
+            $col = $row[$j]
+            &.{$col}
+              image-map-item(null, $i - 1, $j - 1, $max-rows, $max-cols)
+      else
+        for $i in (0..$max-rows)
+          $col = $map[$i]
+          &.{$col}
+            image-map-item(null, 0, $i - 1, 1, $max-rows)

@@ -1,0 +1,168 @@
+/**
+ * Requiem-Styles
+ * (c) VARIANTE (http://variante.io)
+ *
+ * This software is released under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+/**
+ * Selector for elements with the r-controller attribute.
+ *
+ * @param {String} $name r-controller attribute value.
+ */
+controller($name)
+  [data-r-controller={$name}]
+    {block}
+  [r-controller={$name}]
+    {block}
+
+/**
+ * Selector for elements with the r-instance attribute.
+ *
+ * @param {String} $name r-instance attribute value.
+ */
+instance($name)
+  [data-r-instance={$name}]
+    {block}
+  [r-instance={$name}]
+    {block}
+
+/**
+ * Selects elements with the specified r-property key and value.
+ *
+ * @param {String} $key    r-property key.
+ * @param {String} $value  r-property value, if applicable.
+ * @param {String} $scope  Specifies the scope relative to the target selector
+ *                         in which this property applies to (any, this, parent,
+ *                         or child).
+ */
+property($key, $value=null, $scope='this')
+  if $value == null
+    if $scope == 'any'
+      / [data-r-property-{$key}]
+        {block}
+      / [r-property-{$key}]
+        {block}
+
+    else if $scope == 'this'
+      &[data-r-property-{$key}]
+        {block}
+      &[r-property-{$key}]
+        {block}
+
+    else if $scope == 'parent'
+      [data-r-property-{$key}] &
+        {block}
+      [r-property-{$key}] &
+        {block}
+
+    else if $scope == 'child'
+      &[data-r-property-{$key}] *
+        {block}
+      &[r-property-{$key}] *
+        {block}
+
+  else
+    if $scope == 'any'
+      / [data-r-property-{$key}={$value}]
+        {block}
+      / [r-property-{$key}={$value}]
+        {block}
+
+    else if $scope == 'this'
+      &[data-r-property-{$key}={$value}]
+        {block}
+      &[r-property-{$key}={$value}]
+        {block}
+
+    else if $scope == 'parent'
+      [data-r-property-{$key}={$value}] &
+        {block}
+      [r-property-{$key}={$value}] &
+        {block}
+
+    else if $scope == 'child'
+      &[data-r-property-{$key}={$value}] *
+        {block}
+      &[r-property-{$key}={$value}] *
+        {block}
+
+/**
+ * Binds the content to one/multiple r-states of the target selector. Option to
+ * specify whether the state(s) are default.
+ *
+ * @param {List}    $states   List of state names.
+ * @param {Boolean} $default  Specifies whether the class(es) are default.
+ */
+state($states, $default=false)
+  for $state in $states
+    if $state == 'hover'
+      if $modernizr-enabled == true
+        .no-touch &:hover
+          {block}
+        .no-touch &[data-r-state='hover']
+          {block}
+        .no-touch &[r-state='hover']
+          {block}
+      else
+        &:hover
+          {block}
+        &[data-r-state='hover']
+          {block}
+        &[r-state='hover']
+          {block}
+    else
+      &[data-r-state={$state}]
+        {block}
+      &[r-state={$state}]
+        {block}
+
+  if $default == true
+    {block}
+
+/**
+ * Binds the content to a r-style of the target selector. Option to specify
+ * whether the style is default.
+ *
+ * @param {String}  $style    Style name.
+ * @param {Boolean} $default  Specifies whether the class(es) are default.
+ * @param {String}  $scope    Specifies the scope relative to the target
+ *                            selector in which this property applies to (any,
+ *                            this, parent, or child).
+ */
+style($style, $default=false, $scope='this')
+  if $scope == 'any'
+    / [data-r-style={$style}]
+      {block}
+    / [r-style={$style}]
+      {block}
+
+    if $default == true
+      / *
+        {block}
+  else if $scope == 'this'
+    &[data-r-style={$style}]
+      {block}
+    &[r-style={$style}]
+      {block}
+
+    if $default == true
+      {block}
+  else if $scope == 'parent'
+    [data-r-style={$style}] &
+      {block}
+    [r-style={$style}] &
+      {block}
+
+    if $default == true
+      {block}
+  else if $scope == 'child'
+    &[data-r-style={$style}] *
+      {block}
+    &[r-style={$style}] *
+      {block}
+
+    if $default == true
+      & *
+        {block}

@@ -13,16 +13,12 @@
  * @param {Boolean} $enabled  Specifies whether 'csstransitions' class is
  *                            required.
  */
-@mixin transition($enabled:true) {
-  @if $enabled == true and $modernizr-enabled == true {
-    .csstransitions & {
-      @content;
-    }
-  }
-  @else {
-    @content;
-  }
-}
+transition($enabled=true)
+  if $enabled == true and $modernizr-enabled == true
+    .csstransitions &
+      {block}
+  else
+    {block}
 
 /**
  * Binds the content to the target selector based on the 'cssanimations' feature
@@ -31,16 +27,12 @@
  * @param {Boolean} $enabled  Specifies whether 'cssanimations' class is
  *                            required.
  */
-@mixin animation($enabled:true) {
-  @if $enabled == true and $modernizr-enabled == true {
-    .cssanimations & {
-      @content;
-    }
-  }
-  @else {
-    @content;
-  }
-}
+animation($enabled=true)
+  if $enabled == true and $modernizr-enabled == true
+    .cssanimations &
+      {block}
+  else
+    {block}
 
 /**
  * Binds the content to the target selector based on the 'touch' and 'no-touch'
@@ -50,31 +42,23 @@
  * @param {Boolean} $exclusive  Specifies whether 'no-touch' class is required
  *                              if $enabled is false.
  */
-@mixin touch($enabled:true, $exclusive:false) {
-  @if $enabled == true and $modernizr-enabled == true {
-    .touch & {
-      @content;
-    }
-  }
-  @else {
-    @if $exclusive == true and $modernizr-enabled == true {
-      .no-touch & {
-        @content;
-      }
-    }
-    @else {
-      @content;
-    }
-  }
-}
+touch($enabled=true, $exclusive=false)
+  if $enabled == true and $modernizr-enabled == true
+    .touch &
+      {block}
+  else
+    if $exclusive == true and $modernizr-enabled == true
+      .no-touch &
+        {block}
+    else
+      {block}
 
 /**
  * Enables hardware acceleration for containing selector.
  */
-@mixin hardware-acceleration {
-  transform: translateZ(0);
-  transform: translate3d(0, 0, 0);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  perspective: 1000;
-}
+hardware-acceleration()
+  transform: translateZ(0)
+  transform: translate3d(0, 0, 0)
+  transform-style: preserve-3d
+  backface-visibility: hidden
+  perspective: 1000
