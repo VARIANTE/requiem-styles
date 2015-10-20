@@ -122,45 +122,45 @@ state($states, $default=false)
     {block}
 
 /**
- * Binds the content to a r-style of the target selector. Option to specify
- * whether the style is default.
+ * Binds the content to a r-scheme of the target selector. Option to specify
+ * whether the scheme is default.
  *
- * @param {String}  $style    Style name.
+ * @param {String}  $scheme   Scheme name.
  * @param {Boolean} $default  Specifies whether the class(es) are default.
  * @param {String}  $scope    Specifies the scope relative to the target
  *                            selector in which this property applies to (any,
  *                            this, parent, or child).
  */
-style($style, $default=false, $scope='this')
+scheme($scheme, $default=false, $scope='this')
   if $scope == 'any'
-    / [data-r-style={$style}]
+    / [data-r-scheme={$scheme}]
       {block}
-    / [r-style={$style}]
+    / [r-scheme={$scheme}]
       {block}
 
     if $default == true
       / *
         {block}
   else if $scope == 'this'
-    &[data-r-style={$style}]
+    &[data-r-scheme={$scheme}]
       {block}
-    &[r-style={$style}]
+    &[r-scheme={$scheme}]
       {block}
 
     if $default == true
       {block}
   else if $scope == 'parent'
-    [data-r-style={$style}] &
+    [data-r-scheme={$scheme}] &
       {block}
-    [r-style={$style}] &
+    [r-scheme={$scheme}] &
       {block}
 
     if $default == true
       {block}
   else if $scope == 'child'
-    &[data-r-style={$style}] *
+    &[data-r-scheme={$scheme}] *
       {block}
-    &[r-style={$style}] *
+    &[r-scheme={$scheme}] *
       {block}
 
     if $default == true

@@ -123,19 +123,19 @@
 }
 
 /**
- * Binds the content to a r-style of the target selector. Option to specify
- * whether the style is default.
+ * Binds the content to a r-scheme of the target selector. Option to specify
+ * whether the scheme is default.
  *
- * @param {String}  @style    Style name.
+ * @param {String}  @scheme   Scheme name.
  * @param {Boolean} @default  Specifies whether the class(es) are default.
  * @param {String}  @scope    Specifies the scope relative to the target
- *                           selector in which this property applies to (any,
- *                           this, parent, or child).
+ *                            selector in which this property applies to (any,
+ *                            this, parent, or child).
  */
-.style(@style, @default:false, @scope:'this', @rules) {
+.scheme(@scheme, @default:false, @scope:'this', @rules) {
   & when (@scope = 'any') {
-    :root [data-r-style='@{style}'] { @rules(); }
-    :root [r-style='@{style}']      { @rules(); }
+    :root [data-r-scheme='@{scheme}'] { @rules(); }
+    :root [r-scheme='@{scheme}']      { @rules(); }
 
     & when (@default = true) {
       :root * { @rules(); }
@@ -143,8 +143,8 @@
   }
 
   & when (@scope = 'this') {
-    &[data-r-style='@{style}'] { @rules(); }
-    &[r-style='@{style}']      { @rules(); }
+    &[data-r-scheme='@{scheme}'] { @rules(); }
+    &[r-scheme='@{scheme}']      { @rules(); }
 
     & when (@default = true) {
         @rules();
@@ -152,8 +152,8 @@
   }
 
   & when (@scope = 'parent') {
-    [data-r-style='@{style}'] & { @rules(); }
-    [r-style='@{style}'] &      { @rules(); }
+    [data-r-scheme='@{scheme}'] & { @rules(); }
+    [r-scheme='@{scheme}'] &      { @rules(); }
 
     & when (@default = true) {
       @rules();
@@ -161,8 +161,8 @@
   }
 
   & when (@scope = 'child') {
-    &[data-r-style='@{style}'] * { @rules(); }
-    &[r-style='@{style}'] *      { @rules(); }
+    &[data-r-scheme='@{scheme}'] * { @rules(); }
+    &[r-scheme='@{scheme}'] *      { @rules(); }
 
     & when (@default = true) {
       & * {
