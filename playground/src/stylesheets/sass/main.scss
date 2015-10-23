@@ -3,5 +3,7 @@
 
 @include controller('Playground') {
   @include auto-fit();
-  background-color: #000;
+  @include property('foo', 'bar') {
+    background-color: #ff0;
+  }
 }

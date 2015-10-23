@@ -36,40 +36,43 @@
  *                         or child).
  */
 @mixin property($key, $value:null, $scope:'this') {
+  $attr1: r-#{$key};
+  $attr2: data-#{$attr1};
+
   @if $value == null {
     @if $scope == 'any' {
-      @at-root [data-r--#{$key}] { @content; }
-      @at-root [r--#{$key}]      { @content; }
+      @at-root [#{$attr1}] { @content; }
+      @at-root [#{$attr2}] { @content; }
     }
     @else if $scope == 'this' {
-      &[data-r--#{$key}] { @content; }
-      &[r--#{$key}]      { @content; }
+      &[#{$attr1}] { @content; }
+      &[#{$attr2}] { @content; }
     }
     @else if $scope == 'parent' {
-      [data-r--#{$key}] & { @content; }
-      [r--#{$key}] &      { @content; }
+      [#{$attr1}] & { @content; }
+      [#{$attr2}] & { @content; }
     }
     @else if $scope == 'child' {
-      &[data-r--#{$key}] * { @content; }
-      &[r--#{$key}] *      { @content; }
+      &[#{$attr1}] * { @content; }
+      &[#{$attr2}] * { @content; }
     }
   }
   @else {
     @if $scope == 'any' {
-      @at-root [data-r--#{$key}='#{$value}'] { @content; }
-      @at-root [r--#{$key}='#{$value}']      { @content; }
+      @at-root [#{$attr1}='#{$value}'] { @content; }
+      @at-root [#{$attr2}='#{$value}'] { @content; }
     }
     @else if $scope == 'this' {
-      &[data-r--#{$key}='#{$value}'] { @content; }
-      &[r--#{$key}='#{$value}']      { @content; }
+      &[#{$attr1}='#{$value}'] { @content; }
+      &[#{$attr2}='#{$value}'] { @content; }
     }
     @else if $scope == 'parent' {
-      [data-r--#{$key}='#{$value}'] & { @content; }
-      [r--#{$key}='#{$value}'] &      { @content; }
+      [#{$attr1}='#{$value}'] & { @content; }
+      [#{$attr2}='#{$value}'] & { @content; }
     }
     @else if $scope == 'child' {
-      &[data-r--#{$key}='#{$value}'] * { @content; }
-      &[r--#{$key}='#{$value}'] *      { @content; }
+      &[#{$attr1}='#{$value}'] * { @content; }
+      &[#{$attr2}='#{$value}'] * { @content; }
     }
   }
 }

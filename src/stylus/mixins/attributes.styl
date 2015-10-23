@@ -40,52 +40,52 @@ instance($name)
 property($key, $value=null, $scope='this')
   if $value == null
     if $scope == 'any'
-      / [data-r--{$key}]
+      / [data-r-{$key}]
         {block}
-      / [r--{$key}]
+      / [r-{$key}]
         {block}
 
     else if $scope == 'this'
-      &[data-r--{$key}]
+      &[data-r-{$key}]
         {block}
-      &[r--{$key}]
+      &[r-{$key}]
         {block}
 
     else if $scope == 'parent'
-      [data-r--{$key}] &
+      [data-r-{$key}] &
         {block}
-      [r--{$key}] &
+      [r-{$key}] &
         {block}
 
     else if $scope == 'child'
-      &[data-r--{$key}] *
+      &[data-r-{$key}] *
         {block}
-      &[r--{$key}] *
+      &[r-{$key}] *
         {block}
 
   else
     if $scope == 'any'
-      / [data-r--{$key}={$value}]
+      / [data-r-{$key}={$value}]
         {block}
-      / [r--{$key}={$value}]
+      / [r-{$key}={$value}]
         {block}
 
     else if $scope == 'this'
-      &[data-r--{$key}={$value}]
+      &[data-r-{$key}={$value}]
         {block}
-      &[r--{$key}={$value}]
+      &[r-{$key}={$value}]
         {block}
 
     else if $scope == 'parent'
-      [data-r--{$key}={$value}] &
+      [data-r-{$key}={$value}] &
         {block}
-      [r--{$key}={$value}] &
+      [r-{$key}={$value}] &
         {block}
 
     else if $scope == 'child'
-      &[data-r--{$key}={$value}] *
+      &[data-r-{$key}={$value}] *
         {block}
-      &[r--{$key}={$value}] *
+      &[r-{$key}={$value}] *
         {block}
 
 /**
