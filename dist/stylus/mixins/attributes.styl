@@ -29,10 +29,10 @@ instance($name)
     {block}
 
 /**
- * Selects elements with the specified r-property key and value.
+ * Selects elements with the specified r- key and value.
  *
- * @param {String} $key    r-property key.
- * @param {String} $value  r-property value, if applicable.
+ * @param {String} $key    r- key.
+ * @param {String} $value  r- value, if applicable.
  * @param {String} $scope  Specifies the scope relative to the target selector
  *                         in which this property applies to (any, this, parent,
  *                         or child).
@@ -40,52 +40,52 @@ instance($name)
 property($key, $value=null, $scope='this')
   if $value == null
     if $scope == 'any'
-      / [data-r-property-{$key}]
+      / [data-r--{$key}]
         {block}
-      / [r-property-{$key}]
+      / [r--{$key}]
         {block}
 
     else if $scope == 'this'
-      &[data-r-property-{$key}]
+      &[data-r--{$key}]
         {block}
-      &[r-property-{$key}]
+      &[r--{$key}]
         {block}
 
     else if $scope == 'parent'
-      [data-r-property-{$key}] &
+      [data-r--{$key}] &
         {block}
-      [r-property-{$key}] &
+      [r--{$key}] &
         {block}
 
     else if $scope == 'child'
-      &[data-r-property-{$key}] *
+      &[data-r--{$key}] *
         {block}
-      &[r-property-{$key}] *
+      &[r--{$key}] *
         {block}
 
   else
     if $scope == 'any'
-      / [data-r-property-{$key}={$value}]
+      / [data-r--{$key}={$value}]
         {block}
-      / [r-property-{$key}={$value}]
+      / [r--{$key}={$value}]
         {block}
 
     else if $scope == 'this'
-      &[data-r-property-{$key}={$value}]
+      &[data-r--{$key}={$value}]
         {block}
-      &[r-property-{$key}={$value}]
+      &[r--{$key}={$value}]
         {block}
 
     else if $scope == 'parent'
-      [data-r-property-{$key}={$value}] &
+      [data-r--{$key}={$value}] &
         {block}
-      [r-property-{$key}={$value}] &
+      [r--{$key}={$value}] &
         {block}
 
     else if $scope == 'child'
-      &[data-r-property-{$key}={$value}] *
+      &[data-r--{$key}={$value}] *
         {block}
-      &[r-property-{$key}={$value}] *
+      &[r--{$key}={$value}] *
         {block}
 
 /**

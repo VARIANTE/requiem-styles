@@ -27,10 +27,10 @@
 }
 
 /**
- * Selects elements with the specified r-property key and value.
+ * Selects elements with the specified r- key and value.
  *
- * @param {String} $key    r-property key.
- * @param {String} $value  r-property value, if applicable.
+ * @param {String} $key    r- key.
+ * @param {String} $value  r- value, if applicable.
  * @param {String} $scope  Specifies the scope relative to the target selector
  *                         in which this property applies to (any, this, parent,
  *                         or child).
@@ -38,38 +38,38 @@
 @mixin property($key, $value:null, $scope:'this') {
   @if $value == null {
     @if $scope == 'any' {
-      @at-root [data-r-property-#{$key}] { @content; }
-      @at-root [r-property-#{$key}]      { @content; }
+      @at-root [data-r--#{$key}] { @content; }
+      @at-root [r--#{$key}]      { @content; }
     }
     @else if $scope == 'this' {
-      &[data-r-property-#{$key}] { @content; }
-      &[r-property-#{$key}]      { @content; }
+      &[data-r--#{$key}] { @content; }
+      &[r--#{$key}]      { @content; }
     }
     @else if $scope == 'parent' {
-      [data-r-property-#{$key}] & { @content; }
-      [r-property-#{$key}] &      { @content; }
+      [data-r--#{$key}] & { @content; }
+      [r--#{$key}] &      { @content; }
     }
     @else if $scope == 'child' {
-      &[data-r-property-#{$key}] * { @content; }
-      &[r-property-#{$key}] *      { @content; }
+      &[data-r--#{$key}] * { @content; }
+      &[r--#{$key}] *      { @content; }
     }
   }
   @else {
     @if $scope == 'any' {
-      @at-root [data-r-property-#{$key}='#{$value}'] { @content; }
-      @at-root [r-property-#{$key}='#{$value}']      { @content; }
+      @at-root [data-r--#{$key}='#{$value}'] { @content; }
+      @at-root [r--#{$key}='#{$value}']      { @content; }
     }
     @else if $scope == 'this' {
-      &[data-r-property-#{$key}='#{$value}'] { @content; }
-      &[r-property-#{$key}='#{$value}']      { @content; }
+      &[data-r--#{$key}='#{$value}'] { @content; }
+      &[r--#{$key}='#{$value}']      { @content; }
     }
     @else if $scope == 'parent' {
-      [data-r-property-#{$key}='#{$value}'] & { @content; }
-      [r-property-#{$key}='#{$value}'] &      { @content; }
+      [data-r--#{$key}='#{$value}'] & { @content; }
+      [r--#{$key}='#{$value}'] &      { @content; }
     }
     @else if $scope == 'child' {
-      &[data-r-property-#{$key}='#{$value}'] * { @content; }
-      &[r-property-#{$key}='#{$value}'] *      { @content; }
+      &[data-r--#{$key}='#{$value}'] * { @content; }
+      &[r--#{$key}='#{$value}'] *      { @content; }
     }
   }
 }
@@ -103,52 +103,5 @@
 
   @if $default == true {
     @content;
-  }
-}
-
-/**
- * Binds the content to a r-scheme of the target selector. Option to specify
- * whether the scheme is default.
- *
- * @param {String}  $scheme   Scheme name.
- * @param {Boolean} $default  Specifies whether the class(es) are default.
- * @param {String}  $scope    Specifies the scope relative to the target
- *                            selector in which this property applies to (any,
- *                            this, parent, or child).
- */
-@mixin scheme($scheme, $default:false, $scope:'this') {
-  @if $scope == 'any' {
-    @at-root [data-r-scheme='#{$scheme}'] { @content; }
-    @at-root [r-scheme='#{$scheme}']      { @content; }
-
-    @if $default == true {
-      @at-root * { @content; }
-    }
-  }
-  @else if $scope == 'this' {
-    &[data-r-scheme='#{$scheme}'] { @content; }
-    &[r-scheme='#{$scheme}']      { @content; }
-
-    @if $default == true {
-        @content;
-    }
-  }
-  @else if $scope == 'parent' {
-    [data-r-scheme='#{$scheme}'] & { @content; }
-    [r-scheme='#{$scheme}'] &      { @content; }
-
-    @if $default == true {
-      @content;
-    }
-  }
-  @else if $scope == 'child' {
-    &[data-r-scheme='#{$scheme}'] * { @content; }
-    &[r-scheme='#{$scheme}'] *      { @content; }
-
-    @if $default == true {
-      & * {
-        @content;
-      }
-    }
   }
 }
