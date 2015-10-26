@@ -1,4 +1,4 @@
-/**
+/*!
  * Requiem-Styles
  * (c) VARIANTE (http://variante.io)
  *
@@ -43,14 +43,14 @@ body {
   font-size: @font-size-scale;
 }
 
-.boxes() {
+.boxes({
   .box-reset();
   .text-reset();
   display: block;
   position: relative;
-}
+});
 
-.buttons() {
+.buttons({
   .box-reset();
   .text-reset();
   cursor: pointer;
@@ -58,19 +58,19 @@ body {
   &:disabled {
     cursor: default;
   }
-}
+});
 
-.labels() {
+.labels('all', {
   .box-reset();
   .text-reset();
-}
+});
 
-.lists() {
+.lists({
   .box-reset();
   .text-reset();
-}
+});
 
-.textfields() {
+.textfields({
   .box-reset();
   .text-reset();
   resize: none;
@@ -82,10 +82,10 @@ body {
   &:-webkit-autofill {
     box-shadow: 0 0 0 1000px white inset;
   }
-}
+});
 
-.statics() {
+.statics({
   .box-reset();
   .text-reset();
   position: static;
-}
+});

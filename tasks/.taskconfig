@@ -35,7 +35,15 @@ var tasks = {
         input: path.join(paths.src, 'sass', 'requiem.scss'),
         output: path.join(paths.dist, 'css'),
         sass: {
-          outputStyle: 'nested'
+          outputStyle: 'expanded',
+          includePaths: [path.join(paths.dist, 'sass')]
+        },
+        less: {
+          paths: [path.join(paths.dist, 'less')]
+        },
+        stylus: {
+          'include css': true,
+          include: [path.join(paths.dist, 'stylus')]
         }
       },
       ugly: {
@@ -43,7 +51,15 @@ var tasks = {
         outputFile: 'requiem.min.css',
         output: path.join(paths.dist, 'css'),
         sass: {
-          outputStyle: 'compressed'
+          outputStyle: 'expanded',
+          includePaths: [path.join(paths.dist, 'sass')]
+        },
+        less: {
+          paths: [path.join(paths.dist, 'less')]
+        },
+        stylus: {
+          'include css': true,
+          include: [path.join(paths.dist, 'stylus')]
         }
       }
     },
@@ -76,7 +92,7 @@ var tasks = {
         input: path.join(paths.play, 'src', 'stylesheets', 'sass', '*.{scss,sass}'),
         output: path.join(paths.play, 'build', 'stylesheets'),
         options: {
-          outputStyle: 'nested',
+          outputStyle: 'expanded',
           includePaths: [path.join(paths.dist, 'sass')]
         }
       },

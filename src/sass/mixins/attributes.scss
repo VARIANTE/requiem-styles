@@ -1,40 +1,40 @@
-/**
- * Requiem-Styles
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+//
+// Requiem-Styles
+// (c) VARIANTE (http://variante.io)
+//
+// This software is released under the MIT License:
+// http://www.opensource.org/licenses/mit-license.php
+//
 
-/**
- * Selector for elements with the r-controller attribute.
- *
- * @param {String} $name r-controller attribute value.
- */
+//
+// Selector for elements with the r-controller attribute.
+//
+// @param {String} $name r-controller attribute value.
+//
 @mixin controller($name) {
   [data-r-controller='#{$name}'] { @content; }
   [r-controller='#{$name}']      { @content; }
 }
 
-/**
- * Selector for elements with the r-instance attribute.
- *
- * @param {String} $name r-instance attribute value.
- */
+//
+// Selector for elements with the r-instance attribute.
+//
+// @param {String} $name r-instance attribute value.
+//
 @mixin instance($name) {
   [data-r-instance='#{$name}'] { @content; }
   [r-instance='#{$name}']      { @content; }
 }
 
-/**
- * Selects elements with the specified r- key and value.
- *
- * @param {String} $key    r- key.
- * @param {String} $value  r- value, if applicable.
- * @param {String} $scope  Specifies the scope relative to the target selector
- *                         in which this property applies to (any, this, parent,
- *                         or child).
- */
+//
+// Selects elements with the specified r- key and value.
+//
+// @param {String} $key    r- key.
+// @param {String} $value  r- value, if applicable.
+// @param {String} $scope  Specifies the scope relative to the target selector
+//                         in which this property applies to (any, this, parent,
+//                         or child).
+//
 @mixin property($key, $value:null, $scope:'this') {
   $attr1: r-#{$key};
   $attr2: data-#{$attr1};
@@ -77,13 +77,13 @@
   }
 }
 
-/**
- * Binds the content to one/multiple r-states of the target selector. Option to
- * specify whether the state(s) are default.
- *
- * @param {List}    $states   List of state names.
- * @param {Boolean} $default  Specifies whether the class(es) are default.
- */
+//
+// Binds the content to one/multiple r-states of the target selector. Option to
+// specify whether the state(s) are default.
+//
+// @param {List}    $states   List of state names.
+// @param {Boolean} $default  Specifies whether the class(es) are default.
+//
 @mixin state($states, $default:false) {
   @each $state in $states {
     @if $state == 'hover' {

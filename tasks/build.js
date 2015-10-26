@@ -15,11 +15,13 @@ var gulp = require('gulp');
 var merge = require('merge-stream');
 var sequence = require('run-sequence');
 var $csso = require('gulp-csso');
+var $less = require('gulp-less');
 var $postcss = require('gulp-postcss');
 var $rename = require('gulp-rename');
 var $sass = require('gulp-sass');
 var $size = require('gulp-size');
 var $sourcemaps = require('gulp-sourcemaps');
+var $stylus = require('gulp-stylus');
 
 /**
  * Cleans the build directory.
@@ -39,6 +41,8 @@ gulp.task('build:css', function() {
     gulp.src(config.tasks.build.css.pretty.input)
       .pipe($sourcemaps.init())
       .pipe($sass(config.tasks.build.css.pretty.sass))
+      // .pipe($less(config.tasks.build.css.pretty.less))
+      // .pipe($stylus(config.tasks.build.css.pretty.stylus))
       .pipe($postcss([autoprefixer(config.tasks.build.autoprefixer)]))
       .pipe($sourcemaps.write('./'))
       .pipe($size({
@@ -50,7 +54,10 @@ gulp.task('build:css', function() {
     // Compile Sass to CSS (minified).
     gulp.src(config.tasks.build.css.ugly.input)
       .pipe($sass(config.tasks.build.css.ugly.sass))
+      // .pipe($less(config.tasks.build.css.ugly.less))
+      // .pipe($stylus(config.tasks.build.css.ugly.stylus))
       .pipe($postcss([autoprefixer(config.tasks.build.autoprefixer)]))
+      .pipe($csso())
       .pipe($rename(config.tasks.build.css.ugly.outputFile))
       .pipe($size({
         title: '[build:css:ugly]',

@@ -1,11 +1,16 @@
-/**
- * Requiem-Styles
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+//
+// Requiem-Styles
+// (c) VARIANTE (http://variante.io)
+//
+// This software is released under the MIT License:
+// http://www.opensource.org/licenses/mit-license.php
+//
 
+//
+// Selector for label elements.
+//
+// @param {String} $type:'all'  Type of the label (i.e. 'body', 'header', 'all')
+//
 @mixin labels($type:'all') {
   @if $type == 'all' or $type == 'body' {
     a      { @content; }
@@ -27,10 +32,16 @@
   }
 }
 
+//
+// Selector for static elements.
+//
 @mixin statics {
   form { @content; }
 }
 
+//
+// Selector for button elements.
+//
 @mixin buttons {
   a[type='button']       { @content; }
   input[type='submit']   { @content; }
@@ -39,6 +50,9 @@
   button                 { @content; }
 }
 
+//
+// Selector for textfield input elements.
+//
 @mixin textfields {
   input[type='text']           { @content; }
   input[type='password']       { @content; }
@@ -56,6 +70,9 @@
   textarea                     { @content; }
 }
 
+//
+// Selector for box elements.
+//
 @mixin boxes {
   article    { @content; }
   aside      { @content; }
@@ -81,6 +98,9 @@
   col        { @content; }
 }
 
+//
+// Selector for list elements.
+//
 @mixin lists {
   ul { @content; }
   ol { @content; }

@@ -1,18 +1,18 @@
-/**
- * Requiem-Styles
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+//
+// Requiem-Styles
+// (c) VARIANTE (http://variante.io)
+//
+// This software is released under the MIT License:
+// http://www.opensource.org/licenses/mit-license.php
+//
 
-/**
- * Binds the content to the target selector based on the 'csstransitions'
- * feature (requires Modernizr).
- *
- * @param {Boolean} $enabled  Specifies whether 'csstransitions' class is
- *                            required.
- */
+//
+// Binds the content to the target selector based on the 'csstransitions'
+// feature (requires Modernizr).
+//
+// @param {Boolean} $enabled  Specifies whether 'csstransitions' class is
+//                            required.
+//
 @mixin transition($enabled:true) {
   @if $enabled == true and $modernizr-enabled == true {
     .csstransitions & {
@@ -24,13 +24,13 @@
   }
 }
 
-/**
- * Binds the content to the target selector based on the 'cssanimations' feature
- * (requires Modernizr).
- *
- * @param {Boolean} $enabled  Specifies whether 'cssanimations' class is
- *                            required.
- */
+//
+// Binds the content to the target selector based on the 'cssanimations' feature
+// (requires Modernizr).
+//
+// @param {Boolean} $enabled  Specifies whether 'cssanimations' class is
+//                            required.
+//
 @mixin animation($enabled:true) {
   @if $enabled == true and $modernizr-enabled == true {
     .cssanimations & {
@@ -42,14 +42,14 @@
   }
 }
 
-/**
- * Binds the content to the target selector based on the 'touch' and 'no-touch'
- * feature (requires Modernizr).
- *
- * @param {Boolean} $enabled    Specifies whether 'touch' class is required.
- * @param {Boolean} $exclusive  Specifies whether 'no-touch' class is required
- *                              if $enabled is false.
- */
+//
+// Binds the content to the target selector based on the 'touch' and 'no-touch'
+// feature (requires Modernizr).
+//
+// @param {Boolean} $enabled    Specifies whether 'touch' class is required.
+// @param {Boolean} $exclusive  Specifies whether 'no-touch' class is required
+//                              if $enabled is false.
+//
 @mixin touch($enabled:true, $exclusive:false) {
   @if $enabled == true and $modernizr-enabled == true {
     .touch & {
@@ -68,9 +68,9 @@
   }
 }
 
-/**
- * Enables hardware acceleration for containing selector.
- */
+//
+// Enables hardware acceleration for containing selector.
+//
 @mixin hardware-acceleration {
   transform: translateZ(0);
   transform: translate3d(0, 0, 0);

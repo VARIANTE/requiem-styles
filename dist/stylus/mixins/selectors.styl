@@ -6,6 +6,11 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+/**
+ * Selector for label elements.
+ *
+ * @param {String} $type:'all'  Type of the label (i.e. 'body', 'header', 'all')
+ */
 labels($type='all')
   if $type == 'all' or $type == 'body'
     a
@@ -37,10 +42,16 @@ labels($type='all')
     h6
       {block}
 
+/**
+ * Selector for static elements.
+ */
 statics()
   form
     {block}
 
+/**
+ * Selector for button elements.
+ */
 buttons()
   a[type='button']
     {block}
@@ -53,6 +64,9 @@ buttons()
   button
     {block}
 
+/**
+ * Selector for textfield input elements.
+ */
 textfields()
   input[type='text']
     {block}
@@ -83,6 +97,9 @@ textfields()
   textarea
     {block}
 
+/**
+ * Selector for box elements.
+ */
 boxes()
   article
     {block}
@@ -129,6 +146,9 @@ boxes()
   col
     {block}
 
+/**
+ * Selector for list elements.
+ */
 lists()
   ul
     {block}
