@@ -13,22 +13,22 @@
 //
 .labels(@type:'all', @rules) {
   & when (@type = 'all'), (@type = 'body') {
-    a      { @rules(); }
-    p      { @rules(); }
-    li     { @rules(); }
-    em     { @rules(); }
-    strong { @rules(); }
-    label  { @rules(); }
-    span   { @rules(); }
+    a:not(a[type='button']) { @rules(); }
+    p                       { @rules(); }
+    li                      { @rules(); }
+    em                      { @rules(); }
+    strong                  { @rules(); }
+    label                   { @rules(); }
+    span                    { @rules(); }
   }
 
   & when (@type = 'all'), (@type = 'header') {
-    h1     { @rules(); }
-    h2     { @rules(); }
-    h3     { @rules(); }
-    h4     { @rules(); }
-    h5     { @rules(); }
-    h6     { @rules(); }
+    h1 { @rules(); }
+    h2 { @rules(); }
+    h3 { @rules(); }
+    h4 { @rules(); }
+    h5 { @rules(); }
+    h6 { @rules(); }
   }
 }
 
