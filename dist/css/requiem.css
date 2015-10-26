@@ -392,13 +392,7 @@ th {
   padding: 0;
 }
 
-/*!
- * Requiem-Styles
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+/*! requiem-styles, (c) VARIANTE (http://variante.io) */
 html, body, article, aside, details, dialog, summary, footer, header, main, figcaption, figure, hgroup, nav, section, div, table, tr, td, th, tbody, thead, tfoot, col, a[type='button'], input[type='submit'], input[type='button'], input[type='checkbox'], button, a:not([type='button']), p, li, em, strong, label, span, h1, h2, h3, h4, h5, h6, ul, ol, input[type='text'], input[type='password'], input[type='number'], input[type='date'], input[type='month'], input[type='week'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='email'], input[type='search'], input[type='tel'], input[type='url'], textarea, form {
   margin: 0;
   padding: 0;
