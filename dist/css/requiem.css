@@ -400,25 +400,25 @@ th {
  * http://www.opensource.org/licenses/mit-license.php
  */
 html, body, article, aside, details, dialog, summary, footer, header, main, figcaption, figure, hgroup, nav, section, div, table, tr, td, th, tbody, thead, tfoot, col, a[type='button'], input[type='submit'], input[type='button'], input[type='checkbox'], button, a:not(a[type='button']), p, li, em, strong, label, span, h1, h2, h3, h4, h5, h6, ul, ol, input[type='text'], input[type='password'], input[type='number'], input[type='date'], input[type='month'], input[type='week'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='email'], input[type='search'], input[type='tel'], input[type='url'], textarea, form {
-  border: 0;
-  box-sizing: border-box;
   margin: 0;
-  outline: none;
   padding: 0;
+  border: none;
+  box-sizing: border-box;
+  outline: none;
 }
 
 article, aside, details, dialog, summary, footer, header, main, figcaption, figure, hgroup, nav, section, div, table, tr, td, th, tbody, thead, tfoot, col, a[type='button'], input[type='submit'], input[type='button'], input[type='checkbox'], button, a:not(a[type='button']), p, li, em, strong, label, span, h1, h2, h3, h4, h5, h6, ul, ol, input[type='text'], input[type='password'], input[type='number'], input[type='date'], input[type='month'], input[type='week'], input[type='time'], input[type='datetime'], input[type='datetime-local'], input[type='email'], input[type='search'], input[type='tel'], input[type='url'], textarea, form {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-text-stroke: 0;
   font-weight: normal;
-  line-height: normal;
   text-decoration: none;
+  line-height: normal;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-stroke: 0;
 }
 
 html {
