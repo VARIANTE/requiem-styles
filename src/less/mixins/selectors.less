@@ -13,13 +13,13 @@
 //
 .labels(@type:'all', @rules) {
   & when (@type = 'all'), (@type = 'body') {
-    a:not(a[type='button']) { @rules(); }
-    p                       { @rules(); }
-    li                      { @rules(); }
-    em                      { @rules(); }
-    strong                  { @rules(); }
-    label                   { @rules(); }
-    span                    { @rules(); }
+    a:not([type='button']) { @rules(); }
+    p                      { @rules(); }
+    li                     { @rules(); }
+    em                     { @rules(); }
+    strong                 { @rules(); }
+    label                  { @rules(); }
+    span                   { @rules(); }
   }
 
   & when (@type = 'all'), (@type = 'header') {

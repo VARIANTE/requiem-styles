@@ -13,13 +13,13 @@
 //
 @mixin labels($type:'all') {
   @if $type == 'all' or $type == 'body' {
-    a:not(a[type='button']) { @content; }
-    p                       { @content; }
-    li                      { @content; }
-    em                      { @content; }
-    strong                  { @content; }
-    label                   { @content; }
-    span                    { @content; }
+    a:not([type='button']) { @content; }
+    p                      { @content; }
+    li                     { @content; }
+    em                     { @content; }
+    strong                 { @content; }
+    label                  { @content; }
+    span                   { @content; }
   }
 
   @if $type == 'all' or $type == 'header' {
