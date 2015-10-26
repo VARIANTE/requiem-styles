@@ -7,19 +7,21 @@
 //
 
 //
-// Selector for label elements.
+// Selector for label elements. Each element is meant to contain text only. For
+// optimal results, do not nest label elements. For italics, use <i>, and for
+// bold, use <b>. <a> is not treated as a label element and should only be used
+// to make a nested element a hyperlink.
 //
 // @param {String} @type:'all'  Type of the label (i.e. 'body', 'header', 'all')
 //
 .labels(@type:'all', @rules) {
   & when (@type = 'all'), (@type = 'body') {
-    a:not([type='button']) { @rules(); }
-    p                      { @rules(); }
-    li                     { @rules(); }
-    em                     { @rules(); }
-    strong                 { @rules(); }
-    label                  { @rules(); }
-    span                   { @rules(); }
+    p      { @rules(); }
+    li     { @rules(); }
+    em     { @rules(); }
+    strong { @rules(); }
+    label  { @rules(); }
+    span   { @rules(); }
   }
 
   & when (@type = 'all'), (@type = 'header') {
