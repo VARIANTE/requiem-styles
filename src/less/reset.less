@@ -75,7 +75,9 @@ body {
   .text-reset();
   resize: none;
 
-  &:focus {
+  &:focus,
+  &:invalid {
+    box-shadow: none;
     outline-width: 0;
   }
 

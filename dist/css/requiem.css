@@ -581,7 +581,9 @@ input[type='text'] {
   resize: none;
 }
 
-input[type='text']:focus {
+input[type='text']:focus,
+input[type='text']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -593,7 +595,9 @@ input[type='password'] {
   resize: none;
 }
 
-input[type='password']:focus {
+input[type='password']:focus,
+input[type='password']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -605,7 +609,9 @@ input[type='number'] {
   resize: none;
 }
 
-input[type='number']:focus {
+input[type='number']:focus,
+input[type='number']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -617,7 +623,9 @@ input[type='date'] {
   resize: none;
 }
 
-input[type='date']:focus {
+input[type='date']:focus,
+input[type='date']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -629,7 +637,9 @@ input[type='month'] {
   resize: none;
 }
 
-input[type='month']:focus {
+input[type='month']:focus,
+input[type='month']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -641,7 +651,9 @@ input[type='week'] {
   resize: none;
 }
 
-input[type='week']:focus {
+input[type='week']:focus,
+input[type='week']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -653,7 +665,9 @@ input[type='time'] {
   resize: none;
 }
 
-input[type='time']:focus {
+input[type='time']:focus,
+input[type='time']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -665,7 +679,9 @@ input[type='datetime'] {
   resize: none;
 }
 
-input[type='datetime']:focus {
+input[type='datetime']:focus,
+input[type='datetime']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -677,7 +693,9 @@ input[type='datetime-local'] {
   resize: none;
 }
 
-input[type='datetime-local']:focus {
+input[type='datetime-local']:focus,
+input[type='datetime-local']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -689,7 +707,9 @@ input[type='email'] {
   resize: none;
 }
 
-input[type='email']:focus {
+input[type='email']:focus,
+input[type='email']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -701,7 +721,9 @@ input[type='search'] {
   resize: none;
 }
 
-input[type='search']:focus {
+input[type='search']:focus,
+input[type='search']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -713,7 +735,9 @@ input[type='tel'] {
   resize: none;
 }
 
-input[type='tel']:focus {
+input[type='tel']:focus,
+input[type='tel']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -725,7 +749,9 @@ input[type='url'] {
   resize: none;
 }
 
-input[type='url']:focus {
+input[type='url']:focus,
+input[type='url']:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
@@ -737,7 +763,9 @@ textarea {
   resize: none;
 }
 
-textarea:focus {
+textarea:focus,
+textarea:invalid {
+  box-shadow: none;
   outline-width: 0;
 }
 
