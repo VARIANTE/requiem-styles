@@ -36,14 +36,14 @@ var tasks = {
         output: path.join(paths.dist, 'css'),
         sass: {
           outputStyle: 'expanded',
-          includePaths: [path.join(paths.dist, 'sass')]
+          includePaths: [paths.modules, path.join(paths.dist, 'sass')]
         },
         less: {
-          paths: [path.join(paths.dist, 'less')]
+          paths: [paths.modules, path.join(paths.dist, 'less')]
         },
         stylus: {
           'include css': true,
-          include: [path.join(paths.dist, 'stylus')]
+          include: [paths.modules, path.join(paths.dist, 'stylus')]
         }
       },
       ugly: {
@@ -52,14 +52,14 @@ var tasks = {
         output: path.join(paths.dist, 'css'),
         sass: {
           outputStyle: 'expanded',
-          includePaths: [path.join(paths.dist, 'sass')]
+          includePaths: [paths.modules, path.join(paths.dist, 'sass')]
         },
         less: {
-          paths: [path.join(paths.dist, 'less')]
+          paths: [paths.modules, path.join(paths.dist, 'less')]
         },
         stylus: {
           'include css': true,
-          include: [path.join(paths.dist, 'stylus')]
+          include: [paths.modules, path.join(paths.dist, 'stylus')]
         }
       }
     },
@@ -93,14 +93,14 @@ var tasks = {
         output: path.join(paths.play, 'build', 'stylesheets'),
         options: {
           outputStyle: 'expanded',
-          includePaths: [path.join(paths.dist, 'sass')]
+          includePaths: [paths.modules, path.join(paths.dist, 'sass')]
         }
       },
       less: {
         input: path.join(paths.play, 'src', 'stylesheets', 'less', '*.less'),
         output: path.join(paths.play, 'build', 'stylesheets'),
         options: {
-          paths: [path.join(paths.dist, 'less')]
+          paths: [paths.modules, path.join(paths.dist, 'less')]
         }
       },
       stylus: {
@@ -108,7 +108,7 @@ var tasks = {
         output: path.join(paths.play, 'build', 'stylesheets'),
         options: {
           'include css': true,
-          include: [path.join(paths.dist, 'stylus')]
+          include: [paths.modules, path.join(paths.dist, 'stylus')]
         }
       }
     },
