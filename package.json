@@ -1,6 +1,6 @@
 {
   "name": "requiem-styles",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "homepage": "http://variante.io",
   "license": "MIT",
   "private": true,
@@ -33,7 +33,7 @@
     "run-sequence": "^1.1.4",
     "webpack": "^1.12.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "normalize.css": "^3.0.3"
   }
 }
