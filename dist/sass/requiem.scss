@@ -7,7 +7,7 @@
 //
 
 $modernizr-enabled: false !default;
-@import 'normalize.css/normalize';
+@import '../../node_modules/normalize.css/normalize';
 
 /*! requiem-styles, (c) VARIANTE (http://variante.io) */
 @import 'mixins/selectors';
