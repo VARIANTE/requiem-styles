@@ -49,6 +49,7 @@
   input[type='submit']   { @content; }
   input[type='button']   { @content; }
   input[type='checkbox'] { @content; }
+  input[type='file']     { @content; }
   button                 { @content; }
 }
 
