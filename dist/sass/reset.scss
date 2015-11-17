@@ -55,6 +55,11 @@ body {
   @extend %box-reset;
   @extend %text-reset;
   cursor: pointer;
+  display: inline-block;
+
+  &:not(button):not(input) {
+    @include flex-block('center', 'center', row, false, true);
+  }
 
   &:disabled {
     cursor: default;

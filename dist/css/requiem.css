@@ -146,6 +146,27 @@ col {
 
 a[type='button'] {
   cursor: pointer;
+  display: inline-block;
+}
+
+a[type='button']:not(button):not(input) {
+  line-height: normal;
+  white-space: normal;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 a[type='button']:disabled {
@@ -154,6 +175,27 @@ a[type='button']:disabled {
 
 input[type='submit'] {
   cursor: pointer;
+  display: inline-block;
+}
+
+input[type='submit']:not(button):not(input) {
+  line-height: normal;
+  white-space: normal;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 input[type='submit']:disabled {
@@ -162,6 +204,27 @@ input[type='submit']:disabled {
 
 input[type='button'] {
   cursor: pointer;
+  display: inline-block;
+}
+
+input[type='button']:not(button):not(input) {
+  line-height: normal;
+  white-space: normal;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 input[type='button']:disabled {
@@ -170,6 +233,27 @@ input[type='button']:disabled {
 
 input[type='checkbox'] {
   cursor: pointer;
+  display: inline-block;
+}
+
+input[type='checkbox']:not(button):not(input) {
+  line-height: normal;
+  white-space: normal;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 input[type='checkbox']:disabled {
@@ -178,6 +262,27 @@ input[type='checkbox']:disabled {
 
 input[type='file'] {
   cursor: pointer;
+  display: inline-block;
+}
+
+input[type='file']:not(button):not(input) {
+  line-height: normal;
+  white-space: normal;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 input[type='file']:disabled {
@@ -186,6 +291,27 @@ input[type='file']:disabled {
 
 button {
   cursor: pointer;
+  display: inline-block;
+}
+
+button:not(button):not(input) {
+  line-height: normal;
+  white-space: normal;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 button:disabled {

@@ -50,6 +50,10 @@ body
   box-reset()
   text-reset()
   cursor: pointer
+  display: inline-block;
+
+  &:not(button):not(input)
+    +flex-block('center', 'center', row, false, true);
 
   &:disabled
     cursor: default
