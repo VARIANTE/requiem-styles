@@ -16,12 +16,12 @@
 //
 .labels(@type:'all', @rules) {
   & when (@type = 'all'), (@type = 'body') {
-    p      { @rules(); }
-    li     { @rules(); }
-    em     { @rules(); }
-    strong { @rules(); }
-    label  { @rules(); }
-    span   { @rules(); }
+    p                  { @rules(); }
+    li                 { @rules(); }
+    em                 { @rules(); }
+    strong             { @rules(); }
+    label              { @rules(); }
+    span[type='label'] { @rules(); }
   }
 
   & when (@type = 'all'), (@type = 'header') {

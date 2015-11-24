@@ -16,12 +16,12 @@
 //
 @mixin labels($type:'all') {
   @if $type == 'all' or $type == 'body' {
-    p      { @content; }
-    li     { @content; }
-    em     { @content; }
-    strong { @content; }
-    label  { @content; }
-    span   { @content; }
+    p                  { @content; }
+    li                 { @content; }
+    em                 { @content; }
+    strong             { @content; }
+    label              { @content; }
+    span[type='label'] { @content; }
   }
 
   @if $type == 'all' or $type == 'header' {
