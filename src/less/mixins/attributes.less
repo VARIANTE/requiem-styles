@@ -7,111 +7,99 @@
 //
 
 //
-// Selector for elements with the r-controller attribute.
+// Selector for elements with the data-class attribute.
 //
-// @param {String} @name r-controller attribute value.
+// @param {string} @name data-class attribute value.
 //
 .controller(@name, @rules) {
-  [data-r-controller='@{name}'] { @rules(); }
-  [r-controller='@{name}']      { @rules(); }
+  [data-class='@{name}'] { @rules(); }
 }
 
 //
-// Selector for elements with the r-instance attribute.
+// Selector for elements with the data-instance attribute.
 //
-// @param {String} @name r-instance attribute value.
+// @param {string} @name data-instance attribute value.
 //
 .instance(@name, @rules) {
-  [data-r-instance='@{name}'] { @rules(); }
-  [r-instance='@{name}']       { @rules(); }
+  [data-instance='@{name}'] { @rules(); }
 }
 
 //
-// Selects elements with the specified r- key and value.
+// Selects elements with the specified data- key and value.
 //
-// @param {String} @key    r- key.
-// @param {String} @value  r- value, if applicable.
-// @param {String} @scope  Specifies the scope relative to the target selector
+// @param {string} @key    data- key.
+// @param {string} @value  data- value, if applicable.
+// @param {string} @scope  Specifies the scope relative to the target selector
 //                         in which this property applies to (any, this, parent,
 //                         or child).
 //
 .property(@key, @value:~'', @scope:'this', @rules) {
-  @attr1: ~'r-@{key}';
-  @attr2: ~'data-@{attr1}';
+  @attr: ~'data-@{key}';
 
   & when (@value = '') {
     & when (@scope = 'any') {
-      :root [@{attr1}] { @rules(); }
-      :root [@{attr2}] { @rules(); }
+      :root [@{attr}] { @rules(); }
     }
 
     & when (@scope = 'this') {
-      &[@{attr1}] { @rules(); }
-      &[@{attr2}] { @rules(); }
+      &[@{attr}] { @rules(); }
     }
 
     & when (@scope = 'parent') {
-      [@{attr1}] & { @rules(); }
-      [@{attr2}] & { @rules(); }
+      [@{attr}] & { @rules(); }
     }
 
     & when (@scope = 'child') {
-      &[@{attr1}] * { @rules(); }
-      &[@{attr2}] * { @rules(); }
+      &[@{attr}] * { @rules(); }
     }
   }
 
   & when not (@value = '') {
     & when (@scope = 'any') {
-      :root [@{attr1}='@{value}'] { @rules(); }
-      :root [@{attr2}='@{value}'] { @rules(); }
+      :root [@{attr}='@{value}'] { @rules(); }
     }
 
     & when (@scope = 'this') {
-      &[@{attr1}='@{value}'] { @rules(); }
-      &[@{attr2}='@{value}'] { @rules(); }
+      &[@{attr}='@{value}'] { @rules(); }
     }
 
     & when (@scope = 'parent') {
-      [@{attr1}='@{value}'] & { @rules(); }
-      [@{attr2}='@{value}'] & { @rules(); }
+      [@{attr}='@{value}'] & { @rules(); }
     }
 
     & when (@scope = 'child') {
-      &[@{attr1}='@{value}'] * { @rules(); }
-      &[@{attr2}='@{value}'] * { @rules(); }
+      &[@{attr}='@{value}'] * { @rules(); }
     }
   }
 }
 
 //
-// Binds the content to one/multiple r-states of the target selector. Option to
+// Binds the content to one/multiple data-state of the target selector. Option to
 // specify whether the state(s) are default.
 //
 // @param {List}    @states   List of state names.
-// @param {Boolean} @default  Specifies whether the class(es) are default.
+// @param {boolean} @default  Specifies whether the class(es) are default.
 //
 .state(@states, @default:false, @rules) {
+  @attr: ~'data-state';
+
   .loop(@i: length(@states)) when (@i > 0) {
     @state: extract(@states, @i);
 
     & when (@state = 'hover') {
       & when (@modernizr-enabled = true) {
-        .no-touch &:hover                 { @rules(); }
-        .no-touch &[data-r-state='hover'] { @rules(); }
-        .no-touch &[r-state='hover']      { @rules(); }
+        .no-touch &:hover            { @rules(); }
+        .no-touch &[@{attr}='hover'] { @rules(); }
       }
 
       & when not (@modernizr-enabled = true) {
-        &:hover                 { @rules(); }
-        &[data-r-state='hover'] { @rules(); }
-        &[r-state='hover']      { @rules(); }
+        &:hover            { @rules(); }
+        &[@{attr}='hover'] { @rules(); }
       }
     }
 
     & when not (@state = 'hover') {
-      &[data-r-state='@{state}'] { @rules(); }
-      &[r-state='@{state}']      { @rules(); }
+      &[@{attr}='@{state}'] { @rules(); }
     }
 
     .loop((@i - 1));

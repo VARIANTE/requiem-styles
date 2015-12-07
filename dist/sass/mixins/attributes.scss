@@ -7,100 +7,89 @@
 //
 
 //
-// Selector for elements with the r-controller attribute.
+// Selector for elements with the data-class attribute.
 //
-// @param {String} $name r-controller attribute value.
+// @param {string} $name data-class attribute value.
 //
-@mixin controller($name) {
-  [data-r-controller='#{$name}'] { @content; }
-  [r-controller='#{$name}']      { @content; }
+@mixin class($name) {
+  $attr: data-class;
+  [#{$attr}='#{$name}'] { @content; }
 }
 
 //
-// Selector for elements with the r-instance attribute.
+// Selector for elements with the data-instance attribute.
 //
-// @param {String} $name r-instance attribute value.
+// @param {string} $name data-instance attribute value.
 //
 @mixin instance($name) {
-  [data-r-instance='#{$name}'] { @content; }
-  [r-instance='#{$name}']      { @content; }
+  $attr: data-instance;
+  [#{$attr}='#{$name}'] { @content; }
 }
 
 //
-// Selects elements with the specified r- key and value.
+// Selects elements with the specified data- key and value.
 //
-// @param {String} $key    r- key.
-// @param {String} $value  r- value, if applicable.
-// @param {String} $scope  Specifies the scope relative to the target selector
+// @param {string} $key    data- key.
+// @param {string} $value  data- value, if applicable.
+// @param {string} $scope  Specifies the scope relative to the target selector
 //                         in which this property applies to (any, this, parent,
 //                         or child).
 //
 @mixin property($key, $value:null, $scope:'this') {
-  $attr1: r-#{$key};
-  $attr2: data-#{$attr1};
+  $attr: data-#{$key};
 
   @if $value == null {
     @if $scope == 'any' {
-      @at-root [#{$attr1}] { @content; }
-      @at-root [#{$attr2}] { @content; }
+      @at-root [#{$attr}] { @content; }
     }
     @else if $scope == 'this' {
-      &[#{$attr1}] { @content; }
-      &[#{$attr2}] { @content; }
+      &[#{$attr}] { @content; }
     }
     @else if $scope == 'parent' {
-      [#{$attr1}] & { @content; }
-      [#{$attr2}] & { @content; }
+      [#{$attr}] & { @content; }
     }
     @else if $scope == 'child' {
-      &[#{$attr1}] * { @content; }
-      &[#{$attr2}] * { @content; }
+      &[#{$attr}] * { @content; }
     }
   }
   @else {
     @if $scope == 'any' {
-      @at-root [#{$attr1}='#{$value}'] { @content; }
-      @at-root [#{$attr2}='#{$value}'] { @content; }
+      @at-root [#{$attr}='#{$value}'] { @content; }
     }
     @else if $scope == 'this' {
-      &[#{$attr1}='#{$value}'] { @content; }
-      &[#{$attr2}='#{$value}'] { @content; }
+      &[#{$attr}='#{$value}'] { @content; }
     }
     @else if $scope == 'parent' {
-      [#{$attr1}='#{$value}'] & { @content; }
-      [#{$attr2}='#{$value}'] & { @content; }
+      [#{$attr}='#{$value}'] & { @content; }
     }
     @else if $scope == 'child' {
-      &[#{$attr1}='#{$value}'] * { @content; }
-      &[#{$attr2}='#{$value}'] * { @content; }
+      &[#{$attr}='#{$value}'] * { @content; }
     }
   }
 }
 
 //
-// Binds the content to one/multiple r-states of the target selector. Option to
+// Binds the content to one/multiple data-state of the target selector. Option to
 // specify whether the state(s) are default.
 //
 // @param {List}    $states   List of state names.
-// @param {Boolean} $default  Specifies whether the class(es) are default.
+// @param {boolean} $default  Specifies whether the class(es) are default.
 //
 @mixin state($states, $default:false) {
+  $attr: data-state;
   @each $state in $states {
     @if $state == 'hover' {
       @if $modernizr-enabled == true {
         .no-touch &:hover { @content; }
-        .no-touch &[data-r-state='hover'] { @content; }
-        .no-touch &[r-state='hover']      { @content; }
+        .no-touch &[#{$attr}='hover'] { @content; }
       }
       @else {
         &:hover { @content; }
-        &[data-r-state='hover'] { @content; }
-        &[r-state='hover']      { @content; }
+        &[#{$attr}='hover'] { @content; }
       }
     }
     @else {
-      &[data-r-state='#{$state}'] { @content; }
-      &[r-state='#{$state}']      { @content; }
+      &[#{$attr}='#{$state}'] { @content; }
     }
   }
 

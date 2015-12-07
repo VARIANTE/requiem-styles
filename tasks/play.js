@@ -100,7 +100,7 @@ gulp.task('styles:stylus:play', function() {
  * Compiles JavaScripts for the playground, option to watch for
  * changes.
  *
- * @param {Boolean} --watch
+ * @param {boolean} --watch
  */
 gulp.task('scripts:play', function(done) {
   var watchGuard = false;
@@ -141,8 +141,8 @@ gulp.task('templates:play', function() {
 /**
  * Serves the playground to the browser.
  *
- * @param {Number}  --port
- * @param {Boolean} --watch
+ * @param {number}  --port
+ * @param {boolean} --watch
  */
 gulp.task('serve:play', function() {
   browserSync(config.tasks.play.serve.browserSync);
@@ -162,9 +162,9 @@ gulp.task('serve:play', function() {
  * Builds the CSS library and playground, option to watch for
  * file changes and serve.
  *
- * @param {Number}  --port
- * @param {Boolean} --watch
- * @param {Boolean} --serve
+ * @param {number}  --port
+ * @param {boolean} --watch
+ * @param {boolean} --serve
  */
 gulp.task('play:css', function(done) {
   config.env.clean = true;
@@ -180,9 +180,9 @@ gulp.task('play:css', function(done) {
  * Builds the Sass library and playground, option to watch for
  * file changes and serve.
  *
- * @param {Number}  --port
- * @param {Boolean} --watch
- * @param {Boolean} --serve
+ * @param {number}  --port
+ * @param {boolean} --watch
+ * @param {boolean} --serve
  */
 gulp.task('play:sass', function(done) {
   config.env.clean = true;
@@ -198,9 +198,9 @@ gulp.task('play:sass', function(done) {
  * Builds the LESS library and playground, option to watch for
  * file changes and serve.
  *
- * @param {Number}  --port
- * @param {Boolean} --watch
- * @param {Boolean} --serve
+ * @param {number}  --port
+ * @param {boolean} --watch
+ * @param {boolean} --serve
  */
 gulp.task('play:less', function(done) {
   config.env.clean = true;
@@ -216,9 +216,9 @@ gulp.task('play:less', function(done) {
  * Builds the Stylus library and playground, option to watch for
  * file changes and serve.
  *
- * @param {Number}  --port
- * @param {Boolean} --watch
- * @param {Boolean} --serve
+ * @param {number}  --port
+ * @param {boolean} --watch
+ * @param {boolean} --serve
  */
 gulp.task('play:stylus', function(done) {
   config.env.clean = true;

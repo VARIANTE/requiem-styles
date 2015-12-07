@@ -7,93 +7,73 @@
  */
 
 /**
- * Selector for elements with the r-controller attribute.
+ * Selector for elements with the data-class attribute.
  *
- * @param {String} $name r-controller attribute value.
+ * @param {string} $name data-class attribute value.
  */
 controller($name)
-  [data-r-controller={$name}]
-    {block}
-  [r-controller={$name}]
+  [data-class={$name}]
     {block}
 
 /**
- * Selector for elements with the r-instance attribute.
+ * Selector for elements with the data-instance attribute.
  *
- * @param {String} $name r-instance attribute value.
+ * @param {string} $name data-instance attribute value.
  */
 instance($name)
-  [data-r-instance={$name}]
-    {block}
-  [r-instance={$name}]
+  [data-instance={$name}]
     {block}
 
 /**
- * Selects elements with the specified r- key and value.
+ * Selects elements with the specified data- key and value.
  *
- * @param {String} $key    r- key.
- * @param {String} $value  r- value, if applicable.
- * @param {String} $scope  Specifies the scope relative to the target selector
+ * @param {string} $key    data- key.
+ * @param {string} $value  data- value, if applicable.
+ * @param {string} $scope  Specifies the scope relative to the target selector
  *                         in which this property applies to (any, this, parent,
  *                         or child).
  */
 property($key, $value=null, $scope='this')
   if $value == null
     if $scope == 'any'
-      / [data-r-{$key}]
-        {block}
-      / [r-{$key}]
+      / [data-{$key}]
         {block}
 
     else if $scope == 'this'
-      &[data-r-{$key}]
-        {block}
-      &[r-{$key}]
+      &[data-{$key}]
         {block}
 
     else if $scope == 'parent'
-      [data-r-{$key}] &
-        {block}
-      [r-{$key}] &
+      [data-{$key}] &
         {block}
 
     else if $scope == 'child'
-      &[data-r-{$key}] *
-        {block}
-      &[r-{$key}] *
+      &[data-{$key}] *
         {block}
 
   else
     if $scope == 'any'
-      / [data-r-{$key}={$value}]
-        {block}
-      / [r-{$key}={$value}]
+      / [data-{$key}={$value}]
         {block}
 
     else if $scope == 'this'
-      &[data-r-{$key}={$value}]
-        {block}
-      &[r-{$key}={$value}]
+      &[data-{$key}={$value}]
         {block}
 
     else if $scope == 'parent'
-      [data-r-{$key}={$value}] &
-        {block}
-      [r-{$key}={$value}] &
+      [data-{$key}={$value}] &
         {block}
 
     else if $scope == 'child'
-      &[data-r-{$key}={$value}] *
-        {block}
-      &[r-{$key}={$value}] *
+      &[data-{$key}={$value}] *
         {block}
 
 /**
- * Binds the content to one/multiple r-states of the target selector. Option to
+ * Binds the content to one/multiple data-state of the target selector. Option to
  * specify whether the state(s) are default.
  *
  * @param {List}    $states   List of state names.
- * @param {Boolean} $default  Specifies whether the class(es) are default.
+ * @param {boolean} $default  Specifies whether the class(es) are default.
  */
 state($states, $default=false)
   for $state in $states
@@ -101,68 +81,16 @@ state($states, $default=false)
       if $modernizr-enabled == true
         .no-touch &:hover
           {block}
-        .no-touch &[data-r-state='hover']
-          {block}
-        .no-touch &[r-state='hover']
+        .no-touch &[data-state='hover']
           {block}
       else
         &:hover
           {block}
-        &[data-r-state='hover']
-          {block}
-        &[r-state='hover']
+        &[data-state='hover']
           {block}
     else
-      &[data-r-state={$state}]
-        {block}
-      &[r-state={$state}]
+      &[data-state={$state}]
         {block}
 
   if $default == true
     {block}
-
-/**
- * Binds the content to a r-scheme of the target selector. Option to specify
- * whether the scheme is default.
- *
- * @param {String}  $scheme   Scheme name.
- * @param {Boolean} $default  Specifies whether the class(es) are default.
- * @param {String}  $scope    Specifies the scope relative to the target
- *                            selector in which this property applies to (any,
- *                            this, parent, or child).
- */
-scheme($scheme, $default=false, $scope='this')
-  if $scope == 'any'
-    / [data-r-scheme={$scheme}]
-      {block}
-    / [r-scheme={$scheme}]
-      {block}
-
-    if $default == true
-      / *
-        {block}
-  else if $scope == 'this'
-    &[data-r-scheme={$scheme}]
-      {block}
-    &[r-scheme={$scheme}]
-      {block}
-
-    if $default == true
-      {block}
-  else if $scope == 'parent'
-    [data-r-scheme={$scheme}] &
-      {block}
-    [r-scheme={$scheme}] &
-      {block}
-
-    if $default == true
-      {block}
-  else if $scope == 'child'
-    &[data-r-scheme={$scheme}] *
-      {block}
-    &[r-scheme={$scheme}] *
-      {block}
-
-    if $default == true
-      & *
-        {block}

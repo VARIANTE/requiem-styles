@@ -23,7 +23,7 @@ screen-landscape()
 /**
  * Media query for screens at a specified minimum width.
  *
- * @param {Number} $minWidth
+ * @param {number} $minWidth
  */
 screen-min-width($minWidth)
   @media only screen and (min-width: unit($minWidth, px))
@@ -32,7 +32,7 @@ screen-min-width($minWidth)
 /**
  * Media query for screens at a specified maximum width.
  *
- * @param {Number} $maxWidth
+ * @param {number} $maxWidth
  */
 screen-max-width($maxWidth)
   @media only screen and (max-width: unit($maxWidth, px))
@@ -41,7 +41,7 @@ screen-max-width($maxWidth)
 /**
  * Media query for screens at a specified minimum height.
  *
- * @param {Number} $minHeight
+ * @param {number} $minHeight
  */
 screen-min-height($minHeight)
   @media only screen and (min-height: unit($minHeight, px))
@@ -50,7 +50,7 @@ screen-min-height($minHeight)
 /**
  * Media query for screens at a specified maximum height.
  *
- * @param {Number} $maxHeight
+ * @param {number} $maxHeight
  */
 screen-max-height($maxHeight)
   @media only screen and (max-height: unit($maxHeight, px))
@@ -60,18 +60,18 @@ screen-max-height($maxHeight)
  * Media query for the minimum width/height threshold of the specified screen
  * type.
  *
- * @param {String}  $screen       Screen type (i.e. mobile, phablet, tablet,
+ * @param {string}  $screen       Screen type (i.e. mobile, phablet, tablet,
  *                                desktop).
- * @param {Boolean} $exclusive    Specifies whether the media queries should be
+ * @param {boolean} $exclusive    Specifies whether the media queries should be
  *                                exclusive to this screen type. If false, the
  *                                generated media query will use the minimum
  *                                threshold of the selected screen type. If
  *                                true, the generated media query will be
  *                                bounded by the minimum and the maximum
  *                                thresholds.
- * @param {Boolean} $invert       Inverts the generated media query.
- * @param {String}  $measurement  Specifies width or height measurement.
- * @param {Boolean} $touch        Specifues whether the condition is only valid
+ * @param {boolean} $invert       Inverts the generated media query.
+ * @param {string}  $measurement  Specifies width or height measurement.
+ * @param {boolean} $touch        Specifues whether the condition is only valid
  *                                for touch devices(requires Modernizr feature
  *                                detection), namely the '.touch' class. If
  *                                false (default), it does NOT use the
@@ -123,11 +123,11 @@ screen($screen, $exclusive=false, $invert=false, $measurement='width', $touch=fa
  * Sets the background-size and background-position of a target element which is
  * using an image map to the corresponding item in the map.
  *
- * @param {String} $path       Path of sprite map.
- * @param {Number} $row-index  0-based index of the row of the target item.
- * @param {Number} $col-index  0-based index of the column of the target item.
- * @param {Number} $num-rows   Total number of rows in the image map.
- * @param {Number} $num-cols   Total number of columns in the image map.
+ * @param {string} $path       Path of sprite map.
+ * @param {number} $row-index  0-based index of the row of the target item.
+ * @param {number} $col-index  0-based index of the column of the target item.
+ * @param {number} $num-rows   Total number of rows in the image map.
+ * @param {number} $num-cols   Total number of columns in the image map.
  */
 image-map-item($path, $row-index, $col-index, $num-rows, $num-cols)
   if $path != null
@@ -148,7 +148,7 @@ image-map-item($path, $row-index, $col-index, $num-rows, $num-cols)
  * Auto generates a list of class names of the target selector, where each
  * class represents a sprite as provided by the sprite map.
  *
- * @param {String} $path  Path of sprite map.
+ * @param {string} $path  Path of sprite map.
  * @param {List}   $map   List (1D or 2D) of class names. The position of each
  *                        list item directly corresponds to the sprite position
  *                        on the sprite map.
