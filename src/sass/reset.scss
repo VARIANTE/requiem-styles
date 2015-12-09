@@ -44,14 +44,14 @@ body {
   width: 100%;
 }
 
-@include boxes {
+@include boxes() {
   @extend %box-reset;
   @extend %text-reset;
   display: block;
   position: relative;
 }
 
-@include buttons {
+@include buttons() {
   @extend %box-reset;
   @extend %text-reset;
   cursor: pointer;
@@ -66,17 +66,17 @@ body {
   }
 }
 
-@include labels {
+@include labels() {
   @extend %box-reset;
   @extend %text-reset;
 }
 
-@include lists {
+@include lists() {
   @extend %box-reset;
   @extend %text-reset;
 }
 
-@include textfields {
+@include textfields() {
   @extend %box-reset;
   @extend %text-reset;
   resize: none;
@@ -92,7 +92,7 @@ body {
   }
 }
 
-@include statics {
+@include statics() {
   @extend %box-reset;
   @extend %text-reset;
   position: static;
