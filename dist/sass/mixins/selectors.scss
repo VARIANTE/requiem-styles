@@ -37,14 +37,14 @@
 //
 // Selector for static elements.
 //
-@mixin statics {
+@mixin statics() {
   form { @content; }
 }
 
 //
 // Selector for button elements.
 //
-@mixin buttons {
+@mixin buttons() {
   a[type='button']       { @content; }
   input[type='submit']   { @content; }
   input[type='button']   { @content; }
@@ -54,9 +54,16 @@
 }
 
 //
+// Selector for hyperlinks.
+//
+@mixin links() {
+  a:not([type='button']) { @content; }
+}
+
+//
 // Selector for textfield input elements.
 //
-@mixin textfields {
+@mixin textfields() {
   input[type='text']           { @content; }
   input[type='password']       { @content; }
   input[type='number']         { @content; }
@@ -76,7 +83,7 @@
 //
 // Selector for box elements.
 //
-@mixin boxes {
+@mixin boxes() {
   article    { @content; }
   aside      { @content; }
   details    { @content; }
@@ -104,7 +111,7 @@
 //
 // Selector for list elements.
 //
-@mixin lists {
+@mixin lists() {
   ul { @content; }
   ol { @content; }
 }

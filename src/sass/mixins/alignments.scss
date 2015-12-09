@@ -9,7 +9,7 @@
 //
 // Clearfix hack for floated elements.
 //
-@mixin clearfix {
+@mixin clearfix() {
   *zoom: 1;
 
   &:before {

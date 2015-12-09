@@ -54,6 +54,13 @@
 }
 
 //
+// Selector for hyperlinks.
+//
+.links(@rules) {
+  a:not([type='button']) { @rules(); }
+}
+
+//
 // Selector for textfield input elements.
 //
 .textfields(@rules) {

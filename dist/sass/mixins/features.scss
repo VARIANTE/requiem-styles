@@ -71,7 +71,7 @@
 //
 // Enables hardware acceleration for containing selector.
 //
-@mixin hardware-acceleration {
+@mixin hardware-acceleration() {
   transform: translateZ(0);
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
