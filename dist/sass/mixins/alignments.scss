@@ -350,6 +350,20 @@
 }
 
 //
+// Hides the target selector.
+//
+@mixin hidden() {
+  display: none !important;
+}
+
+//
+// Makes the target selector invisible.
+//
+@mixin invisible() {
+  visibility: hidden !important;
+}
+
+//
 // Fits dimension to parent container.
 //
 // @param {boolean} $w  Specifies whether to fit the width.
