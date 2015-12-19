@@ -78,3 +78,15 @@
   backface-visibility: hidden;
   perspective: 1000;
 }
+
+//
+// Enables/disables pointer events for target selector and all child selectors.
+//
+@mixin pointable($enabled:true) {
+  @if $enabled == true {
+    &, * { pointer-events: initial !important; }
+  }
+  @else {
+    &, * { pointer-events: none !important; }
+  }
+}

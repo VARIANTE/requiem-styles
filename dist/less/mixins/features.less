@@ -81,3 +81,16 @@
   backface-visibility: hidden;
   perspective: 1000;
 }
+
+//
+// Enables/disables pointer events for target selector and all child selectors.
+//
+.pointable(@enabled:true) {
+  & when (@enabled = true) {
+    &, * { pointer-events: initial !important; }
+  }
+
+  & when not (@enabled = true) {
+    &, * { pointer-events: none !important; }
+  }
+}
