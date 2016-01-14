@@ -131,7 +131,10 @@ var tasks = {
         module: {
           loaders: [{
             test: path.join(paths.play, 'src', 'javascripts'),
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            query: {
+              presets: ['es2015']
+            }
           }]
         },
         resolve: {

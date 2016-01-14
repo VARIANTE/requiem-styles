@@ -1,7 +1,7 @@
 
 @import 'requiem';
 
-@include controller('Playground') {
+@include class('Playground') {
   @include auto-fit();
   @include property('foo', 'bar') {
     background-color: #ff0;
