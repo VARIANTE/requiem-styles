@@ -4,7 +4,7 @@
   "description": "An experimental stylesheet library.",
   "homepage": "http://variante.io",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "main": "dist/requiem.scss",
   "authors": [
     "Andrew Wei <andrew@variante.io>"
