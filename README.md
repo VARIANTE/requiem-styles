@@ -4,6 +4,12 @@ Requiem-Styles is VARIANTE's on-going pet project for experimenting with web UI 
 
 Requiem-Styles is packaged with many handy mixins and functions to accomodate efficient styling. It pairs well with [Requiem](https://github.com/VARIANTE/requiem).
 
+# Usage
+
+```
+$ npm install requiem-styles
+```
+
 # API
 
 Documentation is not available. Again this is an experimental project and is not meant for public/production use.

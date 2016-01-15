@@ -1,10 +1,9 @@
 {
   "name": "requiem-styles",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "An experimental stylesheet library.",
   "homepage": "http://variante.io",
   "license": "MIT",
-  "private": true,
   "main": "dist/requiem.scss",
   "authors": [
     "Andrew Wei <andrew@variante.io>"
@@ -32,9 +31,8 @@
     "gulp-stylus": "^2.2.0",
     "gulp-util": "^3.0.7",
     "merge-stream": "^1.0.0",
-    "requiem": "git+https://github.com/VARIANTE/requiem.git",
+    "requiem": "^0.28.0",
     "run-sequence": "^1.1.5",
-    "vars": "git+https://github.com/VARIANTE/vars.js.git",
     "webpack": "^1.12.11"
   }
 }
