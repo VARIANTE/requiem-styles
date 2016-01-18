@@ -35,6 +35,49 @@
 }
 
 //
+// Selects labels with the given instance name.
+//
+// @param {string} @instance:''  Instance name.
+//
+.label(@instance:'', @rules) {
+  .labels(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects labels with the given class(es).
+//
+// @param {string} @class:''  Class(es).
+//
+.label-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .labels(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects labels with the given ID.
+//
+// @param {string} @id:''  ID.
+//
+.label-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .labels(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
+}
+
+//
 // Selector for static elements.
 //
 .statics(@rules) {
@@ -51,6 +94,49 @@
   input[type='checkbox'] { @rules(); }
   input[type='file']     { @rules(); }
   button                 { @rules(); }
+}
+
+//
+// Selects buttons with the given instance name.
+//
+// @param {string} @instance:''  Instance name.
+//
+.button(@instance:'', @rules) {
+  .buttons(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects buttons with the given class(es).
+//
+// @param {string} @class:''  Class(es).
+//
+.button-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .buttons(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects buttons with the given ID.
+//
+// @param {string} @id:''  ID.
+//
+.button-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .buttons(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
 }
 
 //
@@ -78,6 +164,49 @@
   input[type='tel']            { @rules(); }
   input[type='url']            { @rules(); }
   textarea                     { @rules(); }
+}
+
+//
+// Selects textfields with the given instance name.
+//
+// @param {string} @instance:''  Instance name.
+//
+.textfield(@instance:'', @rules) {
+  .textfields(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects textfields with the given class(es).
+//
+// @param {string} @class:''  Class(es).
+//
+.textfield-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .textfields(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects textfields with the given ID.
+//
+// @param {string} @id:''  ID.
+//
+.textfield-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .textfields(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
 }
 
 //

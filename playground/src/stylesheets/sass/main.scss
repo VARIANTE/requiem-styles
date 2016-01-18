@@ -1,17 +1,6 @@
 
 @import 'requiem';
 
-@include class('Playground') {
+main {
   @include auto-fit();
-  @include property('foo', 'bar') {
-    background-color: #ff0;
-  }
-
-  .foo {
-    @include flex-block();
-    width: 100px;
-    height: 30px;
-    background-color: #000;
-    color: #fff;
-  }
 }

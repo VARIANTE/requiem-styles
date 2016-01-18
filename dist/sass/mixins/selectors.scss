@@ -35,6 +35,54 @@
 }
 
 //
+// Selects labels with the given instance name.
+//
+// @param {string} $instance:''  Instance name.
+//
+@mixin label($instance:'') {
+  @if ($instance == '') { @warn 'Instance name must be specified'; }
+  @else {
+    @include labels() {
+      &[data-instance='#{$instance}'] {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// Selects labels with the given class(es).
+//
+// @param {string} $class:''  Class(es).
+//
+@mixin label-class($class:'') {
+  @if ($class == '') { @warn 'Class must be specified'; }
+  @else {
+    @include labels() {
+      &.#{$class} {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// Selects labels with the given ID.
+//
+// @param {string} $id:''  ID.
+//
+@mixin label-id($id:'') {
+  @if ($id == '') { @warn 'ID must be specified'; }
+  @else {
+    @include labels() {
+      &##{$id} {
+        @content;
+      }
+    }
+  }
+}
+
+//
 // Selector for static elements.
 //
 @mixin statics() {
@@ -51,6 +99,54 @@
   input[type='checkbox'] { @content; }
   input[type='file']     { @content; }
   button                 { @content; }
+}
+
+//
+// Selects buttons with the given instance name.
+//
+// @param {string} $instance:''  Instance name.
+//
+@mixin button($instance:'') {
+  @if ($instance == '') { @warn 'Instance name must be specified'; }
+  @else {
+    @include buttons() {
+      &[data-instance='#{$instance}'] {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// Selects buttons with the given class(es).
+//
+// @param {string} $class:''  Class(es).
+//
+@mixin button-class($class:'') {
+  @if ($class == '') { @warn 'Class must be specified'; }
+  @else {
+    @include buttons() {
+      &.#{$class} {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// Selects buttons with the given ID.
+//
+// @param {string} $id:''  ID.
+//
+@mixin button-id($id:'') {
+  @if ($id == '') { @warn 'ID must be specified'; }
+  @else {
+    @include buttons() {
+      &##{$id} {
+        @content;
+      }
+    }
+  }
 }
 
 //
@@ -78,6 +174,54 @@
   input[type='tel']            { @content; }
   input[type='url']            { @content; }
   textarea                     { @content; }
+}
+
+//
+// Selects textfields with the given instance name.
+//
+// @param {string} $instance:''  Instance name.
+//
+@mixin textfield($instance:'') {
+  @if ($instance == '') { @warn 'Instance name must be specified'; }
+  @else {
+    @include textfields() {
+      &[data-instance='#{$instance}'] {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// Selects textfields with the given class(es).
+//
+// @param {string} $class:''  Class(es).
+//
+@mixin textfield-class($class:'') {
+  @if ($class == '') { @warn 'Class must be specified'; }
+  @else {
+    @include textfields() {
+      &.#{$class} {
+        @content;
+      }
+    }
+  }
+}
+
+//
+// Selects textfields with the given ID.
+//
+// @param {string} $id:''  ID.
+//
+@mixin textfield-id($id:'') {
+  @if ($id == '') { @warn 'ID must be specified'; }
+  @else {
+    @include textfields() {
+      &##{$id} {
+        @content;
+      }
+    }
+  }
 }
 
 //

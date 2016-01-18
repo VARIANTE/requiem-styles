@@ -44,6 +44,45 @@ labels($type='all')
       {block}
 
 /**
+ * Selects labels with the given instance name.
+ *
+ * @param {string} $instance:''  Instance name.
+ */
+label($instance='')
+  if $instance == ''
+    error('Instance name must be specified')
+  else
+    +labels()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects labels with the given class(es).
+ *
+ * @param {string} $class:''  Class(es).
+ */
+label-class($class='')
+  if $class == ''
+    error('Class must be specified')
+  else
+    +labels()
+      &.{$class}
+        {block}
+
+/**
+ * Selects labels with the given ID.
+ *
+ * @param {string} $id:''  ID.
+ */
+label-id($id='')
+  if $id == ''
+    error('ID must be specified')
+  else
+    +labels()
+      &#{$id}
+        {block}
+
+/**
  * Selector for static elements.
  */
 statics()
@@ -66,6 +105,45 @@ buttons()
     {block}
   button
     {block}
+
+/**
+ * Selects buttons with the given instance name.
+ *
+ * @param {string} $instance:''  Instance name.
+ */
+button($instance='')
+  if $instance == ''
+    error('Instance name must be specified')
+  else
+    +buttons()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects buttons with the given class(es).
+ *
+ * @param {string} $class:''  Class(es).
+ */
+button-class($class='')
+  if $class == ''
+    error('Class must be specified')
+  else
+    +buttons()
+      &.{$class}
+        {block}
+
+/**
+ * Selects buttons with the given ID.
+ *
+ * @param {string} $id:''  ID.
+ */
+button-id($id='')
+  if $id == ''
+    error('ID must be specified')
+  else
+    +buttons()
+      &#{$id}
+        {block}
 
 /**
  * Selector for hyperlinks.
@@ -106,6 +184,45 @@ textfields()
     {block}
   textarea
     {block}
+
+/**
+ * Selects textfields with the given instance name.
+ *
+ * @param {string} $instance:''  Instance name.
+ */
+textfield($instance='')
+  if $instance == ''
+    error('Instance name must be specified')
+  else
+    +textfields()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects textfields with the given class(es).
+ *
+ * @param {string} $class:''  Class(es).
+ */
+textfield-class($class='')
+  if $class == ''
+    error('Class must be specified')
+  else
+    +textfields()
+      &.{$class}
+        {block}
+
+/**
+ * Selects textfields with the given ID.
+ *
+ * @param {string} $id:''  ID.
+ */
+textfield-id($id='')
+  if $id == ''
+    error('ID must be specified')
+  else
+    +textfields()
+      &#{$id}
+        {block}
 
 /**
  * Selector for box elements.
