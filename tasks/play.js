@@ -8,37 +8,35 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-var autoprefixer = require('autoprefixer');
-var browserSync = require('browser-sync');
-var config = require('./.taskconfig');
-var del = require('del');
-var gulp = require('gulp');
-var merge = require('merge-stream');
-var path = require('path');
-var sequence = require('run-sequence');
-var webpack = require('webpack');
-var $jade = require('gulp-jade');
-var $postcss = require('gulp-postcss');
-var $sass = require('gulp-sass');
-var $less = require('gulp-less');
-var $size = require('gulp-size');
-var $sourcemaps = require('gulp-sourcemaps');
-var $stylus = require('gulp-stylus');
-var $util = require('gulp-util');
+import autoprefixer from 'autoprefixer';
+import browserSync from 'browser-sync';
+import config from './.taskconfig';
+import del from 'del';
+import gulp from 'gulp';
+import merge from 'merge-stream';
+import path from 'path';
+import sequence from 'run-sequence';
+import webpack from 'webpack';
+import $jade from 'gulp-jade';
+import $postcss from 'gulp-postcss';
+import $sass from 'gulp-sass';
+import $less from 'gulp-less';
+import $size from 'gulp-size';
+import $sourcemaps from 'gulp-sourcemaps';
+import $stylus from 'gulp-stylus';
+import $util from 'gulp-util';
 
 /**
  * Cleans built files in the playground.
  */
-gulp.task('clean:play', function(done) {
-  del(config.tasks.play.clean.input).then(function(paths) {
-    done();
-  });
+gulp.task('clean:play', (done) => {
+  del(config.tasks.play.clean.input).then((paths) => done());
 });
 
 /**
  * Compiles CSS stylesheets for the playground.
  */
-gulp.task('styles:css:play', function() {
+gulp.task('styles:css:play', () => {
   return merge(
     gulp.src(path.join(config.tasks.build.css.ugly.output, config.tasks.build.css.ugly.outputFile))
       .pipe(gulp.dest(config.tasks.play.styles.css.output)),
@@ -51,11 +49,11 @@ gulp.task('styles:css:play', function() {
 /**
  * Compiles Sass stylesheets for the playground.
  */
-gulp.task('styles:sass:play', function() {
+gulp.task('styles:sass:play', () => {
   return gulp.src(config.tasks.play.styles.sass.input)
     .pipe($sourcemaps.init())
     .pipe($sass(config.tasks.play.styles.sass.options)
-    .on('error', function(err) {
+    .on('error', (err) => {
       $util.log($util.colors.magenta('[sass] ') + $util.colors.red(err.message));
       this.emit('end');
     }))
@@ -67,11 +65,11 @@ gulp.task('styles:sass:play', function() {
 /**
  * Compiles LESS stylesheets for the playground.
  */
-gulp.task('styles:less:play', function() {
+gulp.task('styles:less:play', () => {
   return gulp.src(config.tasks.play.styles.less.input)
     .pipe($sourcemaps.init())
     .pipe($less(config.tasks.play.styles.less.options)
-    .on('error', function(err) {
+    .on('error', (err) => {
       $util.log($util.colors.magenta('[less] ') + $util.colors.red(err.message));
       this.emit('end');
     }))
@@ -83,11 +81,11 @@ gulp.task('styles:less:play', function() {
 /**
  * Compiles Stylus stylesheets for the playground.
  */
-gulp.task('styles:stylus:play', function() {
+gulp.task('styles:stylus:play', () => {
   return gulp.src(config.tasks.play.styles.stylus.input)
     .pipe($sourcemaps.init())
     .pipe($stylus(config.tasks.play.styles.stylus.options)
-    .on('error', function(err) {
+    .on('error', (err) => {
       $util.log($util.colors.magenta('[stylus] ') + $util.colors.red(err.message));
       this.emit('end');
     }))
@@ -102,24 +100,20 @@ gulp.task('styles:stylus:play', function() {
  *
  * @param {boolean} --watch
  */
-gulp.task('scripts:play', function(done) {
+gulp.task('scripts:play', (done) => {
   var watchGuard = false;
 
-  if (config.env.watch) {
+  if (config.env.watch)
     webpack(config.tasks.play.scripts.webpack).watch(100, build(done));
-  }
-  else {
+  else
     webpack(config.tasks.play.scripts.webpack).run(build(done));
-  }
 
   function build(cb) {
-    return function(err, stats) {
-      if (err) {
+    return (err, stats) => {
+      if (err)
         throw new $util.PluginError('webpack', err);
-      }
-      else {
+      else
         $util.log($util.colors.blue('[webpack]'), stats.toString());
-      }
 
       if (!watchGuard && cb) {
         watchGuard = true;
@@ -132,7 +126,7 @@ gulp.task('scripts:play', function(done) {
 /**
  * Compiles templates for the playground.
  */
-gulp.task('templates:play', function() {
+gulp.task('templates:play', () => {
   return gulp.src(config.tasks.play.templates.input)
     .pipe($jade(config.tasks.play.templates.jade))
     .pipe(gulp.dest(config.tasks.play.templates.output));
@@ -144,7 +138,7 @@ gulp.task('templates:play', function() {
  * @param {number}  --port
  * @param {boolean} --watch
  */
-gulp.task('serve:play', function() {
+gulp.task('serve:play', () => {
   browserSync(config.tasks.play.serve.browserSync);
 
   // Watch for changes.
@@ -166,7 +160,7 @@ gulp.task('serve:play', function() {
  * @param {boolean} --watch
  * @param {boolean} --serve
  */
-gulp.task('play:css', function(done) {
+gulp.task('play:css', (done) => {
   config.env.clean = true;
 
   var seq = ['build', 'clean:play', ['styles:css:play', 'scripts:play', 'templates:play']];
@@ -184,7 +178,7 @@ gulp.task('play:css', function(done) {
  * @param {boolean} --watch
  * @param {boolean} --serve
  */
-gulp.task('play:sass', function(done) {
+gulp.task('play:sass', (done) => {
   config.env.clean = true;
 
   var seq = ['build', 'clean:play', ['styles:sass:play', 'scripts:play', 'templates:play']];
@@ -202,7 +196,7 @@ gulp.task('play:sass', function(done) {
  * @param {boolean} --watch
  * @param {boolean} --serve
  */
-gulp.task('play:less', function(done) {
+gulp.task('play:less', (done) => {
   config.env.clean = true;
 
   var seq = ['build', 'clean:play', ['styles:less:play', 'scripts:play', 'templates:play']];
@@ -220,7 +214,7 @@ gulp.task('play:less', function(done) {
  * @param {boolean} --watch
  * @param {boolean} --serve
  */
-gulp.task('play:stylus', function(done) {
+gulp.task('play:stylus', (done) => {
   config.env.clean = true;
 
   var seq = ['build', 'clean:play', ['styles:stylus:play', 'scripts:play', 'templates:play']];

@@ -8,34 +8,32 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-var autoprefixer = require('autoprefixer');
-var config = require('./.taskconfig');
-var del = require('del');
-var gulp = require('gulp');
-var merge = require('merge-stream');
-var sequence = require('run-sequence');
-var $csso = require('gulp-csso');
-var $less = require('gulp-less');
-var $postcss = require('gulp-postcss');
-var $rename = require('gulp-rename');
-var $sass = require('gulp-sass');
-var $size = require('gulp-size');
-var $sourcemaps = require('gulp-sourcemaps');
-var $stylus = require('gulp-stylus');
+import autoprefixer from 'autoprefixer';
+import config from './.taskconfig';
+import del from 'del';
+import gulp from 'gulp';
+import merge from 'merge-stream';
+import sequence from 'run-sequence';
+import $csso from 'gulp-csso';
+import $less from 'gulp-less';
+import $postcss from 'gulp-postcss';
+import $rename from 'gulp-rename';
+import $sass from 'gulp-sass';
+import $size from 'gulp-size';
+import $sourcemaps from 'gulp-sourcemaps';
+import $stylus from 'gulp-stylus';
 
 /**
  * Cleans the build directory.
  */
-gulp.task('clean', function(done) {
-  del(config.tasks.clean.input).then(function(paths) {
-    done();
-  });
+gulp.task('clean', (done) => {
+  del(config.tasks.clean.input).then((paths) => done());
 });
 
 /**
  * Builds the CSS library.
  */
-gulp.task('build:css', function() {
+gulp.task('build:css', () => {
   return merge(
     // Compile Sass to CSS.
     gulp.src(config.tasks.build.css.pretty.input)
@@ -70,7 +68,7 @@ gulp.task('build:css', function() {
 /**
  * Builds the Sass library.
  */
-gulp.task('build:sass', function() {
+gulp.task('build:sass', () => {
   return gulp.src(config.tasks.build.sass.input)
     .pipe($size({
       title: '[build:sass]',
@@ -82,7 +80,7 @@ gulp.task('build:sass', function() {
 /**
  * Builds the LESS library.
  */
-gulp.task('build:less', function() {
+gulp.task('build:less', () => {
   return gulp.src(config.tasks.build.less.input)
     .pipe($size({
       title: '[build:less]',
@@ -94,7 +92,7 @@ gulp.task('build:less', function() {
 /**
  * Builds the Stylus library.
  */
-gulp.task('build:stylus', function() {
+gulp.task('build:stylus', () => {
   return gulp.src(config.tasks.build.stylus.input)
     .pipe($size({
       title: '[build:stylus]',
@@ -110,17 +108,17 @@ gulp.task('build:stylus', function() {
  * 3. LESS library
  * 4. Stylus library
  */
-gulp.task('build', function(done) {
-  var seq = [['build:css', 'build:sass', 'build:less', 'build:stylus']];
+gulp.task('build', (done) => {
+  let seq = [['build:css', 'build:sass', 'build:less', 'build:stylus']];
 
   if (config.env.clean) {
     seq.unshift('clean');
   }
 
-  seq.push(function() {
+  seq.push(() => {
     if (config.env.watch) {
-      for (var i = 0; i < config.tasks.watch.build.length; i++) {
-        var entry = config.tasks.watch.build[i];
+      for (let i = 0; i < config.tasks.watch.build.length; i++) {
+        let entry = config.tasks.watch.build[i];
         gulp.watch(entry.files, entry.tasks);
       }
     }

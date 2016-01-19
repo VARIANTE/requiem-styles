@@ -1,8 +1,8 @@
 {
   "name": "requiem-styles",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "An experimental stylesheet library.",
-  "homepage": "http://variante.io",
+  "homepage": "https://github.com/VARIANTE/requiem-styles",
   "license": "MIT",
   "main": "dist/requiem.scss",
   "authors": [
@@ -33,6 +33,7 @@
     "merge-stream": "^1.0.0",
     "requiem": "^0.28.0",
     "run-sequence": "^1.1.5",
+    "sassdoc": "^2.1.19",
     "webpack": "^1.12.11"
   }
 }

@@ -12,6 +12,9 @@ $font-size-reset: 16px !default;
 // Default global font scale, override this if needed.
 $font-size-scale: 100% !default;
 
+/// Property reset for box elements.
+///
+/// @group general
 %box-reset {
   margin: 0;
   padding: 0;
@@ -20,6 +23,9 @@ $font-size-scale: 100% !default;
   outline: none;
 }
 
+/// Property reset for text elements.
+///
+/// @group general
 %text-reset {
   font-weight: normal;
   text-decoration: none;

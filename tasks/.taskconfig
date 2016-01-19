@@ -8,24 +8,25 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-var path = require('path');
-var $util = require('gulp-util');
+import path from 'path';
+import $util from 'gulp-util';
 
-var env = {
+let env = {
   clean: $util.env['clean'] || $util.env['c'],
   port: $util.env['port'] || $util.env['p'],
   serve: $util.env['serve'] || $util.env['s'],
   watch: $util.env['watch'] || $util.env['w']
 };
 
-var paths = {
+let paths = {
   src: path.join(__dirname, '../', 'src'),
   dist: path.join(__dirname, '../', 'dist'),
   play: path.join(__dirname, '../', 'playground'),
+  docs: path.join(__dirname, '../', 'docs'),
   modules: path.join(__dirname, '../', 'node_modules')
 };
 
-var tasks = {
+let tasks = {
   clean: {
     input: paths.dist
   },
@@ -209,10 +210,17 @@ var tasks = {
       files: path.join(paths.play, 'src', '**', '*.jade'),
       tasks: ['templates:play']
     }]
+  },
+  docs: {
+    clean: {
+      input: paths.docs
+    },
+    input: path.join(paths.src, 'sass'),
+    output: paths.docs
   }
 };
 
-module.exports = {
+export default {
   env: env,
   paths: paths,
   tasks: tasks
