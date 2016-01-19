@@ -12,6 +12,7 @@ import config from './.taskconfig';
 import del from 'del';
 import gulp from 'gulp';
 import path from 'path';
+import $pages from 'gulp-gh-pages';
 import { spawn } from 'child_process';
 
 /**
@@ -34,4 +35,12 @@ gulp.task('docs', ['clean:docs'], (done) => {
   });
 
   proc.on('exit', done);
+});
+
+/**
+ * Deploy to GitHub pages.
+ */
+gulp.task('deploy:docs', ['docs'], () => {
+  return gulp.src(path.join(config.paths.docs, '**', '*'))
+    .pipe($pages());
 });
