@@ -12,7 +12,7 @@ $ npm install requiem-styles
 
 # API
 
-Documentation is not available. Again this is an experimental project and is not meant for public/production use.
+Documentation is available [here](http://VARIANTE.github.io/requiem-styles).
 
 ## License
 
