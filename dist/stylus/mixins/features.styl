@@ -9,16 +9,16 @@
 /**
  * Applies font related rules.
  *
- * @param {List}   $font-family   - Font family.
- * @param {*}      [$font-size]   - Font size.
- * @param {number} [$font-weight] - Font weight.
+ * @param {List}   $family   - Font family.
+ * @param {*}      [$size]   - Font size.
+ * @param {number} [$weight] - Font weight.
  */
-font($font-family, $font-size=null, $font-weight=null)
+font($family, $size=null, $weight=null)
   font-family: comma-list($font-family)
-  if $font-size != null
-    font-size: $font-size
-  if $font-weight != null
-    font-weight: $font-weight
+  if $size != null
+    font-size: $size
+  if $weight != null
+    font-weight: $weight
 
 /**
  * Binds the content to the target selector based on the 'csstransitions'
