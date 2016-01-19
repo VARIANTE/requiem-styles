@@ -6,7 +6,10 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+// Default global font size, override this if needed.
 $font-size-reset = 16px
+
+// Default global font scale, override this if needed.
 $font-size-scale = 100%
 
 box-reset()
@@ -26,6 +29,24 @@ text-reset()
   -moz-osx-font-smoothing: grayscale
   text-rendering: optimizeLegibility
   text-size-adjust: 100%
+
+comma-list(list)
+  o = null
+  for item in list
+    if o == null
+      o = item
+    else
+      o = o, item
+  return o
+
+exp-list(list)
+  o = null
+  for item in list
+    if o == null
+      o = item
+    else
+      o = o item
+  return o
 
 html
   box-reset()
@@ -172,9 +193,9 @@ select
   text-transform: none
 
 button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"]
+html input[type='button'],
+input[type='reset'],
+input[type='submit']
   -webkit-appearance: button
   cursor: pointer
 
@@ -190,22 +211,22 @@ input::-moz-focus-inner
 input
   line-height: normal
 
-input[type="checkbox"],
-input[type="radio"]
+input[type='checkbox'],
+input[type='radio']
   box-sizing: border-box
   padding: 0
 
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button
   height: auto
 
-input[type="search"]
+input[type='search']
   -webkit-appearance: textfield
   box-sizing: content-box
 
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration
   -webkit-appearance: none
 
 fieldset

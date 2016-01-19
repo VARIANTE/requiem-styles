@@ -48,23 +48,28 @@
 // Media query for the minimum width/height threshold of the specified screen
 // type.
 //
-// @param {string}  @screen       Screen type (i.e. mobile, phablet, tablet,
-//                                desktop).
-// @param {boolean} @exclusive    Specifies whether the media queries should be
-//                                exclusive to this screen type. If false, the
-//                                generated media query will use the minimum
-//                                threshold of the selected screen type. If
-//                                true, the generated media query will be
-//                                bounded by the minimum and the maximum
-//                                thresholds.
-// @param {boolean} @invert       Inverts the generated media query.
-// @param {string}  @measurement  Specifies width or height measurement.
-// @param {boolean} @touch        Specifues whether the condition is only valid
-//                                for touch devices(requires Modernizr feature
-//                                detection), namely the '.touch' class. If
-//                                false (default), it does NOT use the
-//                                '.no-touch' class, but instead applies content
-//                                normally.
+// @param {string}  @screen              - Screen type (i.e. mobile, phablet,
+//                                         tablet, desktop).
+// @param {boolean} [@exclusive=false]   - Specifies whether the media queries
+//                                         should be exclusive to this screen
+//                                         type. If false, the generated media
+//                                         query will use the minimum threshold
+//                                         of the selected screen type, meaning
+//                                         that bigger screen types will apply.
+//                                         If true, the generated media query
+//                                         will be bounded by the minimum and
+//                                         the maximum thresholds, inclusive.
+// @param {boolean} [@invert=false]      - Inverts the generated media query.
+// @param {string}  [@measurement=width] - Specifies width or height
+//                                         measurement to be used for the media
+//                                         queries.
+// @param {boolean} [@touch=false]       - Specifues whether the condition is
+//                                         only valid for touch devices
+//                                         (requires Modernizr feature
+//                                         detection), namely the '.touch'
+//                                         class. If false (default), it does
+//                                         NOT use the '.no-touch' class, but
+//                                         instead applies content normally.
 //
 .screen(@screen, @exclusive:false, @invert:false, @measurement:'width', @touch:false, @rules) {
   & when (@screen = mobile) {
@@ -84,7 +89,7 @@
 
   & when (@screen = desktop) {
     @min-threshold: 1025px;
-    @max-threshold: 10000px; // some ridiculously large arbituary number
+    @max-threshold: 100000px; // some ridiculously large arbituary number
   }
 
   & when not (@min-threshold = '') and not (@max-threshold = '') {
@@ -140,11 +145,11 @@
 // Sets the background-size and background-position of a target element which is
 // using an image map to the corresponding item in the map.
 //
-// @param {string} @path       Path of sprite map.
-// @param {number} @row-index  0-based index of the row of the target item.
-// @param {number} @col-index  0-based index of the column of the target item.
-// @param {number} @num-rows   Total number of rows in the image map.
-// @param {number} @num-cols   Total number of columns in the image map.
+// @param {string} @path      - Path of sprite map.
+// @param {number} @row-index - 0-based index of the row of the target item.
+// @param {number} @col-index - 0-based index of the column of the target item.
+// @param {number} @num-rows  - Total number of rows in the image map.
+// @param {number} @num-cols  - Total number of columns in the image map.
 //
 .image-map-item(@path, @row-index, @col-index, @num-rows, @num-cols) {
   & when not (@path = '') {
@@ -165,10 +170,10 @@
 // Auto generates a list of class names of the target selector, where each
 // class represents a sprite as provided by the sprite map.
 //
-// @param {string} @path  Path of sprite map.
-// @param {List}   @map   List (1D or 2D) of class names. The position of each
-//                        list item directly corresponds to the sprite position
-//                        on the sprite map.
+// @param {string} @path  - Path of sprite map.
+// @param {List}   [@map] - List (1D or 2D) of class names. The position of each
+//                          list item directly corresponds to the sprite
+//                          position on the sprite map.
 //
 // @note This mixin is quite slow in performance due to the nested loop.
 //
@@ -186,25 +191,31 @@
       & when (length(@m) > 1) {
         @max-cols: length(@m);
 
-        .loop(@i: @max-rows) when (@i > 0) {
+        .oloop(@i) when (@i > 0) {
           @row: extract(@map, @i);
 
-          .loop(@j: length(extract(@map, @i))) when (@j > 0) {
+          .iloop(@j) when (@j > 0) {
             @col: extract(@row, @j);
             &.@{col} { .image-map-item(~'', @i - 1, @j - 1, @max-rows, @max-cols); }
-            .loop((@j - 1));
+            .iloop((@j - 1));
           }
 
-          .loop((@i - 1));
+          .iloop(length(extract(@map, @i)));
+
+          .oloop((@i - 1));
         }
+
+        .oloop(@max-rows);
       }
 
       & when (length(@m) = 1) {
-        .loop(@i: @max-rows) when (@i > 0) {
+        .loop(@i) when (@i > 0) {
           @col: extract(@map, @i);
           &.@{col} { .image-map-item(~'', 0, @i - 1, 1, @max-rows); }
           .loop((@i - 1));
         }
+
+        .loop(@max-rows);
       }
     }
   }

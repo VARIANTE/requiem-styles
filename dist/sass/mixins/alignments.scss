@@ -29,13 +29,16 @@
 // child inline-blocks with no fixed width/height requirements. Beware of
 // whitespace between inline elements.
 //
-// @param  {List}   $alignH  Horizontal alignment of child elements (i.e. left,
-//                           center, right). Option to specify left/right
-//                           paddings respectively.
-// @param  {List}   $alignV  Vertical alignment of child elements (i.e. top,
-//                           center, bototm). Option to specify top/bottom
-//                           paddings respectively.
-// @param  {string} $inline  Specifies if this block is an inline block.
+// @param {List}   [$alignH='center'] - Horizontal alignment of child elements
+//                                      (i.e. left, center, right). Option to
+//                                      specify left/right paddings
+//                                      respectively.
+// @param {List}   [$alignV='center'] - Vertical alignment of child elements
+//                                      (i.e. top, center, bototm). Option to
+//                                      specify top/bottom paddings
+//                                      respectively.
+// @param {string} [$inline=false]    - Specifies if this block is an inline
+//                                      block.
 //
 @mixin fluid-block($alignH:'center', $alignV:'center', $inline:false) {
   @if $alignH != null and length($alignH) > 0 {
@@ -78,18 +81,20 @@
 // Transforms containing selector into a flexbox which auto aligns child
 // elements according to the specified params.
 //
-// @param  {List}    $alignH     Horizontal alignment of child elements (i.e.
-//                               left, center, right). Option to specify
-//                               left/right paddings respectively.
-// @param  {List}    $alignV     Vertical alignment of child elements (i.e. top,
-//                               middle, bottom). Option to specify top/bottom
-//                               paddings respectively.
-// @param  {boolean} $direction  Determines the main axis (i.e. row,
-//                               row-reverse, column, column-reverse).
-// @param  {boolean} $wrap       Determines if wrapping is enabled.
-// @param  {string}  $inline     Specifies if this flexbox is inline.
+// @param {List}    [$alignH='center'] - Horizontal alignment of child elements
+//                                       (i.e. left, center, right). Option to
+//                                       specify left/right paddings
+//                                       respectively.
+// @param {List}    [$alignV='center'] - Vertical alignment of child elements
+//                                       (i.e. top, middle, bottom). Option to
+//                                       specify top/bottom paddings
+//                                       respectively.
+// @param {boolean} [$direction=row]   - Determines the main axis (i.e. row,
+//                                       row-reverse, column, column-reverse).
+// @param {boolean} [$wrap=false]      - Determines if wrapping is enabled.
+// @param {string}  [$inline=false]    - Specifies if this flexbox is inline.
 //
-@mixin flex-block($alignH:center, $alignV:center, $direction:row, $wrap:false, $inline:false) {
+@mixin flex-block($alignH:'center', $alignV:'center', $direction:row, $wrap:false, $inline:false) {
   line-height: normal;
   white-space: normal;
 
@@ -161,10 +166,10 @@
 //
 // Aligns containing selector to specified x/y directions in absolute position.
 //
-// @param {List} $alignH  Horizontal alignment (left|center|right, left|right
-//                        offset, right offset).
-// @param {List} $alignV  Vertical alignment (top|center|middle|bottom,
-//                        top|bottom offset, bottom offset).
+// @param {List} [$alignH='left'] - Horizontal alignment (left|center|right,
+//                                  left|right offset, right offset).
+// @param {List} [$alignV='top']  - Vertical alignment (top|center|middle|bottom,
+//                                  top|bottom offset, bottom offset).
 //
 @mixin abs-align($alignH:'left', $alignV:'top') {
   position: absolute;
@@ -219,10 +224,10 @@
 //
 // Aligns containing selector to specified x/y directions in fixed position.
 //
-// @param {List} $alignH  Horizontal alignment (left|center|right, left|right
-//                        offset, right offset).
-// @param {List} $alignV  Vertical alignment (top|center|middle|bottom,
-//                        top|bottom offset, bottom offset).
+// @param {List} [$alignH='left'] - Horizontal alignment (left|center|right,
+//                                  left|right offset, right offset).
+// @param {List} [$alignV='top']  - Vertical alignment (top|center|middle|bottom,
+//                                  top|bottom offset, bottom offset).
 //
 @mixin fixed-align($alignH:'left', $alignV:'top') {
   position: fixed;
@@ -276,8 +281,10 @@
 // Aligns containing inline-block to specified x/y directions in relative
 // position.
 //
-// @param {string} $alignH  Horizontal alignment (i.e. left, center, right).
-// @param {string} $alignV  Vertical alignment (i.e. top, middle, bottom).
+// @param {string} [$alignH='left'] - Horizontal alignment (i.e. left, center,
+//                                    right).
+// @param {string} [$alignV='top']  - Vertical alignment (i.e. top, middle,
+//                                    bottom).
 //
 @mixin inline-align($alignH:'left', $alignV:'top') {
   position: relative;
@@ -293,7 +300,7 @@
 //
 // Transforms target selector into a container for parallax elements.
 //
-// @param {number} $perspective  Tweak this value to adjust perspective.
+// @param {number} [$perspective=1] - Tweak this value to adjust perspective.
 //
 // @see parallax-element
 //
@@ -308,12 +315,12 @@
 // Transforms target selector into a parallax element. The target selector must
 // be a child of a parallax-block.
 //
-// @param {string} $type  Layer type, either 'group' or 'layer'.
-// @param {number} $z     Position in the z-axis.
+// @param {string} [$type='layer'] - Layer type, either 'group' or 'layer'.
+// @param {number} [$z=0]          - Position in the z-axis.
 //
 // @see parallax-block
 //
-@mixin parallax-element($type:layer, $z:0) {
+@mixin parallax-element($type:'layer', $z:0) {
   @if $type == 'group' {
     height: 100vh;
     position: relative;
@@ -327,17 +334,31 @@
 //
 // Sets the diameter of the target selector.
 //
-// @param {number}  $diameter
-// @param {boolean} $oval
+// @param {number|List} $diameter     - Specifies the width and height of the
+//                                      selector. If only 1 value is provided,
+//                                      both width and height will use that
+//                                      value. If 2 values are provided, they
+//                                      will be used for the width and height
+//                                      respectively.
+// @param {boolean}     [$oval=false] - Specifies whether the selector is oval
+//                                      shaped (hence rounded corners
+//                                      corresponding to the shortest side).
 //
 @mixin diameter($diameter, $oval:false) {
-  width: $diameter;
-  height: $diameter;
+  @if (length($diameter) > 1) {
+    width: nth($diameter, 1);
+    height: nth($diameter, 2);
+  }
+  @else {
+    width: $diameter;
+    height: $diameter;
+  }
 
-  @if $oval == true {
-    border-radius: $diameter / 2;
-    overflow: hidden;
-    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  @if ($oval == true) {
+    @include mask();
+
+    $d: if(length($diameter) > 1, min(nth($diameter, 1), nth($diameter, 2)), $diameter);
+    border-radius: $d / 2;
   }
 }
 
@@ -352,29 +373,40 @@
 //
 // Hides the target selector.
 //
-@mixin hidden() {
-  display: none !important;
+// @param {boolean} [$forced=true] - Specifies whether !important is tagged.
+//
+@mixin hidden($forced:true) {
+  @if ($forced == true) {
+    display: none !important;
+  }
+  @else {
+    display: none;
+  }
 }
 
 //
 // Makes the target selector invisible.
 //
-@mixin invisible() {
-  visibility: hidden !important;
+// @param {boolean} [$forced=true] - Specifies whether !important is tagged.
+//
+@mixin invisible($forced:true) {
+  @if ($forced == true) {
+    visibility: hidden !important;
+  }
+  @else {
+    visibility: hidden;
+  }
 }
 
 //
 // Fits dimension to parent container.
 //
-// @param {boolean} $w  Specifies whether to fit the width.
-// @param {boolean} $h  Specifies whether to fit the height.
+// @param {boolean} [$w=true]            - Specifies whether to fit the width.
+// @param {boolean} [$h=true]            - Specifies whether to fit the height.
+// @param {boolean} [$useViewport=false] - Specifies whether measurements are
+//                                         relevant to the viewport.
 //
-@mixin auto-fit($w:true, $h:true) {
-  @if $w == true {
-    width: 100%;
-  }
-
-  @if $h == true {
-    height: 100%;
-  }
+@mixin auto-fit($w:true, $h:true, $useViewport:false) {
+  @if ($w == true) { width: if($useViewport == true, 100vw, 100%); }
+  @if ($h == true) { height: if($useViewport == true, 100vh, 100%); }
 }

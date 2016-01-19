@@ -7,13 +7,27 @@
  */
 
 /**
+ * Applies font related rules.
+ *
+ * @param {List}   $font-family   - Font family.
+ * @param {*}      [$font-size]   - Font size.
+ * @param {number} [$font-weight] - Font weight.
+ */
+font($font-family, $font-size=null, $font-weight=null)
+  font-family: comma-list($font-family)
+  if $font-size != null
+    font-size: $font-size
+  if $font-weight != null
+    font-weight: $font-weight
+
+/**
  * Binds the content to the target selector based on the 'csstransitions'
  * feature (requires Modernizr).
  *
- * @param {boolean} $enabled  Specifies whether 'csstransitions' class is
- *                            required.
+ * @param {boolean} [$enabled=true] - Specifies whether 'csstransitions' class
+ *                                    is required.
  */
-transition($enabled=true)
+transition-detection($enabled=true)
   if $enabled == true and $modernizr-enabled == true
     .csstransitions &
       {block}
@@ -21,13 +35,27 @@ transition($enabled=true)
     {block}
 
 /**
+ * Applies transition rules.
+ *
+ * @param {List} [$properties=all]        - Transition property(ies).
+ * @param {List} [$durations=0s]          - Transition duration(s).
+ * @param {List} [$timing-functions=ease] - Transition timing function(s).
+ * @param {List} [$delays=0s]             - Transition delay(s).
+ */
+transition($properties=all, $durations=0s, $timing-functions=ease, $delays=0s)
+  transition-property: comma-list($properties)
+  transition-duration: comma-list($durations)
+  transition-timing-function: comma-list($timing-functions)
+  transition-delay: comma-list($delays)
+
+/**
  * Binds the content to the target selector based on the 'cssanimations' feature
  * (requires Modernizr).
  *
- * @param {boolean} $enabled  Specifies whether 'cssanimations' class is
- *                            required.
+ * @param {boolean} [$enabled=true] - Specifies whether 'cssanimations' class is
+ *                                    required.
  */
-animation($enabled=true)
+animation-detection($enabled=true)
   if $enabled == true and $modernizr-enabled == true
     .cssanimations &
       {block}
@@ -38,9 +66,10 @@ animation($enabled=true)
  * Binds the content to the target selector based on the 'touch' and 'no-touch'
  * feature (requires Modernizr).
  *
- * @param {boolean} $enabled    Specifies whether 'touch' class is required.
- * @param {boolean} $exclusive  Specifies whether 'no-touch' class is required
- *                              if $enabled is false.
+ * @param {boolean} [$enabled=true]    - Specifies whether 'touch' class is
+ *                                       required.
+ * @param {boolean} [$exclusive=false] - Specifies whether 'no-touch' class is
+ *                                       required if $enabled is false.
  */
 touch($enabled=true, $exclusive=false)
   if $enabled == true and $modernizr-enabled == true
@@ -57,19 +86,46 @@ touch($enabled=true, $exclusive=false)
  * Enables hardware acceleration for containing selector.
  */
 hardware-acceleration()
-  transform: translateZ(0)
   transform: translate3d(0, 0, 0)
-  transform-style: preserve-3d
-  backface-visibility: hidden
-  perspective: 1000
 
-/*
+/**
  * Enables/disables pointer events for target selector and all child selectors.
+ *
+ * @param {boolean} [$enabled=true]   - Specifies whether element should have
+ *                                      pointer events enabled.
+ * @param {boolean} [$recursive=true] - Specifies whether child elements should
+ *                                      also be applied.
+ * @param {boolean} [$forced=true]    - Specifies whether the behavior is tagged
+ *                                      '!important'.
  */
-pointable($enabled=true)
+pointable($enabled=true, $recursive=true, $forced=true)
   if $enabled == true
-    &, *
-      pointer-events: initial !important
+    if $recursive == true
+      if $forced == true
+        &, *
+          pointer-events: initial !important
+      else
+        &, *
+          pointer-events: initial
+    else
+      if $forced == true
+        &
+          pointer-events: initial !important
+      else
+        &
+          pointer-events: initial
   else
-    &, *
-      pointer-events: none !important
+    if $recursive == true
+      if $forced == true
+        &, *
+          pointer-events: none !important
+      else
+        &, *
+          pointer-events: none
+    else
+      if $forced == true
+        &
+          pointer-events: none !important
+      else
+        &
+          pointer-events: none

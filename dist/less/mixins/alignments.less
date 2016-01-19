@@ -29,13 +29,16 @@
 // child inline-blocks with no fixed width/height requirements. Beware of
 // whitespace between inline elements.
 //
-// @param  {List}   @alignH  Horizontal alignment of child elements (i.e. left,
-//                           center, right). Option to specify left/right
-//                           paddings respectively.
-// @param  {List}   @alignV  Vertical alignment of child elements (i.e. top,
-//                           center, bototm). Option to specify top/bottom
-//                           paddings respectively.
-// @param  {string} @inline  Specifies if this block is an inline block.
+// @param {List}   [@alignH='center'] - Horizontal alignment of child elements
+//                                      (i.e. left, center, right). Option to
+//                                      specify left/right paddings
+//                                      respectively.
+// @param {List}   [@alignV='center'] - Vertical alignment of child elements
+//                                      (i.e. top, center, bototm). Option to
+//                                      specify top/bottom paddings
+//                                      respectively.
+// @param {string} [@inline=false]    - Specifies if this block is an inline
+//                                      block.
 //
 .fluid-block(@alignH:'center', @alignV:'center', @inline:false) {
   & when not (@alignH = '') and (length(@alignH) > 0) {
@@ -78,16 +81,18 @@
 // Transforms containing selector into a flexbox which auto aligns child
 // elements according to the specified params.
 //
-// @param  {List}    @alignH     Horizontal alignment of child elements (i.e.
-//                               left, center, right). Option to specify
-//                               left/right paddings respectively.
-// @param  {List}    @alignV     Vertical alignment of child elements (i.e. top,
-//                               middle, bottom). Option to specify top/bottom
-//                               paddings respectively.
-// @param  {boolean} @direction  Determines the main axis (i.e. row,
-//                               row-reverse, column, column-reverse).
-// @param  {boolean} @wrap       Determines if wrapping is enabled.
-// @param  {string}  @inline     Specifies if this flexbox is inline.
+// @param {List}    [@alignH='center'] - Horizontal alignment of child elements
+//                                       (i.e. left, center, right). Option to
+//                                       specify left/right paddings
+//                                       respectively.
+// @param {List}    [@alignV='center'] - Vertical alignment of child elements
+//                                       (i.e. top, middle, bottom). Option to
+//                                       specify top/bottom paddings
+//                                       respectively.
+// @param {boolean} [@direction=row]   - Determines the main axis (i.e. row,
+//                                       row-reverse, column, column-reverse).
+// @param {boolean} [@wrap=false]      - Determines if wrapping is enabled.
+// @param {string}  [@inline=false]    - Specifies if this flexbox is inline.
 //
 .flex-block(@alignH:center, @alignV:center, @direction:row, @wrap:false, @inline:false) {
   & {
@@ -166,10 +171,10 @@
 //
 // Aligns containing selector to specified x/y directions in absolute position.
 //
-// @param {List} @alignH  Horizontal alignment (left|center|right, left|right
-//                        offset, right offset).
-// @param {List} @alignV  Vertical alignment (top|center|middle|bottom,
-//                        top|bottom offset, bottom offset).
+// @param {List} [@alignH='left'] - Horizontal alignment (left|center|right,
+//                                  left|right offset, right offset).
+// @param {List} [@alignV='top']  - Vertical alignment (top|center|middle|bottom,
+//                                  top|bottom offset, bottom offset).
 //
 .abs-align(@alignH:'left', @alignV:'top') {
   & {
@@ -238,10 +243,10 @@
 //
 // Aligns containing selector to specified x/y directions in fixed position.
 //
-// @param {List} @alignH  Horizontal alignment (left|center|right, left|right
-//                        offset, right offset).
-// @param {List} @alignV  Vertical alignment (top|center|middle|bottom,
-//                        top|bottom offset, bottom offset).
+// @param {List} [@alignH='left'] - Horizontal alignment (left|center|right,
+//                                  left|right offset, right offset).
+// @param {List} [@alignV='top']  - Vertical alignment (top|center|middle|bottom,
+//                                  top|bottom offset, bottom offset).
 //
 .fixed-align(@alignH:'left', @alignV:'top') {
   position: fixed;
@@ -307,8 +312,10 @@
 // Aligns containing inline-block to specified x/y directions in relative
 // position.
 //
-// @param {string} @alignH     Horizontal alignment (i.e. left, center, right).
-// @param {string} @alignV     Vertical alignment (i.e. top, middle, bottom).
+// @param {string} [@alignH='left'] - Horizontal alignment (i.e. left, center,
+//                                    right).
+// @param {string} [@alignV='top']  - Vertical alignment (i.e. top, middle,
+//                                    bottom).
 //
 .inline-align(@alignH:'left', @alignV:'top') {
   position: relative;
@@ -324,7 +331,7 @@
 //
 // Transforms target selector into a container for parallax elements.
 //
-// @param {number} @perspective    Tweak this value to adjust perspective.
+// @param {number} [@perspective=1] - Tweak this value to adjust perspective.
 //
 // @see parallax-element
 //
@@ -359,17 +366,37 @@
 //
 // Sets the diameter of the target selector.
 //
-// @param {number}  @diameter
-// @param {boolean} @oval
+// @param {number|List} @diameter     - Specifies the width and height of the
+//                                      selector. If only 1 value is provided,
+//                                      both width and height will use that
+//                                      value. If 2 values are provided, they
+//                                      will be used for the width and height
+//                                      respectively.
+// @param {boolean}     [@oval=false] - Specifies whether the selector is oval
+//                                      shaped (hence rounded corners
+//                                      corresponding to the shortest side).
 //
 .diameter(@diameter, @oval:false) {
-  width: @diameter;
-  height: @diameter;
+  & when (length(@diameter) > 1) {
+    width: extract(@diameter, 1);
+    height: extract(@diameter, 2);
+  }
+
+  & when not (length(@diameter) > 1) {
+    width: @diameter;
+    height: @diameter;
+  }
 
   & when (@oval = true) {
-    border-radius: @diameter / 2;
-    overflow: hidden;
-    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+    .mask();
+
+    & when (length(@diameter) > 1) {
+      border-radius: min(extract(@diameter, 1), extract(@diameter, 2)) / 2;
+    }
+
+    & when not (length(@diameter) > 1) {
+      border-radius: @diameter / 2;
+    }
   }
 }
 
@@ -384,29 +411,39 @@
 //
 // Hides the target selector.
 //
-.hidden() {
-  display: none !important;
+// @param {boolean} [@forced=true] - Specifies whether !important is tagged.
+//
+.hidden(@forced:true) {
+  & when (@forced = true) { display: none !important; }
+  & when not (@forced = true) { display: none; }
 }
 
 //
 // Makes the target selector invisible.
 //
-.invisible() {
-  visibility: hidden !important;
+// @param {boolean} [@forced=true] - Specifies whether !important is tagged.
+//
+.invisible(@forced:true) {
+  & when (@forced = true) { visibility: hidden !important; }
+  & when not (@forced = true) { visibility: hidden; }
 }
 
 //
 // Fits dimension to parent container.
 //
-// @param {boolean} @w  Specifies whether to fit the width.
-// @param {boolean} @h  Specifies whether to fit the height.
+// @param {boolean} [@w=true]            - Specifies whether to fit the width.
+// @param {boolean} [@h=true]            - Specifies whether to fit the height.
+// @param {boolean} [@useViewport=false] - Specifies whether measurements are
+//                                         relevant to the viewport.
 //
-.auto-fit(@w:true, @h:true) {
+.auto-fit(@w:true, @h:true, @useViewport:false) {
   & when (@w = true) {
-    width: 100%;
+    & when (@useViewport = true) { width: 100vw; }
+    & when not (@useViewport = true) { width: 100%; }
   }
 
   & when (@h = true) {
-    height: 100%;
+    & when (@useViewport = true) { height: 100vh; }
+    & when not (@useViewport = true) { height: 100%; }
   }
 }

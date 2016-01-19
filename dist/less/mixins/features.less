@@ -7,13 +7,32 @@
 //
 
 //
+// Applies font related rules.
+//
+// @param {List}   @font-family   - Font family.
+// @param {*}      [@font-size]   - Font size.
+// @param {number} [@font-weight] - Font weight.
+//
+.font(@font-family, @font-size:~'', @font-weight:~'') {
+  .loop(@i) when (@i > 0) {
+    .loop((@i - 1));
+    font-family+: extract(@font-family, @i);
+  }
+
+  .loop(length(@font-family));
+
+  & when not (@font-size = ~'') { font-size: @font-size; }
+  & when not (@font-weight = ~'') { font-weight: @font-weight; }
+}
+
+//
 // Binds the content to the target selector based on the 'csstransitions'
 // feature (requires Modernizr).
 //
-// @param {boolean} @enabled  Specifies whether 'csstransitions' class is
-//                           required.
+// @param {boolean} [@enabled=true] - Specifies whether 'csstransitions' class
+//                                    is required.
 //
-.transition(@enabled:true, @rules) {
+.transition-detection(@enabled:true, @rules) {
   & when (@enabled = true) and (@modernizr-enabled = true) {
     .csstransitions & {
       @rules();
@@ -26,13 +45,48 @@
 }
 
 //
+// Applies transition rules.
+//
+// @param {List} [@properties=all]        - Transition property(ies).
+// @param {List} [@durations=0s]          - Transition duration(s).
+// @param {List} [@timing-functions=ease] - Transition timing function(s).
+// @param {List} [@delays=0s]             - Transition delay(s).
+//
+.transition(@properties:all, @durations:0s, @timing-functions:ease, @delays:0s) {
+  .ploop(@i) when (@i > 0) {
+    .ploop((@i - 1));
+    transition-property: extract(@properties, @i);
+  }
+
+  .dloop(@i) when (@i > 0) {
+    .dloop((@i - 1));
+    transition-duration: extract(@durations, @i);
+  }
+
+  .tloop(@i) when (@i > 0) {
+    .tloop((@i - 1));
+    transition-timing-function: extract(@timing-functions, @i);
+  }
+
+  .yloop(@i) when (@i > 0) {
+    .yloop((@i - 1));
+    transition-delay: extract(@delays, @i);
+  }
+
+  .ploop(length(@properties));
+  .dloop(length(@durations));
+  .tloop(length(@timing-functions));
+  .yloop(length(@delays));
+}
+
+//
 // Binds the content to the target selector based on the 'cssanimations' feature
 // (requires Modernizr).
 //
-// @param {boolean} @enabled  Specifies whether 'cssanimations' class is
-//                           required.
+// @param {boolean} [@enabled=true] - Specifies whether 'cssanimations' class is
+//                                    required.
 //
-.animation(@enabled:true, @rules) {
+.animation-detection(@enabled:true, @rules) {
   & when (@enabled = true) and (@modernizr-enabled = true) {
     .cssanimations & {
       @rules();
@@ -47,9 +101,10 @@
 // Binds the content to the target selector based on the 'touch' and 'no-touch'
 // feature (requires Modernizr).
 //
-// @param {boolean} @enabled    Specifies whether 'touch' class is required.
-// @param {boolean} @exclusive  Specifies whether 'no-touch' class is required
-//                             if @enabled is false.
+// @param {boolean} [@enabled=true]    - Specifies whether 'touch' class is
+//                                       required.
+// @param {boolean} [@exclusive=false] - Specifies whether 'no-touch' class is
+//                                       required if $enabled is false.
 //
 .touch(@enabled:true, @exclusive:false, @rules) {
   & when (@enabled = true) and (@modernizr-enabled = true) {
@@ -75,22 +130,61 @@
 // Enables hardware acceleration for containing selector.
 //
 .hardware-acceleration() {
-  transform: translateZ(0);
   transform: translate3d(0, 0, 0);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  perspective: 1000;
 }
 
 //
 // Enables/disables pointer events for target selector and all child selectors.
 //
-.pointable(@enabled:true) {
+// @param {boolean} [@enabled=true]   - Specifies whether element should have
+//                                      pointer events enabled.
+// @param {boolean} [@recursive=true] - Specifies whether child elements should
+//                                      also be applied.
+// @param {boolean} [@forced=true]    - Specifies whether the behavior is tagged
+//                                      '!important'.
+//
+.pointable(@enabled:true, @recursive:true, @forced:true) {
   & when (@enabled = true) {
-    &, * { pointer-events: initial !important; }
+    & when (@recursive = true) {
+      & when (@forced = true) {
+        &, * { pointer-events: initial !important; }
+      }
+
+      & when not (@forced = true) {
+        &, * { pointer-events: initial; }
+      }
+    }
+
+    & when not (@recursive = true) {
+      & when (@forced = true) {
+        & { pointer-events: initial !important; }
+      }
+
+      & when not (@forced = true) {
+        & { pointer-events: initial; }
+      }
+    }
   }
 
   & when not (@enabled = true) {
-    &, * { pointer-events: none !important; }
+    & when (@recursive = true) {
+      & when (@forced = true) {
+        &, * { pointer-events: none !important; }
+      }
+
+      & when not (@forced = true) {
+        &, * { pointer-events: none; }
+      }
+    }
+
+    & when not (@recursive = true) {
+      & when (@forced = true) {
+        & { pointer-events: none !important; }
+      }
+
+      & when not (@forced = true) {
+        & { pointer-events: none; }
+      }
+    }
   }
 }

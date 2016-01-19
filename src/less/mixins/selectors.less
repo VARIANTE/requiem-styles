@@ -12,15 +12,17 @@
 // bold, use <b>. <a> is not treated as a label element and should only be used
 // to make a nested element a hyperlink.
 //
-// @param {string} @type:'all'  Type of the label (i.e. 'body', 'header', 'all')
+// @param {string} [@type='all'] - Type of the label (i.e. 'body', 'header',
+//                                 'all')
 //
 .labels(@type:'all', @rules) {
   & when (@type = 'all'), (@type = 'body') {
     p                  { @rules(); }
-    li                 { @rules(); }
     em                 { @rules(); }
     strong             { @rules(); }
     label              { @rules(); }
+    a[type='label']    { @rules(); }
+    li[type='label']   { @rules(); }
     span[type='label'] { @rules(); }
   }
 
@@ -37,7 +39,7 @@
 //
 // Selects labels with the given instance name.
 //
-// @param {string} @instance:''  Instance name.
+// @param {string} @instance - Instance name.
 //
 .label(@instance:'', @rules) {
   .labels(@rules: {
@@ -50,7 +52,7 @@
 //
 // Selects labels with the given class(es).
 //
-// @param {string} @class:''  Class(es).
+// @param {string} @class - Class(es).
 //
 .label-class(@class:'', @rules) {
   @e: e(@class);
@@ -65,7 +67,7 @@
 //
 // Selects labels with the given ID.
 //
-// @param {string} @id:''  ID.
+// @param {string} @id - ID.
 //
 .label-id(@id:'', @rules) {
   @e: e(@id);
@@ -85,6 +87,49 @@
 }
 
 //
+// Selects statics with the given instance name.
+//
+// @param {string} @instance - Instance name.
+//
+.static(@instance:'', @rules) {
+  .statics(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects statics with the given class(es).
+//
+// @param {string} @class - Class(es).
+//
+.static-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .statics(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects statics with the given ID.
+//
+// @param {string} @id - ID.
+//
+.static-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .statics(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
+}
+
+//
 // Selector for button elements.
 //
 .buttons(@rules) {
@@ -99,7 +144,7 @@
 //
 // Selects buttons with the given instance name.
 //
-// @param {string} @instance:''  Instance name.
+// @param {string} @instance - Instance name.
 //
 .button(@instance:'', @rules) {
   .buttons(@rules: {
@@ -112,7 +157,7 @@
 //
 // Selects buttons with the given class(es).
 //
-// @param {string} @class:''  Class(es).
+// @param {string} @class - Class(es).
 //
 .button-class(@class:'', @rules) {
   @e: e(@class);
@@ -127,7 +172,7 @@
 //
 // Selects buttons with the given ID.
 //
-// @param {string} @id:''  ID.
+// @param {string} @id - ID.
 //
 .button-id(@id:'', @rules) {
   @e: e(@id);
@@ -143,7 +188,50 @@
 // Selector for hyperlinks.
 //
 .links(@rules) {
-  a:not([type='button']) { @rules(); }
+  a:not([type='button']):not([type='label']) { @rules(); }
+}
+
+//
+// Selects links with the given instance name.
+//
+// @param {string} @instance - Instance name.
+//
+.link(@instance:'', @rules) {
+  .links(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects links with the given class(es).
+//
+// @param {string} @class - Class(es).
+//
+.link-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .links(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects links with the given ID.
+//
+// @param {string} @id - ID.
+//
+.link-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .links(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
 }
 
 //
@@ -169,7 +257,7 @@
 //
 // Selects textfields with the given instance name.
 //
-// @param {string} @instance:''  Instance name.
+// @param {string} @instance - Instance name.
 //
 .textfield(@instance:'', @rules) {
   .textfields(@rules: {
@@ -182,7 +270,7 @@
 //
 // Selects textfields with the given class(es).
 //
-// @param {string} @class:''  Class(es).
+// @param {string} @class - Class(es).
 //
 .textfield-class(@class:'', @rules) {
   @e: e(@class);
@@ -197,7 +285,7 @@
 //
 // Selects textfields with the given ID.
 //
-// @param {string} @id:''  ID.
+// @param {string} @id - ID.
 //
 .textfield-id(@id:'', @rules) {
   @e: e(@id);
@@ -238,9 +326,145 @@
 }
 
 //
+// Selects boxes with the given instance name.
+//
+// @param {string} @instance - Instance name.
+//
+.box(@instance:'', @rules) {
+  .boxes(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects boxes with the given class(es).
+//
+// @param {string} @class - Class(es).
+//
+.box-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .boxes(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects boxes with the given ID.
+//
+// @param {string} @id - ID.
+//
+.box-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .boxes(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
+}
+
+//
 // Selector for list elements.
 //
 .lists(@rules) {
   ul { @rules(); }
   ol { @rules(); }
+}
+
+//
+// Selects lists with the given instance name.
+//
+// @param {string} @instance - Instance name.
+//
+.list(@instance:'', @rules) {
+  .lists(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects lists with the given class(es).
+//
+// @param {string} @class - Class(es).
+//
+.list-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .lists(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects lists with the given ID.
+//
+// @param {string} @id - ID.
+//
+.list-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .lists(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selector for list item elements.
+//
+.list-items(@rules) {
+  li:not([type='label']) { @rules(); }
+}
+
+//
+// Selects list items with the given instance name.
+//
+// @param {string} @instance - Instance name.
+//
+.list-item(@instance:'', @rules) {
+  .list-items(@rules: {
+    &[data-instance='@{instance}'] when not (@instance = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects list items with the given class(es).
+//
+// @param {string} @class - Class(es).
+//
+.list-item-class(@class:'', @rules) {
+  @e: e(@class);
+
+  .list-items(@rules: {
+    &.@{e} when not (@class = '') {
+      @rules();
+    }
+  });
+}
+
+//
+// Selects list items with the given ID.
+//
+// @param {string} @id - ID.
+//
+.list-item-id(@id:'', @rules) {
+  @e: e(@id);
+
+  .list-items(@rules: {
+    &#@{e} when not (@id = '') {
+      @rules();
+    }
+  });
 }

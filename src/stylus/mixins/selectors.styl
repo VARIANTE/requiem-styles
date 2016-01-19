@@ -12,19 +12,22 @@
  * bold, use <b>. <a> is not treated as a label element and should only be used
  * to make a nested element a hyperlink.
  *
- * @param {string} $type:'all'  Type of the label (i.e. 'body', 'header', 'all')
+ * @param {string} [$type='all'] - Type of the label (i.e. 'body', 'header',
+ *                                 'all')
  */
 labels($type='all')
   if $type == 'all' or $type == 'body'
     p
-      {block}
-    li
       {block}
     em
       {block}
     strong
       {block}
     label
+      {block}
+    a[type='label']
+      {block}
+    li[type='label']
       {block}
     span[type='label']
       {block}
@@ -46,11 +49,11 @@ labels($type='all')
 /**
  * Selects labels with the given instance name.
  *
- * @param {string} $instance:''  Instance name.
+ * @param {string} $instance - Instance name.
  */
 label($instance='')
   if $instance == ''
-    error('Instance name must be specified')
+    warn('Instance name must be specified')
   else
     +labels()
       &[data-instance={$instance}]
@@ -59,11 +62,11 @@ label($instance='')
 /**
  * Selects labels with the given class(es).
  *
- * @param {string} $class:''  Class(es).
+ * @param {string} $class - Class(es).
  */
 label-class($class='')
   if $class == ''
-    error('Class must be specified')
+    warn('Class must be specified')
   else
     +labels()
       &.{$class}
@@ -72,11 +75,11 @@ label-class($class='')
 /**
  * Selects labels with the given ID.
  *
- * @param {string} $id:''  ID.
+ * @param {string} $id - ID.
  */
 label-id($id='')
   if $id == ''
-    error('ID must be specified')
+    warn('ID must be specified')
   else
     +labels()
       &#{$id}
@@ -88,6 +91,45 @@ label-id($id='')
 statics()
   form
     {block}
+
+/**
+ * Selects statics with the given instance name.
+ *
+ * @param {string} $instance - Instance name.
+ */
+static($instance='')
+  if $instance == ''
+    warn('Instance name must be specified')
+  else
+    +statics()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects statics with the given class(es).
+ *
+ * @param {string} $class - Class(es).
+ */
+static-class($class='')
+  if $class == ''
+    warn('Class must be specified')
+  else
+    +statics()
+      &.{$class}
+        {block}
+
+/**
+ * Selects statics with the given ID.
+ *
+ * @param {string} $id - ID.
+ */
+static-id($id='')
+  if $id == ''
+    warn('ID must be specified')
+  else
+    +statics()
+      &#{$id}
+        {block}
 
 /**
  * Selector for button elements.
@@ -109,11 +151,11 @@ buttons()
 /**
  * Selects buttons with the given instance name.
  *
- * @param {string} $instance:''  Instance name.
+ * @param {string} $instance - Instance name.
  */
 button($instance='')
   if $instance == ''
-    error('Instance name must be specified')
+    warn('Instance name must be specified')
   else
     +buttons()
       &[data-instance={$instance}]
@@ -122,11 +164,11 @@ button($instance='')
 /**
  * Selects buttons with the given class(es).
  *
- * @param {string} $class:''  Class(es).
+ * @param {string} $class - Class(es).
  */
 button-class($class='')
   if $class == ''
-    error('Class must be specified')
+    warn('Class must be specified')
   else
     +buttons()
       &.{$class}
@@ -135,11 +177,11 @@ button-class($class='')
 /**
  * Selects buttons with the given ID.
  *
- * @param {string} $id:''  ID.
+ * @param {string} $id - ID.
  */
 button-id($id='')
   if $id == ''
-    error('ID must be specified')
+    warn('ID must be specified')
   else
     +buttons()
       &#{$id}
@@ -149,8 +191,47 @@ button-id($id='')
  * Selector for hyperlinks.
  */
 links()
-  a:not([type='button'])
+  a:not([type='button']):not([type='label'])
     {block}
+
+/**
+ * Selects links with the given instance name.
+ *
+ * @param {string} $instance - Instance name.
+ */
+link($instance='')
+  if $instance == ''
+    warn('Instance name must be specified')
+  else
+    +links()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects links with the given class(es).
+ *
+ * @param {string} $class - Class(es).
+ */
+link-class($class='')
+  if $class == ''
+    warn('Class must be specified')
+  else
+    +links()
+      &.{$class}
+        {block}
+
+/**
+ * Selects links with the given ID.
+ *
+ * @param {string} $id - ID.
+ */
+link-id($id='')
+  if $id == ''
+    warn('ID must be specified')
+  else
+    +links()
+      &#{$id}
+        {block}
 
 /**
  * Selector for textfield input elements.
@@ -188,11 +269,11 @@ textfields()
 /**
  * Selects textfields with the given instance name.
  *
- * @param {string} $instance:''  Instance name.
+ * @param {string} $instance - Instance name.
  */
 textfield($instance='')
   if $instance == ''
-    error('Instance name must be specified')
+    warn('Instance name must be specified')
   else
     +textfields()
       &[data-instance={$instance}]
@@ -201,11 +282,11 @@ textfield($instance='')
 /**
  * Selects textfields with the given class(es).
  *
- * @param {string} $class:''  Class(es).
+ * @param {string} $class - Class(es).
  */
 textfield-class($class='')
   if $class == ''
-    error('Class must be specified')
+    warn('Class must be specified')
   else
     +textfields()
       &.{$class}
@@ -214,11 +295,11 @@ textfield-class($class='')
 /**
  * Selects textfields with the given ID.
  *
- * @param {string} $id:''  ID.
+ * @param {string} $id - ID.
  */
 textfield-id($id='')
   if $id == ''
-    error('ID must be specified')
+    warn('ID must be specified')
   else
     +textfields()
       &#{$id}
@@ -274,6 +355,45 @@ boxes()
     {block}
 
 /**
+ * Selects boxes with the given instance name.
+ *
+ * @param {string} $instance - Instance name.
+ */
+box($instance='')
+  if $instance == ''
+    warn('Instance name must be specified')
+  else
+    +boxes()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects boxes with the given class(es).
+ *
+ * @param {string} $class - Class(es).
+ */
+box-class($class='')
+  if $class == ''
+    warn('Class must be specified')
+  else
+    +boxes()
+      &.{$class}
+        {block}
+
+/**
+ * Selects boxes with the given ID.
+ *
+ * @param {string} $id - ID.
+ */
+box-id($id='')
+  if $id == ''
+    warn('ID must be specified')
+  else
+    +boxes()
+      &#{$id}
+        {block}
+
+/**
  * Selector for list elements.
  */
 lists()
@@ -281,3 +401,88 @@ lists()
     {block}
   ol
     {block}
+
+/**
+ * Selects lists with the given instance name.
+ *
+ * @param {string} $instance - Instance name.
+ */
+list($instance='')
+  if $instance == ''
+    warn('Instance name must be specified')
+  else
+    +lists()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects lists with the given class(es).
+ *
+ * @param {string} $class - Class(es).
+ */
+list-class($class='')
+  if $class == ''
+    warn('Class must be specified')
+  else
+    +lists()
+      &.{$class}
+        {block}
+
+/**
+ * Selects lists with the given ID.
+ *
+ * @param {string} $id - ID.
+ */
+list-id($id='')
+  if $id == ''
+    warn('ID must be specified')
+  else
+    +lists()
+      &#{$id}
+        {block}
+
+/**
+ * Selector for list item elements.
+ */
+lists()
+  li:not([type='label'])
+    {block}
+
+/**
+ * Selects list items with the given instance name.
+ *
+ * @param {string} $instance - Instance name.
+ */
+list-item($instance='')
+  if $instance == ''
+    warn('Instance name must be specified')
+  else
+    +list-items()
+      &[data-instance={$instance}]
+        {block}
+
+/**
+ * Selects list items with the given class(es).
+ *
+ * @param {string} $class - Class(es).
+ */
+list-item-class($class='')
+  if $class == ''
+    warn('Class must be specified')
+  else
+    +list-items()
+      &.{$class}
+        {block}
+
+/**
+ * Selects list items with the given ID.
+ *
+ * @param {string} $id - ID.
+ */
+list-item-id($id='')
+  if $id == ''
+    warn('ID must be specified')
+  else
+    +list-items()
+      &#{$id}
+        {block}

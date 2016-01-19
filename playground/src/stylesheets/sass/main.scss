@@ -2,5 +2,8 @@
 @import 'requiem';
 
 main {
-  @include auto-fit();
+  // @include auto-fit();
+  @include font('Helvetica Neue' 'Helvetica' sans-serif, 20px, 300);
+  @include transition(opacity transform, 1s 2s, ease ease-out);
+  @include diameter(500px, true);
 }

@@ -9,7 +9,7 @@
 //
 // Selector for elements with the data-class attribute.
 //
-// @param {string} @name data-class attribute value.
+// @param {string} @name - data-class attribute value.
 //
 .class(@name, @rules) {
   [data-class='@{name}'] { @rules(); }
@@ -18,7 +18,7 @@
 //
 // Selector for elements with the data-instance attribute.
 //
-// @param {string} @name data-instance attribute value.
+// @param {string} @name - data-instance attribute value.
 //
 .instance(@name, @rules) {
   [data-instance='@{name}'] { @rules(); }
@@ -27,11 +27,11 @@
 //
 // Selects elements with the specified data- key and value.
 //
-// @param {string} @key    data- key.
-// @param {string} @value  data- value, if applicable.
-// @param {string} @scope  Specifies the scope relative to the target selector
-//                         in which this property applies to (any, this, parent,
-//                         or child).
+// @param {string} @key            - data- key.
+// @param {string} [@value]        - data- value, if applicable.
+// @param {string} [@scope='this'] - Specifies the scope relative to the target
+//                                   selector in which this property applies to
+//                                   (any, this, parent, or child).
 //
 .property(@key, @value:~'', @scope:'this', @rules) {
   @attr: ~'data-@{key}';
@@ -77,13 +77,14 @@
 // Binds the content to one/multiple data-state of the target selector. Option to
 // specify whether the state(s) are default.
 //
-// @param {List}    @states   List of state names.
-// @param {boolean} @default  Specifies whether the class(es) are default.
+// @param {List}    @states          - List of state names.
+// @param {boolean} [@default=false] - Specifies whether the class(es) are
+//                                     default.
 //
 .state(@states, @default:false, @rules) {
   @attr: ~'data-state';
 
-  .loop(@i: length(@states)) when (@i > 0) {
+  .loop(@i) when (@i > 0) {
     @state: extract(@states, @i);
 
     & when (@state = 'hover') {
@@ -104,6 +105,8 @@
 
     .loop((@i - 1));
   }
+
+  .loop(length(@states));
 
   & when (@default = true) {
     @rules();
