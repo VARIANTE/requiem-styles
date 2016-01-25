@@ -148,7 +148,7 @@ let tasks = {
       input: path.join(paths.play, 'src', 'templates', 'views', '**', '*.jade'),
       output: path.join(paths.play, 'build'),
       jade: {
-        pretty: true
+        pretty: false
       }
     },
     serve: {

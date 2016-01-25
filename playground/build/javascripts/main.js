@@ -147,7 +147,7 @@
 		/**
 		 * @property {string} version - Version number.
 		 */
-		Object.defineProperty(requiem, 'version', { value: '0.28.0', writable: false });
+		Object.defineProperty(requiem, 'version', { value: '0.28.2', writable: false });
 		
 		(0, _injectModule2.default)(requiem, 'dom', __webpack_require__(3));
 		(0, _injectModule2.default)(requiem, 'events', __webpack_require__(37));

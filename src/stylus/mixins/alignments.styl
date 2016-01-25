@@ -88,22 +88,32 @@ fluid-block($alignH='center', $alignV='center', $inline=false)
  * Transforms containing selector into a flexbox which auto aligns child
  * elements according to the specified params.
  *
- * @param  {List}    [$alignH='center'] - Horizontal alignment of child elements
- *                                        (i.e. left, center, right). Option to
- *                                        specify left/right paddings
- *                                        respectively.
- * @param  {List}    [$alignV='center'] - Vertical alignment of child elements
- *                                        (i.e. top, middle, bottom). Option to
- *                                        specify top/bottom paddings
- *                                        respectively.
- * @param  {boolean} [$direction=row]   - Determines the main axis (i.e. row,
- *                                        row-reverse, column, column-reverse).
- * @param  {boolean} [$wrap=false]      - Determines if wrapping is enabled.
- * @param  {string}  [$inline=false]    - Specifies if this flexbox is inline.
+ * @param {List}    [$alignH='center'] - Horizontal alignment of child elements
+ *                                       (i.e. left, center, right). Option to
+ *                                       specify left/right paddings
+ *                                       respectively.
+ * @param {List}    [$alignV='center'] - Vertical alignment of child elements
+ *                                       (i.e. top, middle, bottom). Option to
+ *                                       specify top/bottom paddings
+ *                                       respectively.
+ * @param {boolean} [$direction=row]   - Determines the main axis (i.e. row,
+ *                                       row-reverse, column, column-reverse).
+ * @param {boolean} [$wrap=false]      - Determines if wrapping is enabled.
+ * @param {string}  [$inline=false]    - Specifies if this flexbox is inline.
+ * @param {string}  [$uniform=false]   - Specifies if this flexbox has uniform
+ *                                       sized items.
  */
-flex-block($alignH='center', $alignV='center', $direction=row, $wrap=false, $inline=false)
+flex-block($alignH='center', $alignV='center', $direction=row, $wrap=false, $inline=false, $uniform=false)
   line-height: normal
   white-space: normal
+
+  & > *
+    flex-shrink: 0
+
+  if $uniform == true
+    & > *
+      flex-grow: 1
+      flex-basis: 0
 
   if $wrap == true
     flex-wrap: wrap
@@ -196,6 +206,168 @@ flex-block($alignH='center', $alignV='center', $direction=row, $wrap=false, $inl
     display: flex
 
 /**
+ * Transforms the containing selector into a grid driven by flexbox. This grid
+ * supports the 4 directions available in flex-direction. It is not a good idea
+ * to directly tweak the margin and padding rules of this grid. If you must
+ * specify a margin, either put this grid in a parent container and tweak the
+ * margins of that instead, or manually take the internal paddings of the grid
+ * into account. The same goes for the individual items inside the grid. If the
+ * margin/padding rules must be tweaked, it is a better idea to have a child
+ * container and tweak the rules of that instead.
+ *
+ * @param {List}    [$diameter=auto]    - Specifies the diameter of this grid,
+ *                                        complies to the diameter mixin.
+ * @param {string}  [$direction=row]    - Specifies the direction of this grid,
+ *                                        complies to the rules supported by
+ *                                        flex-direction.
+ * @param {number}  [$base-length=auto] - The length of the fixed side of the
+ *                                        items. If the direction of the grid
+ *                                        is horizontal, this value would refer
+ *                                        to the row height. Similarly, if the
+ *                                        direction of the grid is vertical,
+ *                                        this value would refer to the column
+ *                                        width.
+ * @param {number}  [$base-count=0]     - The number of items in this grid's
+ *                                        direction. For example, if the
+ *                                        direction is horizontal, this value
+ *                                        would refer to the number of columns.
+ *                                        This value must be greater than or
+ *                                        equal to 0. If number is 0, there will
+ *                                        not be a fixed number of items per
+ *                                        direction - the items will simply
+ *                                        position freely as long as a given
+ *                                        direction has enough room. If this
+ *                                        value is greater than 0, each item
+ *                                        will have an automatically assigned
+ *                                        length to the side that is parallel to
+ *                                        the direction.
+ * @param {List}    [$padding=0px true] - Specifies the padding between each
+ *                                        grid item. The first value specifies
+ *                                        the actual length of the gap, whereas
+ *                                        the second value is a boolean that
+ *                                        specifies whether gaps should be
+ *                                        applied to outmost items (hence the
+ *                                        grid itself will have an inner padding
+ *                                        of the gap value).
+ * @param {boolean} [$autosize=false]  - Specifies whether grid items will
+ *                                       automatically fill the rest of the
+ *                                       grid if there are empty spaces.
+ */
+flex-grid($diameter=auto, $direction=row, $base-length=auto, $base-count=0, $padding=0px true, $autosize=false)
+  if $base-count < 0
+    warn('Value provided for base-count must be >= 0')
+
+  $_bordered = (length($padding) > 1) ? $padding[1] : true
+  $_padding = $padding[0]
+  $_basis = auto;
+  $_orientation = ($direction == 'row' or $direction == 'row-reverse') ? 'horizontal' : 'vertical'
+  $_width = $diameter[0]
+  $_height = (length($diameter) > 1) ? $diameter[1] : $diameter[0]
+
+  flex-block('left', 'top', $direction, true)
+  diameter($diameter)
+  width: ((type($_width) == unit) and ($_bordered == false)) ? calc($_width + $_padding) : $_width
+  height: ((type($_height) == unit) and ($_bordered == false)) ? calc($_height + $_padding) : $_height
+  margin: ($_bordered == true) ? 0 : -$_padding 0 0 -$_padding
+  padding: ($_bordered == true) ? $_padding / 2 : 0
+
+  & > *
+    margin: ($_bordered == true) ? $_padding / 2 : $_padding 0 0 $_padding
+    flex-basis: auto;
+    flex-grow: ($autosize == true) ? 1 : 0
+    flex-shrink: 0;
+    overflow: hidden;
+
+    if $base-count > 0
+      if $_bordered == true
+        &, &.base-1
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 1))
+        &.base-2
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 2))
+        &.base-3
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 3))
+        &.base-4
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 4))
+        &.base-5
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 5))
+        &.base-6
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 6))
+      else
+        &, &.base-1
+          flex-basis: s('calc((100% - %s) / %s * 1 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (1 - 1)))
+        &.base-2
+          flex-basis: s('calc((100% - %s) / %s * 2 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (2 - 1)))
+        &.base-3
+          flex-basis: s('calc((100% - %s) / %s * 3 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (3 - 1)))
+        &.base-4
+          flex-basis: s('calc((100% - %s) / %s * 4 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (4 - 1)))
+        &.base-5
+          flex-basis: s('calc((100% - %s) / %s * 5 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (5 - 1)))
+        &.base-6
+          flex-basis: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
+
+    if $_orientation == 'horizontal'
+      if $base-count > 0
+        if $_bordered == true
+          &, &.base-1
+            width: s('calc(%s% - $_padding)', (100 / $base-count * 1))
+          &.base-2
+            width: s('calc(%s% - $_padding)', (100 / $base-count * 2))
+          &.base-3
+            width: s('calc(%s% - $_padding)', (100 / $base-count * 3))
+          &.base-4
+            width: s('calc(%s% - $_padding)', (100 / $base-count * 4))
+          &.base-5
+            width: s('calc(%s% - $_padding)', (100 / $base-count * 5))
+          &.base-6
+            width: s('calc(%s% - $_padding)', (100 / $base-count * 6))
+        else
+          &, &.base-1
+            width: s('calc((100% - %s) / %s * 1 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (1 - 1)))
+          &.base-2
+            width: s('calc((100% - %s) / %s * 2 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (2 - 1)))
+          &.base-3
+            width: s('calc((100% - %s) / %s * 3 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (3 - 1)))
+          &.base-4
+            width: s('calc((100% - %s) / %s * 4 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (4 - 1)))
+          &.base-5
+            width: s('calc((100% - %s) / %s * 5 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (5 - 1)))
+          &.base-6
+            width: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
+
+      height: $base-length
+    else
+      width: $base-length
+
+      if $base-count > 0
+        if $_bordered == true
+          &, &.base-1
+            height: s('calc(%s% - $_padding)', (100 / $base-count * 1))
+          &.base-2
+            height: s('calc(%s% - $_padding)', (100 / $base-count * 2))
+          &.base-3
+            height: s('calc(%s% - $_padding)', (100 / $base-count * 3))
+          &.base-4
+            height: s('calc(%s% - $_padding)', (100 / $base-count * 4))
+          &.base-5
+            height: s('calc(%s% - $_padding)', (100 / $base-count * 5))
+          &.base-6
+            height: s('calc(%s% - $_padding)', (100 / $base-count * 6))
+        else
+          &, &.base-1
+            height: s('calc((100% - %s) / %s * 1 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (1 - 1)))
+          &.base-2
+            height: s('calc((100% - %s) / %s * 2 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (2 - 1)))
+          &.base-3
+            height: s('calc((100% - %s) / %s * 3 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (3 - 1)))
+          &.base-4
+            height: s('calc((100% - %s) / %s * 4 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (4 - 1)))
+          &.base-5
+            height: s('calc((100% - %s) / %s * 5 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (5 - 1)))
+          &.base-6
+            height: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
+
+/**
  * Aligns containing selector to specified x/y directions in absolute position.
  *
  * @param {List} [$alignH='left'] - Horizontal alignment (left|center|right,
@@ -204,73 +376,50 @@ flex-block($alignH='center', $alignV='center', $direction=row, $wrap=false, $inl
  *                                  top|bottom offset, bottom offset).
  */
 abs-align($alignH='left', $alignV='top')
+  top: initial
+  right: initial
+  bottom: initial
+  left: initial
+  margin: 0
   position: absolute
 
   if $alignH != null and length($alignH) > 0
     $align = $alignH[0]
-    $offset1 = null
-    $offset2 = null
-
-    if length($alignH) > 1
-      $offset1 = $alignH[1]
-    if length($alignH) > 2
-      $offset2 = alignH[2]
 
     if $align == 'left'
-      if $offset1 == null
-        left: 0px
-      else
-        left: $offset1
-      right: initial
+      left: 0px
     else if $align == 'center' or $align == 'middle'
       margin-left: auto
       margin-right: auto
-      if $offset1 == null
-        left: 0px
-      else
-        left: $offset1
-      if $offset2 == null
-        right: 0px
-      else
-        right: $offset2
+      left: 0px
+      right: 0px
     else if $align == 'right'
-      if $offset1 == null
-        right: 0px
-      else
-        right: $offset1
-      left: initial
+      right: 0px
+
+    if length($alignH) > 1
+      left: $alignH[1]
+
+    if length($alignH) > 2
+      right: $alignH[2]
 
   if $alignV != null and length($alignV) > 0
     $align = $alignV[0]
-    $offset1 = null
-    $offset2 = null
-
-    if length($alignV) > 1
-      $offset1 = $alignV[1]
-    if length($alignV) > 2
-      $offset2 = $alignV[2]
 
     if $align == 'top'
-      if $offset1 == null
-        top: 0px
-      else
-        top: $offset1
+      top: 0px
     else if $align == 'center' or $align == 'middle'
       margin-top: auto
       margin-bottom: auto
-      if $offset1 == null
-        top: 0px
-      else
-        top: $offset1
-      if $offset2 == null
-        bottom: 0px
-      else
-        bottom: $offset2
+      top: 0px
+      bottom: 0px
     else if $align == 'bottom'
-      if $offset1 == null
-        bottom: 0px
-      else
-        bottom: $offset1
+      bottom: 0px
+
+    if length($alignV) > 1
+      top: $alignV[1]
+
+    if length($alignV) > 2
+      bottom: $alignV[2]
 
 /**
  * Aligns containing selector to specified x/y directions in fixed position.
@@ -281,72 +430,8 @@ abs-align($alignH='left', $alignV='top')
  *                                  top|bottom offset, bottom offset).
  */
 fixed-align($alignH='left', $alignV='top')
+  abs-align($alignH, $alignV);
   position: fixed
-
-  if $alignH != null and length($alignH) > 0
-    $align = $alignH[0]
-    $offset1 = null
-    $offset2 = null
-
-    if length($alignH) > 1
-      $offset1 = $alignH[1]
-    if length($alignH) > 2
-      $offset2 = $alignH[2]
-
-    if $align == 'left'
-      if $offset1 == null
-        left: 0px
-      else
-        left: $offset1
-
-    else if $align == 'center' or $align == 'middle'
-      margin-left: auto
-      margin-right: auto
-      if $offset1 == null
-        left: 0px
-      else
-        left: $offset1
-      if $offset2 == null
-        right: 0px
-      else
-        right: $offset2
-    else if $align == 'right'
-      if $offset1 == null
-        right: 0px
-      else
-        right: $offset1
-
-  if $alignV != null and length($alignV) > 0
-    $align = $alignV[0]
-    $offset1 = null
-    $offset2 = null
-
-    if length($alignV) > 1
-      $offset1 = $alignV[1]
-    if length($alignV) > 2
-      $offset2 = $alignV[2]
-
-    if $align == 'top'
-      if $offset1 == null
-        top: 0px
-      else
-        top: $offset1
-    else if $align == 'center' or $align == 'middle'
-      margin-top: auto
-      margin-bottom: auto
-      if $offset1 == null
-        top: 0px
-      else
-        top: $offset1
-      if $offset2 == null
-        bottom: 0px
-      else
-        bottom: $offset2
-    else if $align == 'bottom'
-      if $offset1 == null
-        bottom: 0px
-      else
-        bottom: $offset1
 
 /**
  * Aligns containing inline-block to specified x/y directions in relative
@@ -387,18 +472,12 @@ parallax-block($perspective=1)
  * Transforms target selector into a parallax element. The target selector must
  * be a child of a parallax-block.
  *
- * @param {string} [$type='layer'] - Layer type, either 'group' or 'layer'.
- * @param {number} [$z=0]          - Position in the z-axis.
+ * @param {number} [$z=0] - Position in the z-axis.
  *
  * @see parallax-block
  */
-parallax-element($type='layer', $z=0)
-  if $type == 'group'
-    height: 100vh
-    position: relative
-    transform-style: preserve-3d
-  else if $type == 'layer'
-    transform: translateZ(unit($z, 'px'))
+parallax-element($z=0)
+  transform: translateZ(unit($z, 'px'))
 
 /**
  * Sets the diameter of the target selector.
@@ -425,6 +504,42 @@ diameter($diameter, $oval=false)
     mask()
     $d = (length($diameter) > 1) ? min($diameter[0], $diameter[1]) : $diameter
     border-radius: ($d / 2)
+
+/**
+ * Sets the max diameter of the target selector.
+ *
+ * @param {number|List} $diameter - Specifies the max width and height of the
+ *                                  selector. If only 1 value is provided, both
+ *                                  max-width and max-height will use that
+ *                                  value. If 2 values are provided, they will
+ *                                  be used for the max-width and max-height
+ *                                  respectively.
+ */
+max-diameter($diameter)
+  if length($diameter) > 1
+    max-width: $diameter[0]
+    max-height: $diameter[1]
+  else
+    max-width: $diameter
+    max-height: $diameter
+
+/**
+ * Sets the min diameter of the target selector.
+ *
+ * @param {number|List} $diameter - Specifies the min width and height of the
+ *                                  selector. If only 1 value is provided, both
+ *                                  min-width and min-height will use that
+ *                                  value. If 2 values are provided, they will
+ *                                  be used for the min-width and min-height
+ *                                  respectively.
+ */
+min-diameter($diameter)
+  if length($diameter) > 1
+    min-width: $diameter[0]
+    min-height: $diameter[1]
+  else
+    min-width: $diameter
+    min-height: $diameter
 
 /**
  * Applies mask to target selector.
@@ -475,3 +590,30 @@ auto-fit($w=true, $h=true, $useViewport=false)
       height: 100vh
     else
       height: 100%
+
+/**
+ * Makes a video fill the parent block, maintaining aspect ratio and centered
+ * (like background-size: cover).
+ */
+cover-video()
+  abs-align('left' 50%, 'top' 50%)
+  diameter(auto)
+  min-width: 100%
+  min-height: 100%
+  transform: translate3d(-50%, -50%, 0)
+
+/**
+ * Sets the overflow of the target selector.
+ *
+ * @param {number|List} $overflow - Specifies the overflow of the selector. If
+ *                                  only 1 value is provided, both overflow-x
+ *                                  and overflow-y use that value. If 2 values
+ *                                  are provided, they will be used for
+ *                                  overflow-x and overflow-y respectively.
+ */
+overflow($overflow)
+  if length($overflow) > 1
+    overflow-x: $overflow[0]
+    overflow-y: $overflow[1]
+  else
+    overflow: $overflow

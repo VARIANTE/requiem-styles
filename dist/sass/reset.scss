@@ -107,6 +107,13 @@ body {
   position: static;
 }
 
+@include links() {
+  text-decoration: none;
+  @include state('hover') {
+    text-decoration: none;
+  }
+}
+
 audio,
 canvas,
 progress,

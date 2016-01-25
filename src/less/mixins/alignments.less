@@ -10,7 +10,7 @@
 // Clearfix hack for floated elements.
 //
 .clearfix() {
- //zoom: 1;
+  *zoom: 1;
 
   &:before {
     content: '';
@@ -93,11 +93,22 @@
 //                                       row-reverse, column, column-reverse).
 // @param {boolean} [@wrap=false]      - Determines if wrapping is enabled.
 // @param {string}  [@inline=false]    - Specifies if this flexbox is inline.
+// @param {string}  [@uniform=false]   - Specifies if this flexbox has uniform
+//                                       sized items.
 //
-.flex-block(@alignH:center, @alignV:center, @direction:row, @wrap:false, @inline:false) {
+.flex-block(@alignH:'center', @alignV:'center', @direction:row, @wrap:false, @inline:false, @uniform:false) {
   & {
     line-height: normal;
     white-space: normal;
+  }
+
+  & > * { flex-shrink: 0; }
+
+  & when (@uniform = true) {
+    & > * {
+      flex-grow: 1;
+      flex-basis: 0;
+    }
   }
 
   & when (@wrap = true)     { flex-wrap: wrap;   }
@@ -116,7 +127,7 @@
   @h: extract(@alignH, 1);
   @v: extract(@alignV, 1);
 
-  & when (@direction = 'row') {
+  & when (@direction = row) {
     flex-direction: row;
 
     & when (@h = 'left')                    { justify-content: flex-start; }
@@ -128,7 +139,7 @@
     & when (@v = 'bottom')                  { align-items: flex-end;   }
   }
 
-  & when (@direction = 'row-reverse') {
+  & when (@direction = row-reverse) {
     flex-direction: row-reverse;
 
     & when (@h = 'left')                    { justify-content: flex-end;   }
@@ -140,7 +151,7 @@
     & when (@v = 'bottom')                  { align-items: flex-end;   }
   }
 
-  & when (@direction = 'column') {
+  & when (@direction = column) {
     flex-direction: column;
 
     & when (@v = 'top')                     { justify-content: flex-start; }
@@ -152,7 +163,7 @@
     & when (@h = 'right')                   { align-items: flex-end;   }
   }
 
-  & when (@direction = 'column-reverse') {
+  & when (@direction = column-reverse) {
     flex-direction: column-reverse;
 
     & when (@v = 'top')                     { justify-content: flex-end;   }
@@ -169,6 +180,161 @@
 }
 
 //
+// Transforms the containing selector into a grid driven by flexbox. This grid
+// supports the 4 directions available in flex-direction. It is not a good idea
+// to directly tweak the margin and padding rules of this grid. If you must
+// specify a margin, either put this grid in a parent container and tweak the
+// margins of that instead, or manually take the internal paddings of the grid
+// into account. The same goes for the individual items inside the grid. If the
+// margin/padding rules must be tweaked, it is a better idea to have a child
+// container and tweak the rules of that instead.
+//
+// @param {List}    [$diameter=auto]    - Specifies the diameter of this grid,
+//                                        complies to the diameter mixin.
+// @param {string}  [$direction=row]    - Specifies the direction of this grid,
+//                                        complies to the rules supported by
+//                                        flex-direction.
+// @param {number}  [$base-length=auto] - The length of the fixed side of the
+//                                        items. If the direction of the grid
+//                                        is horizontal, this value would refer
+//                                        to the row height. Similarly, if the
+//                                        direction of the grid is vertical,
+//                                        this value would refer to the column
+//                                        width.
+// @param {number}  [$base-count=0]     - The number of items in this grid's
+//                                        direction. For example, if the
+//                                        direction is horizontal, this value
+//                                        would refer to the number of columns.
+//                                        This value must be greater than or
+//                                        equal to 0. If number is 0, there will
+//                                        not be a fixed number of items per
+//                                        direction - the items will simply
+//                                        position freely as long as a given
+//                                        direction has enough room. If this
+//                                        value is greater than 0, each item
+//                                        will have an automatically assigned
+//                                        length to the side that is parallel to
+//                                        the direction.
+// @param {List}    [$padding=0px true] - Specifies the padding between each
+//                                        grid item. The first value specifies
+//                                        the actual length of the gap, whereas
+//                                        the second value is a boolean that
+//                                        specifies whether gaps should be
+//                                        applied to outmost items (hence the
+//                                        grid itself will have an inner padding
+//                                        of the gap value).
+// @param {boolean} [$autosize=false]   - Specifies whether grid items will
+//                                        automatically fill the rest of the
+//                                        grid if there are empty spaces.
+//
+.flex-grid(@diameter:auto, @direction:row, @base-length:auto, @base-count:0, @padding:0px true, @autosize:false) {
+  @_width: extract(@diameter, 1);
+  @_height: extract(@diameter, 2);
+  @_padding: extract(@padding, 1);
+  @_basis: auto;
+
+  .flex-block('left', 'top', @direction, true);
+  .diameter(@diameter);
+
+  & > * {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+    & when (@autosize = true) { flex-grow: 1; }
+
+    & when (@direction = row), (@direction = row-reverse) { height: @base-length; }
+    & when not (@direction = row) and not (@direction = row-reverse) { width: @base-length; }
+  }
+
+  // No border.
+  & when (length(@padding) > 1) and (extract(@padding, 2) = false) {
+    margin: -@_padding 0 0 -@_padding;
+    padding: 0;
+
+    & when (isnumber(@_width)) {
+      width: calc(@_width ~'+' @_padding);
+    }
+
+    & when (length(@diameter) > 1) {
+      & when (isnumber(@_height)) { height: calc(@_height ~'+' @_padding); }
+    }
+
+    & when not (length(@diameter) > 1) {
+      & when (isnumber(@_width)) { height: calc(@_width ~'+' @_padding); }
+    }
+
+    & > * {
+      margin: @_padding 0 0 @_padding;
+
+      & when (@base-count > 0) {
+        &, &.base-1 { flex-basis: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 1 +' (@_padding * (1 - 1))); }
+        &.base-2    { flex-basis: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 2 +' (@_padding * (2 - 1))); }
+        &.base-3    { flex-basis: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 3 +' (@_padding * (3 - 1))); }
+        &.base-4    { flex-basis: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 4 +' (@_padding * (4 - 1))); }
+        &.base-5    { flex-basis: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 5 +' (@_padding * (5 - 1))); }
+        &.base-6    { flex-basis: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 6 +' (@_padding * (6 - 1))); }
+
+        & when (@direction = row), (@direction = row-reverse) {
+          &, &.base-1 { width: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 1 +' (@_padding * (1 - 1))); }
+          &.base-2    { width: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 2 +' (@_padding * (2 - 1))); }
+          &.base-3    { width: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 3 +' (@_padding * (3 - 1))); }
+          &.base-4    { width: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 4 +' (@_padding * (4 - 1))); }
+          &.base-5    { width: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 5 +' (@_padding * (5 - 1))); }
+          &.base-6    { width: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 6 +' (@_padding * (6 - 1))); }
+        }
+
+        & when not (@direction = row) and not (@direction = row-reverse) {
+          &, &.base-1 { height: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 1 +' (@_padding * (1 - 1))); }
+          &.base-2    { height: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 2 +' (@_padding * (2 - 1))); }
+          &.base-3    { height: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 3 +' (@_padding * (3 - 1))); }
+          &.base-4    { height: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 4 +' (@_padding * (4 - 1))); }
+          &.base-5    { height: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 5 +' (@_padding * (5 - 1))); }
+          &.base-6    { height: calc(~'(100% -' (@_padding * @base-count) ~') /' @base-count ~'* 6 +' (@_padding * (6 - 1))); }
+        }
+      }
+    }
+  }
+
+  // With border.
+  & when not (length(@padding) > 1), not (extract(@padding, 2) = false) {
+    margin: 0;
+    padding: (@_padding / 2);
+
+    & > * {
+      margin: (@_padding / 2);
+
+      & when (@base-count > 0) {
+        &, &.base-1 { @p: (100 / @base-count * 1); flex-basis: ~'calc(@{p}% - @{_padding})'; }
+        &.base-2    { @p: (100 / @base-count * 2); flex-basis: ~'calc(@{p}% - @{_padding})'; }
+        &.base-3    { @p: (100 / @base-count * 3); flex-basis: ~'calc(@{p}% - @{_padding})'; }
+        &.base-4    { @p: (100 / @base-count * 4); flex-basis: ~'calc(@{p}% - @{_padding})'; }
+        &.base-5    { @p: (100 / @base-count * 5); flex-basis: ~'calc(@{p}% - @{_padding})'; }
+        &.base-6    { @p: (100 / @base-count * 6); flex-basis: ~'calc(@{p}% - @{_padding})'; }
+      }
+
+      & when (@direction = row), (@direction = row-reverse) {
+        &, &.base-1 { @p: (100 / @base-count * 1); width: ~'calc(@{p}% - @{_padding})'; }
+        &.base-2    { @p: (100 / @base-count * 2); width: ~'calc(@{p}% - @{_padding})'; }
+        &.base-3    { @p: (100 / @base-count * 3); width: ~'calc(@{p}% - @{_padding})'; }
+        &.base-4    { @p: (100 / @base-count * 4); width: ~'calc(@{p}% - @{_padding})'; }
+        &.base-5    { @p: (100 / @base-count * 5); width: ~'calc(@{p}% - @{_padding})'; }
+        &.base-6    { @p: (100 / @base-count * 6); width: ~'calc(@{p}% - @{_padding})'; }
+      }
+
+      & when not (@direction = row) and not (@direction = row-reverse) {
+        &, &.base-1 { @p: (100 / @base-count * 1); height: ~'calc(@{p}% - @{_padding})'; }
+        &.base-2    { @p: (100 / @base-count * 2); height: ~'calc(@{p}% - @{_padding})'; }
+        &.base-3    { @p: (100 / @base-count * 3); height: ~'calc(@{p}% - @{_padding})'; }
+        &.base-4    { @p: (100 / @base-count * 4); height: ~'calc(@{p}% - @{_padding})'; }
+        &.base-5    { @p: (100 / @base-count * 5); height: ~'calc(@{p}% - @{_padding})'; }
+        &.base-6    { @p: (100 / @base-count * 6); height: ~'calc(@{p}% - @{_padding})'; }
+      }
+    }
+  }
+}
+
+//
 // Aligns containing selector to specified x/y directions in absolute position.
 //
 // @param {List} [@alignH='left'] - Horizontal alignment (left|center|right,
@@ -177,66 +343,58 @@
 //                                  top|bottom offset, bottom offset).
 //
 .abs-align(@alignH:'left', @alignV:'top') {
-  & {
-    position: absolute;
-  }
+  top: initial;
+  right: initial;
+  bottom: initial;
+  left: initial;
+  margin: 0;
+  position: absolute;
 
-  & when not (@alignH = ~'') and (length(@alignH) > 0) {
+  @hs: length(@alignH);
+  @vs: length(@alignV);
+
+  & when (@hs > 0) {
     @align: extract(@alignH, 1);
-    @offset1: ~'';
-    @offset2: ~'';
-
-    & when (length(@alignH) > 1) { @offset1: extract(@alignH, 2); }
-    & when (length(@alignH) > 2) { @offset2: extract(@alignH, 3); }
 
     & when (@align = 'left') {
-      & when (@offset1 = ~'')     { left: 0px;      }
-      & when not (@offset1 = ~'') { left: @offset1; }
-      right: initial;
+      left: 0px;
     }
 
     & when (@align = 'center'), (@align = 'middle') {
       margin-left: auto;
       margin-right: auto;
-      & when (@offset1 = ~'')     { left: 0px;       }
-      & when not (@offset1 = ~'') { left: @offset1;  }
-      & when (@offset2 = ~'')     { right: 0px;      }
-      & when not (@offset2 = ~'') { right: @offset2; }
+      left: 0px;
+      right: 0px;
     }
 
     & when (@align = 'right') {
-      & when (@offset1 = ~'')     { right: 0px;      }
-      & when not (@offset1 = ~'') { right: @offset1; }
-      left: initial;
+      right: 0px;
     }
+
+    & when (@hs > 1) { left: extract(@alignH, 2); }
+    & when (@hs > 2) { right: extract(@alignH, 3); }
   }
 
   & when not (@alignV = ~'') and (length(@alignV) > 0) {
     @align: extract(@alignV, 1);
-    @offset1: ~'';
-    @offset2: ~'';
-
-    & when (length(@alignV) > 1) { @offset1: extract(@alignV, 2); }
-    & when (length(@alignV) > 2) { @offset2: extract(@alignV, 3); }
 
     & when (@align = 'top') {
-      & when (@offset1 = ~'')     { top: 0px;      }
-      & when not (@offset1 = ~'') { top: @offset1; }
+      top: 0px;
     }
 
     & when (@align = 'center'), (@align = 'middle') {
       margin-top: auto;
       margin-bottom: auto;
-      & when (@offset1 = ~'')     { top: 0px;         }
-      & when not (@offset1 = ~'') { top: @offset1;    }
-      & when (@offset2 = ~'')     { bottom: 0px;      }
-      & when not (@offset2 = ~'') { bottom: @offset2; }
+      top: 0px;
+      bottom: 0px;
     }
 
     & when (@align = 'bottom') {
-      & when (@offset1 = ~'')     { bottom: 0px;      }
-      & when not (@offset1 = ~'') { bottom: @offset1; }
+      bottom: 0px;
     }
+
+    & when (@vs > 1) { top: extract(@alignV, 2); }
+    & when (@vs > 2) { bottom: extract(@alignV, 3); }
   }
 }
 
@@ -249,63 +407,8 @@
 //                                  top|bottom offset, bottom offset).
 //
 .fixed-align(@alignH:'left', @alignV:'top') {
+  .abs-align(@alignH, @alignV);
   position: fixed;
-
-  & when not (@alignH = ~'') and (length(@alignH) > 0) {
-    @align: extract(@alignH, 1);
-    @offset1: ~'';
-    @offset2: ~'';
-
-    & when (length(@alignH) > 1) { @offset1: extract(@alignH, 2); }
-    & when (length(@alignH) > 2) { @offset2: extract(@alignH, 3); }
-
-    & when (@align = 'left') {
-      & when (@offset1 = ~'')     { left: 0px;      }
-      & when not (@offset1 = ~'') { left: @offset1; }
-    }
-
-    & when (@align = 'center'), (@align = 'middle') {
-      margin-left: auto;
-      margin-right: auto;
-      & when (@offset1 = ~'')     { left: 0px;       }
-      & when not (@offset1 = ~'') { left: @offset1;  }
-      & when (@offset2 = ~'')     { right: 0px;      }
-      & when not (@offset2 = ~'') { right: @offset2; }
-    }
-
-    & when (@align = 'right') {
-      & when (@offset1 = ~'')     { right: 0px;      }
-      & when not (@offset1 = ~'') { right: @offset1; }
-    }
-  }
-
-  & when not (@alignV = ~'') and (length(@alignV) > 0) {
-    @align: extract(@alignV, 1);
-    @offset1: ~'';
-    @offset2: ~'';
-
-    & when (length(@alignV) > 1) { @offset1: extract(@alignV, 2); }
-    & when (length(@alignV) > 2) { @offset2: extract(@alignV, 3); }
-
-    & when (@align = 'top') {
-      & when (@offset1 = ~'')     { top: 0px;      }
-      & when not (@offset1 = ~'') { top: @offset1; }
-    }
-
-    & when (@align = 'center'), (@align = 'middle') {
-      margin-top: auto;
-      margin-bottom: auto;
-      & when (@offset1 = ~'')     { top: 0px;         }
-      & when not (@offset1 = ~'') { top: @offset1;    }
-      & when (@offset2 = ~'')     { bottom: 0px;      }
-      & when not (@offset2 = ~'') { bottom: @offset2; }
-    }
-
-    & when (@align = 'bottom') {
-      & when (@offset1 = ~'')     { bottom: 0px;      }
-      & when not (@offset1 = ~'') { bottom: @offset1; }
-    }
-  }
 }
 
 //
@@ -346,21 +449,12 @@
 // Transforms target selector into a parallax element. The target selector must
 // be a child of a parallax-block.
 //
-// @param {string} @type  Layer type, either 'group' or 'layer'.
-// @param {number} @z     Position in the z-axis.
+// @param {number} [@z=0] - Position in the z-axis.
 //
 // @see parallax-block
 //
-.parallax-element(@type:layer, @z:0) {
-  & when (@type = 'group') {
-    height: 100vh;
-    position: relative;
-    transform-style: preserve-3d;
-  }
-
-  & when (@type = 'layer') {
-    transform: translateZ(unit(@z, px));
-  }
+.parallax-element(@z:0) {
+  transform: translateZ(unit(@z, px));
 }
 
 //
@@ -397,6 +491,50 @@
     & when not (length(@diameter) > 1) {
       border-radius: @diameter / 2;
     }
+  }
+}
+
+//
+// Sets the max diameter of the target selector.
+//
+// @param {number|List} @diameter - Specifies the max width and height of the
+//                                  selector. If only 1 value is provided, both
+//                                  max-width and max-height will use that
+//                                  value. If 2 values are provided, they will
+//                                  be used for max-width and max-height
+//                                  respectively.
+//
+.max-diameter(@diameter) {
+  & when (length(@diameter) > 1) {
+    max-width: extract(@diameter, 1);
+    max-height: extract(@diameter, 2);
+  }
+
+  & when not (length(@diameter) > 1) {
+    max-width: @diameter;
+    max-height: @diameter;
+  }
+}
+
+//
+// Sets the min diameter of the target selector.
+//
+// @param {number|List} @diameter - Specifies the min width and height of the
+//                                  selector. If only 1 value is provided, both
+//                                  min-width and min-height will use that
+//                                  value. If 2 values are provided, they will
+//                                  be used for min-width and min-height
+//                                  respectively.
+//
+.min-diameter(@diameter) {
+  & when (length(@diameter) > 1) {
+    min-width: extract(@diameter, 1);
+    min-height: extract(@diameter, 2);
+  }
+
+  & when not (length(@diameter) > 1) {
+    min-width: @diameter;
+    min-height: @diameter;
   }
 }
 
@@ -445,5 +583,37 @@
   & when (@h = true) {
     & when (@useViewport = true) { height: 100vh; }
     & when not (@useViewport = true) { height: 100%; }
+  }
+}
+
+//
+// Makes a video fill the parent block, maintaining aspect ratio and centered
+// (like background-size: cover).
+//
+.cover-video() {
+  .abs-align('left' 50%, 'top' 50%);
+  .diameter(auto);
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+//
+// Sets the overflow of the target selector.
+//
+// @param {number|List} @overflow - Specifies the overflow of the selector. If
+//                                  only 1 value is provided, both overflow-x
+//                                  and overflow-y use that value. If 2 values
+//                                  are provided, they will be used for
+//                                  overflow-x and overflow-y respectively.
+//
+.overflow(@overflow) {
+  & when (length(@overflow) > 1) {
+    overflow-x: extract(@overflow, 1);
+    overflow-y: extract(@overflow, 2);
+  }
+
+  & when not (length(@overflow) > 1) {
+    overflow: @overflow;
   }
 }
