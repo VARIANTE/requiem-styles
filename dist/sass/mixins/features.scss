@@ -8,13 +8,13 @@
 
 /// Applies font related rules.
 ///
-/// @param {List}   $family        - Font family.
+/// @param {List}   $family [null] - Font family.
 /// @param {*}      $size [null]   - Font size.
 /// @param {number} $weight [null] - Font weight.
 ///
 /// @group features
-@mixin font($family, $size:null, $weight:null) {
-  font-family: append($family, null, comma);
+@mixin font($family:null, $size:null, $weight:null) {
+  @if ($family != null) { font-family: append($family, null, comma); }
   @if ($size != null) { font-size: $size; }
   @if ($weight != null) { font-weight: $weight; }
 }

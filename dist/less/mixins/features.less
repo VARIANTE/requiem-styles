@@ -9,17 +9,19 @@
 //
 // Applies font related rules.
 //
-// @param {List}   @family   - Font family.
+// @param {List}   [@family] - Font family.
 // @param {*}      [@size]   - Font size.
 // @param {number} [@weight] - Font weight.
 //
-.font(@family, @size:~'', @weight:~'') {
-  .loop(@i) when (@i > 0) {
-    .loop((@i - 1));
-    font-family+: extract(@family, @i);
-  }
+.font(@family:~'', @size:~'', @weight:~'') {
+  & when not (@family = ~'') {
+    .loop(@i) when (@i > 0) {
+      .loop((@i - 1));
+      font-family+: extract(@family, @i);
+    }
 
-  .loop(length(@family));
+    .loop(length(@family));
+  }
 
   & when not (@size = ~'') { font-size: @size; }
   & when not (@weight = ~'') { font-weight: @weight; }

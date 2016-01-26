@@ -9,12 +9,13 @@
 /**
  * Applies font related rules.
  *
- * @param {List}   $family   - Font family.
+ * @param {List}   [$family] - Font family.
  * @param {*}      [$size]   - Font size.
  * @param {number} [$weight] - Font weight.
  */
-font($family, $size=null, $weight=null)
-  font-family: comma-list($family)
+font($family=null, $size=null, $weight=null)
+  if $family != null
+    font-family: comma-list($family)
   if $size != null
     font-size: $size
   if $weight != null
