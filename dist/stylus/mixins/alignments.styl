@@ -7,6 +7,261 @@
  */
 
 /**
+ * Sets the margin of an element. Similar to the original 'margin' CSS rule,
+ * except for the addition of 2 values: null and ''. If null is specified for
+ * a specific side of the margin, that side will not be set. If '' is specified
+ * for a specific side of the margin, it will take the value of the previous
+ * side.
+ *
+ * @param {List} $margin - List of values for each side of the margin ordered
+ *                         by top, right, bottom and left. Other than the first
+ *                         value, all values are optional. If values are left
+ *                         out, the behavior will be similar to the original
+ *                         'margin' CSS rule (i.e. bottom matches top, right
+ *                         matches left, etc).
+ */
+margin($margin)
+  $top = nth($margin, 1)
+  $right = (length($margin) > 1) ? $margin[1] : $top
+  $bottom = length($margin) > 2) ? $margin[2] : $top
+  $left = (length($margin) > 3) ? $margin[3] : $right
+
+  if $right == ''
+    $right = $top
+
+  if $bottom == ''
+    $bottom = $right
+
+  if $left == ''
+    $left = $bottom
+
+  if $top != null
+    margin-top: $top
+
+  if $right != null
+    margin-right: $right
+
+  if $bottom != null
+    margin-bottom: $bottom
+
+  if $left != null
+    margin-left: $left
+
+/**
+ * Sets the horizontal margins (i.e. left and right respectively). Values are
+ * optional except for the first value. If null is specified, that side of
+ * the margin will not be set. If '' is specified, the previous value will be
+ * used instead (likewise if it is left out).
+ *
+ * @param {List} $margin - List of up to 2 values for left and right margins
+ *                         respectively.
+ */
+marginH($margin)
+  $left = $margin[0]
+  $right = (length($margin) > 1) $margin[1] : $left
+
+  if $right == ''
+    $right = $left
+
+  if $left != null
+    margin-left: $left
+
+  if $right != null
+    margin-right: $right
+
+/**
+ * Sets the vertical margins (i.e. top and bottom respectively). Values are
+ * optional except for the first value. If null is specified, that side of
+ * the margin will not be set. If '' is specified, the previous value will be
+ * used instead (likewise if it is left out).
+ *
+ * @param {List} $margin - List of up to 2 values for top and bottom margins
+ *                         respectively.
+ */
+marginV($margin)
+  $top = $margin[0]
+  $bottom = (length($margin) > 1) ? $margin[1] : $top
+
+  if $bottom == ''
+    $right = $top
+
+  if $top != null
+    margin-top: $top
+
+  if $bottom != null
+    margin-bottom: $bottom
+
+/**
+ * Sets the padding of an element. Similar to the original 'padding' CSS rule,
+ * except for the addition of 2 values: null and ''. If null is specified for
+ * a specific side of the padding, that side will not be set. If '' is
+ * specified for a specific side of the padding, it will take the value of the
+ * previous side.
+ *
+ * @param {List} $padding - List of values for each side of the padding ordered
+ *                          by top, right, bottom and left. Other than the
+ *                          first value, all values are optional. If values are
+ *                          left out, the behavior will be similar to the
+ *                          original 'padding' CSS rule (i.e. bottom matches
+ *                          top, right matches left, etc).
+ */
+mixin padding($padding)
+  $top = nth($padding, 1)
+  $right = (length($padding) > 1) ? $padding[1] : $top
+  $bottom = length($padding) > 2) ? $padding[2] : $top
+  $left = (length($padding) > 3) ? $padding[3] : $right
+
+  if $right == ''
+    $right = $top
+
+  if $bottom == ''
+    $bottom = $right
+
+  if $left == ''
+    $left = $bottom
+
+  if $top != null
+    padding-top: $top
+
+  if $right != null
+    padding-right: $right
+
+  if $bottom != null
+    padding-bottom: $bottom
+
+  if $left != null
+    padding-left: $left
+
+/**
+ * Sets the horizontal paddings (i.e. left and right respectively). Values are
+ * optional except for the first value. If null is specified, that side of
+ * the padding will not be set. If '' is specified, the previous value will be
+ * used instead (likewise if it is left out).
+ *
+ * @param {List} $padding - List of up to 2 values for left and right paddings
+ *                          respectively.
+ */
+mixin paddingH($padding)
+  $left = $padding[0]
+  $right = (length($padding) > 1) ? $padding[1] : $left
+
+  if $right == ''
+    $right = $left
+
+  if $left != null
+    padding-left: $left
+
+  if $right != null
+    padding-right: $right
+
+/**
+ * Sets the vertical paddings (i.e. top and bottom respectively). Values are
+ * optional except for the first value. If null is specified, that side of
+ * the padding will not be set. If '' is specified, the previous value will be
+ * used instead (likewise if it is left out).
+ *
+ * @param {List} $padding - List of up to 2 values for top and bottom paddings
+ *                          respectively.
+ */
+paddingV($padding)
+  $top = $padding[0]
+  $bottom = (length($padding) > 1) ? $padding[1] : $top
+
+  if $bottom == ''
+    $right = $top
+
+  if $top != null
+    padding-top: $top
+
+  if $bottom != null
+    padding-bottom: $bottom
+
+/**
+ * Sets the edge of an element (i.e. top, right, bottom and left). This mixin
+ * makes setting edges similar to margins and paddings where you can apply
+ * a list of up to 4 values to set all edges. If null is specified for a
+ * specific edge, that edge will not be set. If '' is specified for a specific
+ * edge, it will take the value of the previous edge.
+ *
+ * @param {List} $edge - List of values for each edge ordered by top, right,
+ *                       bottom and left. Other than the first value, all
+ *                       values are optional. If values are left out, the
+ *                       behavior will be similar to what the 'padding' and
+ *                       'margin' CSS rules would do (i.e. bottom matches top,
+ *                       right matches left, etc).
+ */
+edge($edge)
+  $top = nth($edge, 1)
+  $right = (length($edge) > 1) ? $edge[1] : $top
+  $bottom = length($edge) > 2) ? $edge[2] : $top
+  $left = (length($edge) > 3) ? $edge[3] : $right
+
+  if $right == ''
+    $right = $top
+
+  if $bottom == ''
+    $bottom = $right
+
+  if $left == ''
+    $left = $bottom
+
+  if $top != null
+    top: $top
+
+  if $right != null
+    right: $right
+
+  if $bottom != null
+    bottom: $bottom
+
+  if $left != null
+    left: $left
+
+/**
+ * Sets the horizontal edges (i.e. left and right respectively). Values are
+ * optional except for the first value. If null is specified, that side of
+ * the edge will not be set. If '' is specified, the previous value will be
+ * used instead (likewise if it is left out).
+ *
+ * @param {List} $edge - List of up to 2 values for top and bottom edges
+ *                       respectively.
+ */
+edgeH($edge)
+  $left = $edge[0]
+  $right = (length($edge) > 1) ? $edge[1] : $left
+
+  if $right == ''
+    $right = $left
+
+  if $left != null
+    left: $left
+
+  if $right != null
+    right: $right
+
+/**
+ * Sets the vertical edges (i.e. top and bottom respectively). Values are
+ * optional except for the first value. If null is specified, that side of
+ * the edge will not be set. If '' is specified, the previous value will be
+ * used instead (likewise if it is left out).
+ *
+ * @param {List} $edge - List of up to 2 values for left and right edges
+ *                       respectively.
+ */
+edgeV($edge)
+  $top = $edge[0]
+  $bottom = (length($edge) > 1) ? $edge[1] : $top
+
+  if $bottom == ''
+    $right = $top
+
+  if $top != null
+    top: $top
+
+  if $bottom != null
+    bottom: $bottom
+
+/**
  * Clearfix hack for floated elements.
  */
 clearfix()
@@ -368,6 +623,34 @@ flex-grid($diameter=auto, $direction=row, $base-length=auto, $base-count=0, $pad
             height: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
 
 /**
+ * Aligns an element horizontally and vertically.
+ *
+ * @param {List}   [$alignH='left']     - List of up to 3 values that describes
+ *                                        the horizontal alignment. First value
+ *                                        represents the direction (i.e. left,
+ *                                        center, right) and the second and
+ *                                        third value are the left and right
+ *                                        edges respectively.
+ * @param {List}   [$alignV='top']      - List of up to 3 values that describes
+ *                                        the vertical alignment. First value
+ *                                        represents the direction (i.e. top,
+ *                                        center, bottom) and the second and
+ *                                        third value are the top and bottom
+ *                                        edges respectively.
+ * @param {string} [$type='absolute']   - Specifies the position type (i.e.
+ *                                        absolute or fixed).
+ */
+align($alignH:'left', $alignV:'top', $type:'absolute')
+  if $type == 'absolute' or $type == 'abs'
+    abs-align($alignH, $alignV)
+
+  if $type == 'fixed' or $type == 'fix'
+    fixed-align($alignH, $alignV)
+
+  if $type == 'inline'
+    inline-align($alignH, $alignV)
+
+/**
  * Aligns containing selector to specified x/y directions in absolute position.
  *
  * @param {List} [$alignH='left'] - Horizontal alignment (left|center|right,
@@ -506,40 +789,64 @@ diameter($diameter, $oval=false)
     border-radius: ($d / 2)
 
 /**
- * Sets the max diameter of the target selector.
+ * Sets the size of the target selector.
  *
- * @param {number|List} $diameter - Specifies the max width and height of the
- *                                  selector. If only 1 value is provided, both
- *                                  max-width and max-height will use that
- *                                  value. If 2 values are provided, they will
- *                                  be used for the max-width and max-height
- *                                  respectively.
+ * @param {number|List} $size         - Specifies the width and height of the
+ *                                      selector. If only 1 value is provided,
+ *                                      both width and height will use that
+ *                                      value. If 2 values are provided, they
+ *                                      will be used for the width and height
+ *                                      respectively.
+ * @param {boolean}     [$oval=false] - Specifies whether the selector is oval
+ *                                      shaped (hence rounded corners
+ *                                      corresponding to the shortest side).
  */
-max-diameter($diameter)
-  if length($diameter) > 1
-    max-width: $diameter[0]
-    max-height: $diameter[1]
+size($size, $oval=false)
+  if length($size) > 1
+    width: $size[0]
+    height: $size[1]
   else
-    max-width: $diameter
-    max-height: $diameter
+    width: $size
+    height: $size
+
+  if $oval == true
+    mask()
+    $d = (length($size) > 1) ? min($size[0], $size[1]) : $size
+    border-radius: ($d / 2)
 
 /**
- * Sets the min diameter of the target selector.
+ * Sets the max size of the target selector.
  *
- * @param {number|List} $diameter - Specifies the min width and height of the
- *                                  selector. If only 1 value is provided, both
- *                                  min-width and min-height will use that
- *                                  value. If 2 values are provided, they will
- *                                  be used for the min-width and min-height
- *                                  respectively.
+ * @param {number|List} $size - Specifies the max width and height of the
+ *                              selector. If only 1 value is provided, both
+ *                              max-width and max-height will use that value. If
+ *                              2 values are provided, they will be used for the
+ *                              max-width and max-height respectively.
  */
-min-diameter($diameter)
-  if length($diameter) > 1
-    min-width: $diameter[0]
-    min-height: $diameter[1]
+max-size($size)
+  if length($size) > 1
+    max-width: $size[0]
+    max-height: $size[1]
   else
-    min-width: $diameter
-    min-height: $diameter
+    max-width: $size
+    max-height: $size
+
+/**
+ * Sets the min size of the target selector.
+ *
+ * @param {number|List} $size - Specifies the min width and height of the
+ *                              selector. If only 1 value is provided, both
+ *                              min-width and min-height will use that value. If
+ *                              2 values are provided, they will be used for the
+ *                              min-width and min-height respectively.
+ */
+min-size($size)
+  if length($size) > 1
+    min-width: $size[0]
+    min-height: $size[1]
+  else
+    min-width: $size
+    min-height: $size
 
 /**
  * Applies mask to target selector.
