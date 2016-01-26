@@ -21,7 +21,7 @@
  *                         matches left, etc).
  */
 margin($margin)
-  $top = $margin[0]
+  $top = (length($margin) > 1) ? $margin[0] : $margin
   $right = (length($margin) > 1) ? $margin[1] : $top
   $bottom = (length($margin) > 2) ? $margin[2] : $top
   $left = (length($margin) > 3) ? $margin[3] : $right
@@ -106,7 +106,7 @@ marginV($margin)
  *                          top, right matches left, etc).
  */
 padding($padding)
-  $top = $padding[0]
+  $top = (length($padding) > 1) ? $padding[0] : $padding
   $right = (length($padding) > 1) ? $padding[1] : $top
   $bottom = (length($padding) > 2) ? $padding[2] : $top
   $left = (length($padding) > 3) ? $padding[3] : $right
@@ -191,7 +191,7 @@ paddingV($padding)
  *                       right matches left, etc).
  */
 edge($edge)
-  $top = $edge[0]
+  $top = (length($edge) > 1) ? $edge[0] : $edge
   $right = (length($edge) > 1) ? $edge[1] : $top
   $bottom = (length($edge) > 2) ? $edge[2] : $top
   $left = (length($edge) > 3) ? $edge[3] : $right
