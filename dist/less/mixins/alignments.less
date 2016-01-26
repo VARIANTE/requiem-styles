@@ -503,14 +503,16 @@
 //                                      corresponding to the shortest side).
 //
 .diameter(@diameter, @oval:false) {
-  & when (length(@diameter) > 1) {
-    width: extract(@diameter, 1);
-    height: extract(@diameter, 2);
+  & when (length(@size) > 1) {
+    & when not (extract(@size, 1) = ~'') { width: extract(@size, 1); }
+    & when not (extract(@size, 2) = ~'') { width: extract(@size, 2); }
   }
 
-  & when not (length(@diameter) > 1) {
-    width: @diameter;
-    height: @diameter;
+  & when not (length(@size) > 1) {
+    & when not (@size = ~'') {
+      width: @size;
+      height: @size;
+    }
   }
 
   & when (@oval = true) {
@@ -541,13 +543,15 @@
 //
 .size(@size, @oval:false) {
   & when (length(@size) > 1) {
-    width: extract(@size, 1);
-    height: extract(@size, 2);
+    & when not (extract(@size, 1) = ~'') { width: extract(@size, 1); }
+    & when not (extract(@size, 2) = ~'') { width: extract(@size, 2); }
   }
 
   & when not (length(@size) > 1) {
-    width: @size;
-    height: @size;
+    & when not (@size = ~'') {
+      width: @size;
+      height: @size;
+    }
   }
 
   & when (@oval = true) {
@@ -574,13 +578,15 @@
 //
 .max-size(@size) {
   & when (length(@size) > 1) {
-    max-width: extract(@size, 1);
-    max-height: extract(@size, 2);
+    & when not (extract(@size, 1) = ~'') { max-width: extract(@size, 1); }
+    & when not (extract(@size, 2) = ~'') { max-width: extract(@size, 2); }
   }
 
   & when not (length(@size) > 1) {
-    max-width: @size;
-    max-height: @size;
+    & when not (@size = ~'') {
+      max-width: @size;
+      max-height: @size;
+    }
   }
 }
 
@@ -595,13 +601,15 @@
 //
 .min-size(@size) {
   & when (length(@size) > 1) {
-    min-width: extract(@size, 1);
-    min-height: extract(@size, 2);
+    & when not (extract(@size, 1) = ~'') { min-width: extract(@size, 1); }
+    & when not (extract(@size, 2) = ~'') { min-width: extract(@size, 2); }
   }
 
   & when not (length(@size) > 1) {
-    min-width: @size;
-    min-height: @size;
+    & when not (@size = ~'') {
+      min-width: @size;
+      min-height: @size;
+    }
   }
 }
 

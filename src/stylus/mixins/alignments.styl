@@ -776,12 +776,16 @@ parallax-element($z=0)
  *                                      corresponding to the shortest side).
  */
 diameter($diameter, $oval=false)
-  if length($diameter) > 1
-    width: $diameter[0]
-    height: $diameter[1]
+  if length($size) > 1
+    if $size[0] != null
+      width: $size[0]
+
+    if $size[1] != null
+      height: $size[1]
   else
-    width: $diameter
-    height: $diameter
+    if $size != null
+      width: $size
+      height: $size
 
   if $oval == true
     mask()
@@ -803,11 +807,15 @@ diameter($diameter, $oval=false)
  */
 size($size, $oval=false)
   if length($size) > 1
-    width: $size[0]
-    height: $size[1]
+    if $size[0] != null
+      width: $size[0]
+
+    if $size[1] != null
+      height: $size[1]
   else
-    width: $size
-    height: $size
+    if $size != null
+      width: $size
+      height: $size
 
   if $oval == true
     mask()
@@ -825,11 +833,15 @@ size($size, $oval=false)
  */
 max-size($size)
   if length($size) > 1
-    max-width: $size[0]
-    max-height: $size[1]
+    if $size[0] != null
+      max-width: $size[0]
+
+    if $size[1] != null
+      max-height: $size[1]
   else
-    max-width: $size
-    max-height: $size
+    if $size != null
+      max-width: $size
+      max-height: $size
 
 /**
  * Sets the min size of the target selector.
@@ -842,11 +854,15 @@ max-size($size)
  */
 min-size($size)
   if length($size) > 1
-    min-width: $size[0]
-    min-height: $size[1]
+    if $size[0] != null
+      min-width: $size[0]
+
+    if $size[1] != null
+      min-height: $size[1]
   else
-    min-width: $size
-    min-height: $size
+    if $size != null
+      min-width: $size
+      min-height: $size
 
 /**
  * Applies mask to target selector.
