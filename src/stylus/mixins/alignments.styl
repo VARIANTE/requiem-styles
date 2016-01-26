@@ -58,7 +58,7 @@ margin($margin)
  */
 marginH($margin)
   $left = $margin[0]
-  $right = (length($margin) > 1) $margin[1] : $left
+  $right = (length($margin) > 1) ? $margin[1] : $left
 
   if $right == ''
     $right = $left
@@ -105,7 +105,7 @@ marginV($margin)
  *                          original 'padding' CSS rule (i.e. bottom matches
  *                          top, right matches left, etc).
  */
-mixin padding($padding)
+padding($padding)
   $top = nth($padding, 1)
   $right = (length($padding) > 1) ? $padding[1] : $top
   $bottom = (length($padding) > 2) ? $padding[2] : $top
@@ -141,7 +141,7 @@ mixin padding($padding)
  * @param {List} $padding - List of up to 2 values for left and right paddings
  *                          respectively.
  */
-mixin paddingH($padding)
+paddingH($padding)
   $left = $padding[0]
   $right = (length($padding) > 1) ? $padding[1] : $left
 
@@ -640,7 +640,7 @@ flex-grid($diameter=auto, $direction=row, $base-length=auto, $base-count=0, $pad
  * @param {string} [$type='absolute']   - Specifies the position type (i.e.
  *                                        absolute or fixed).
  */
-align($alignH:'left', $alignV:'top', $type:'absolute')
+align($alignH='left', $alignV='top', $type='absolute')
   if $type == 'absolute' or $type == 'abs'
     abs-align($alignH, $alignV)
 
