@@ -2,7 +2,7 @@
 @import 'requiem';
 
 main {
-  @include diameter(100% 100%);
+  @include size(100% 100%);
   @include transition(all, 1s, ease);
   @include parallax-block(100);
   background: rgb(20, 20, 20);
@@ -34,7 +34,7 @@ main {
 
     & > div {
       @include flex-block($alignH:'center', $alignV:'center', $direction:column);
-      @include diameter(auto 100%);
+      @include size(auto 100%);
       padding: 20px;
       text-align: center;
 
@@ -50,7 +50,7 @@ main {
     background: rgb(10, 10, 10);
 
     & > div {
-      @include diameter(80%);
+      @include size(80%);
       @include fluid-block($inline:true);
       padding: 20px;
       background: rgb(20, 20, 20);

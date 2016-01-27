@@ -1,18 +1,16 @@
-/**
- * Requiem-Styles
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+// Requiem-Styles
+// (c) VARIANTE (http://variante.io)
+//
+// This software is released under the MIT License:
+// http://www.opensource.org/licenses/mit-license.php
 
-/**
- * Applies font related rules.
- *
- * @param {List}   [$family] - Font family.
- * @param {*}      [$size]   - Font size.
- * @param {number} [$weight] - Font weight.
- */
+/// Applies font related rules.
+///
+/// @param {List}   $family [null] - Font family.
+/// @param {*}      $size [null]   - Font size.
+/// @param {number} $weight [null] - Font weight.
+///
+/// @group features
 font($family=null, $size=null, $weight=null)
   if $family != null
     font-family: comma-list($family)
@@ -21,13 +19,13 @@ font($family=null, $size=null, $weight=null)
   if $weight != null
     font-weight: $weight
 
-/**
- * Binds the content to the target selector based on the 'csstransitions'
- * feature (requires Modernizr).
- *
- * @param {boolean} [$enabled=true] - Specifies whether 'csstransitions' class
- *                                    is required.
- */
+/// Binds the content to the target selector based on the 'csstransitions'
+/// feature (requires Modernizr).
+///
+/// @param {boolean} $enabled [true] - Specifies whether 'csstransitions' class
+///                                    is required.
+///
+/// @group features
 transition-detection($enabled=true)
   if $enabled == true and $modernizr-enabled == true
     .csstransitions &
@@ -35,27 +33,27 @@ transition-detection($enabled=true)
   else
     {block}
 
-/**
- * Applies transition rules.
- *
- * @param {List} [$properties=all]        - Transition property(ies).
- * @param {List} [$durations=0s]          - Transition duration(s).
- * @param {List} [$timing-functions=ease] - Transition timing function(s).
- * @param {List} [$delays=0s]             - Transition delay(s).
- */
+/// Applies transition rules.
+///
+/// @param {List} $properties [all]        - Transition property(ies).
+/// @param {List} $durations [0s]          - Transition duration(s).
+/// @param {List} $timing-functions [ease] - Transition timing function(s).
+/// @param {List} $delays [0s]             - Transition delay(s).
+///
+/// @group features
 transition($properties=all, $durations=0s, $timing-functions=ease, $delays=0s)
   transition-property: comma-list($properties)
   transition-duration: comma-list($durations)
   transition-timing-function: comma-list($timing-functions)
   transition-delay: comma-list($delays)
 
-/**
- * Binds the content to the target selector based on the 'cssanimations' feature
- * (requires Modernizr).
- *
- * @param {boolean} [$enabled=true] - Specifies whether 'cssanimations' class is
- *                                    required.
- */
+/// Binds the content to the target selector based on the 'cssanimations' feature
+/// (requires Modernizr).
+///
+/// @param {boolean} $enabled [true] - Specifies whether 'cssanimations' class
+///                                    is required.
+///
+/// @group features
 animation-detection($enabled=true)
   if $enabled == true and $modernizr-enabled == true
     .cssanimations &
@@ -63,15 +61,15 @@ animation-detection($enabled=true)
   else
     {block}
 
-/**
- * Binds the content to the target selector based on the 'touch' and 'no-touch'
- * feature (requires Modernizr).
- *
- * @param {boolean} [$enabled=true]    - Specifies whether 'touch' class is
- *                                       required.
- * @param {boolean} [$exclusive=false] - Specifies whether 'no-touch' class is
- *                                       required if $enabled is false.
- */
+/// Binds the content to the target selector based on the 'touch' and 'no-touch'
+/// feature (requires Modernizr).
+///
+/// @param {boolean} $enabled [true]    - Specifies whether 'touch' class is
+///                                       required.
+/// @param {boolean} $exclusive [false] - Specifies whether 'no-touch' class is
+///                                       required if $enabled is false.
+///
+/// @group features
 touch($enabled=true, $exclusive=false)
   if $enabled == true and $modernizr-enabled == true
     .touch &
@@ -83,22 +81,22 @@ touch($enabled=true, $exclusive=false)
     else
       {block}
 
-/**
- * Enables hardware acceleration for containing selector.
- */
+/// Enables hardware acceleration for containing selector.
+///
+/// @group features
 hardware-acceleration()
   transform: translate3d(0, 0, 0)
 
-/**
- * Enables/disables pointer events for target selector and all child selectors.
- *
- * @param {boolean} [$enabled=true]   - Specifies whether element should have
- *                                      pointer events enabled.
- * @param {boolean} [$recursive=true] - Specifies whether child elements should
- *                                      also be applied.
- * @param {boolean} [$forced=true]    - Specifies whether the behavior is tagged
- *                                      '!important'.
- */
+/// Enables/disables pointer events for target selector and all child selectors.
+///
+/// @param {boolean} $enabled [true]   - Specifies whether element should have
+///                                      pointer events enabled.
+/// @param {boolean} $recursive [true] - Specifies whether child elements should
+///                                      also be applied.
+/// @param {boolean} $forced [true]    - Specifies whether the behavior is
+///                                      tagged '!important'.
+///
+/// @group features
 pointable($enabled=true, $recursive=true, $forced=true)
   if $enabled == true
     if $recursive == true

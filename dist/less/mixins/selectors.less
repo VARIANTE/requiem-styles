@@ -1,20 +1,18 @@
-//
 // Requiem-Styles
 // (c) VARIANTE (http://variante.io)
 //
 // This software is released under the MIT License:
 // http://www.opensource.org/licenses/mit-license.php
-//
 
-//
-// Selector for label elements. Each element is meant to contain text only. For
-// optimal results, do not nest label elements. For italics, use <i>, and for
-// bold, use <b>. <a> is not treated as a label element and should only be used
-// to make a nested element a hyperlink.
-//
-// @param {string} [@type='all'] - Type of the label (i.e. 'body', 'header',
-//                                 'all')
-//
+/// Selector for label elements. Each element is meant to contain text only. For
+/// optimal results, do not nest label elements. For italics, use <i>, and for
+/// bold, use <b>. <a> is not treated as a label element and should only be used
+/// to make a nested element a hyperlink.
+///
+/// @param {string} $type ['all'] - Type of the label (i.e. 'body', 'header',
+///                                 'all')
+///
+/// @group selectors
 .labels(@type:'all', @rules) {
   & when (@type = 'all'), (@type = 'body') {
     p                  { @rules(); }
@@ -36,11 +34,11 @@
   }
 }
 
-//
-// Selects labels with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects labels with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .label(@instance:'', @rules) {
   .labels(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -49,11 +47,11 @@
   });
 }
 
-//
-// Selects labels with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects labels with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .label-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -64,11 +62,11 @@
   });
 }
 
-//
-// Selects labels with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects labels with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .label-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -79,18 +77,18 @@
   });
 }
 
-//
-// Selector for static elements.
-//
+/// Selector for static elements.
+///
+/// @group selectors
 .statics(@rules) {
   form { @rules(); }
 }
 
-//
-// Selects statics with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects statics with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .static(@instance:'', @rules) {
   .statics(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -99,11 +97,11 @@
   });
 }
 
-//
-// Selects statics with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects statics with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .static-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -114,11 +112,11 @@
   });
 }
 
-//
-// Selects statics with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects statics with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .static-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -129,9 +127,9 @@
   });
 }
 
-//
-// Selector for button elements.
-//
+/// Selector for button elements.
+///
+/// @group selectors
 .buttons(@rules) {
   a[type='button']       { @rules(); }
   input[type='submit']   { @rules(); }
@@ -141,11 +139,11 @@
   button                 { @rules(); }
 }
 
-//
-// Selects buttons with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects buttons with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .button(@instance:'', @rules) {
   .buttons(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -154,11 +152,11 @@
   });
 }
 
-//
-// Selects buttons with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects buttons with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .button-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -169,11 +167,11 @@
   });
 }
 
-//
-// Selects buttons with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects buttons with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .button-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -184,18 +182,18 @@
   });
 }
 
-//
-// Selector for hyperlinks.
-//
+/// Selector for hyperlinks.
+///
+/// @group selectors
 .links(@rules) {
   a:not([type='button']):not([type='label']) { @rules(); }
 }
 
-//
-// Selects links with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects links with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .link(@instance:'', @rules) {
   .links(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -204,11 +202,11 @@
   });
 }
 
-//
-// Selects links with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects links with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .link-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -219,11 +217,11 @@
   });
 }
 
-//
-// Selects links with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects links with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .link-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -234,9 +232,9 @@
   });
 }
 
-//
-// Selector for textfield input elements.
-//
+/// Selector for textfield input elements.
+///
+/// @group selectors
 .textfields(@rules) {
   input[type='text']           { @rules(); }
   input[type='password']       { @rules(); }
@@ -254,11 +252,11 @@
   textarea                     { @rules(); }
 }
 
-//
-// Selects textfields with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects textfields with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .textfield(@instance:'', @rules) {
   .textfields(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -267,11 +265,11 @@
   });
 }
 
-//
-// Selects textfields with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects textfields with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .textfield-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -282,11 +280,11 @@
   });
 }
 
-//
-// Selects textfields with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects textfields with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .textfield-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -297,9 +295,9 @@
   });
 }
 
-//
-// Selector for box elements.
-//
+/// Selector for box elements.
+///
+/// @group selectors
 .boxes(@rules) {
   article    { @rules(); }
   aside      { @rules(); }
@@ -325,11 +323,11 @@
   col        { @rules(); }
 }
 
-//
-// Selects boxes with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects boxes with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .box(@instance:'', @rules) {
   .boxes(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -338,11 +336,11 @@
   });
 }
 
-//
-// Selects boxes with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects boxes with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .box-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -353,11 +351,11 @@
   });
 }
 
-//
-// Selects boxes with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects boxes with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .box-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -368,19 +366,19 @@
   });
 }
 
-//
-// Selector for list elements.
-//
+/// Selector for list elements.
+///
+/// @group selectors
 .lists(@rules) {
   ul { @rules(); }
   ol { @rules(); }
 }
 
-//
-// Selects lists with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects lists with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .list(@instance:'', @rules) {
   .lists(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -389,11 +387,11 @@
   });
 }
 
-//
-// Selects lists with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects lists with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .list-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -404,11 +402,11 @@
   });
 }
 
-//
-// Selects lists with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects lists with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .list-id(@id:'', @rules) {
   @e: e(@id);
 
@@ -419,18 +417,18 @@
   });
 }
 
-//
-// Selector for list item elements.
-//
+/// Selector for list items.
+///
+/// @group selectors
 .list-items(@rules) {
   li:not([type='label']) { @rules(); }
 }
 
-//
-// Selects list items with the given instance name.
-//
-// @param {string} @instance - Instance name.
-//
+/// Selects list items with the given instance name.
+///
+/// @param {string} $instance - Instance name.
+///
+/// @group selectors
 .list-item(@instance:'', @rules) {
   .list-items(@rules: {
     &[data-instance='@{instance}'] when not (@instance = '') {
@@ -439,11 +437,11 @@
   });
 }
 
-//
-// Selects list items with the given class(es).
-//
-// @param {string} @class - Class(es).
-//
+/// Selects list items with the given class(es).
+///
+/// @param {string} $class - Class(es).
+///
+/// @group selectors
 .list-item-class(@class:'', @rules) {
   @e: e(@class);
 
@@ -454,11 +452,11 @@
   });
 }
 
-//
-// Selects list items with the given ID.
-//
-// @param {string} @id - ID.
-//
+/// Selects list items with the given ID.
+///
+/// @param {string} $id - ID.
+///
+/// @group selectors
 .list-item-id(@id:'', @rules) {
   @e: e(@id);
 

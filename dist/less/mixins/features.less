@@ -1,18 +1,16 @@
-//
 // Requiem-Styles
 // (c) VARIANTE (http://variante.io)
 //
 // This software is released under the MIT License:
 // http://www.opensource.org/licenses/mit-license.php
-//
 
-//
-// Applies font related rules.
-//
-// @param {List}   [@family] - Font family.
-// @param {*}      [@size]   - Font size.
-// @param {number} [@weight] - Font weight.
-//
+/// Applies font related rules.
+///
+/// @param {List}   @family [null] - Font family.
+/// @param {*}      @size [null]   - Font size.
+/// @param {number} @weight [null] - Font weight.
+///
+/// @group features
 .font(@family:~'', @size:~'', @weight:~'') {
   & when not (@family = ~'') {
     .loop(@i) when (@i > 0) {
@@ -27,13 +25,13 @@
   & when not (@weight = ~'') { font-weight: @weight; }
 }
 
-//
-// Binds the content to the target selector based on the 'csstransitions'
-// feature (requires Modernizr).
-//
-// @param {boolean} [@enabled=true] - Specifies whether 'csstransitions' class
-//                                    is required.
-//
+/// Binds the content to the target selector based on the 'csstransitions'
+/// feature (requires Modernizr).
+///
+/// @param {boolean} @enabled [true] - Specifies whether 'csstransitions' class
+///                                    is required.
+///
+/// @group features
 .transition-detection(@enabled:true, @rules) {
   & when (@enabled = true) and (@modernizr-enabled = true) {
     .csstransitions & {
@@ -46,14 +44,14 @@
   }
 }
 
-//
-// Applies transition rules.
-//
-// @param {List} [@properties=all]        - Transition property(ies).
-// @param {List} [@durations=0s]          - Transition duration(s).
-// @param {List} [@timing-functions=ease] - Transition timing function(s).
-// @param {List} [@delays=0s]             - Transition delay(s).
-//
+/// Applies transition rules.
+///
+/// @param {List} @properties [all]        - Transition property(ies).
+/// @param {List} @durations [0s]          - Transition duration(s).
+/// @param {List} @timing-functions [ease] - Transition timing function(s).
+/// @param {List} @delays [0s]             - Transition delay(s).
+///
+/// @group features
 .transition(@properties:all, @durations:0s, @timing-functions:ease, @delays:0s) {
   .ploop(@i) when (@i > 0) {
     .ploop((@i - 1));
@@ -81,13 +79,13 @@
   .yloop(length(@delays));
 }
 
-//
-// Binds the content to the target selector based on the 'cssanimations' feature
-// (requires Modernizr).
-//
-// @param {boolean} [@enabled=true] - Specifies whether 'cssanimations' class is
-//                                    required.
-//
+/// Binds the content to the target selector based on the 'cssanimations' feature
+/// (requires Modernizr).
+///
+/// @param {boolean} @enabled [true] - Specifies whether 'cssanimations' class
+///                                    is required.
+///
+/// @group features
 .animation-detection(@enabled:true, @rules) {
   & when (@enabled = true) and (@modernizr-enabled = true) {
     .cssanimations & {
@@ -99,15 +97,15 @@
   }
 }
 
-//
-// Binds the content to the target selector based on the 'touch' and 'no-touch'
-// feature (requires Modernizr).
-//
-// @param {boolean} [@enabled=true]    - Specifies whether 'touch' class is
-//                                       required.
-// @param {boolean} [@exclusive=false] - Specifies whether 'no-touch' class is
-//                                       required if $enabled is false.
-//
+/// Binds the content to the target selector based on the 'touch' and 'no-touch'
+/// feature (requires Modernizr).
+///
+/// @param {boolean} @enabled [true]    - Specifies whether 'touch' class is
+///                                       required.
+/// @param {boolean} @exclusive [false] - Specifies whether 'no-touch' class is
+///                                       required if @enabled is false.
+///
+/// @group features
 .touch(@enabled:true, @exclusive:false, @rules) {
   & when (@enabled = true) and (@modernizr-enabled = true) {
     .touch & {
@@ -128,23 +126,23 @@
   }
 }
 
-//
-// Enables hardware acceleration for containing selector.
-//
+/// Enables hardware acceleration for containing selector.
+///
+/// @group features
 .hardware-acceleration() {
   transform: translate3d(0, 0, 0);
 }
 
-//
-// Enables/disables pointer events for target selector and all child selectors.
-//
-// @param {boolean} [@enabled=true]   - Specifies whether element should have
-//                                      pointer events enabled.
-// @param {boolean} [@recursive=true] - Specifies whether child elements should
-//                                      also be applied.
-// @param {boolean} [@forced=true]    - Specifies whether the behavior is tagged
-//                                      '!important'.
-//
+/// Enables/disables pointer events for target selector and all child selectors.
+///
+/// @param {boolean} @enabled [true]   - Specifies whether element should have
+///                                      pointer events enabled.
+/// @param {boolean} @recursive [true] - Specifies whether child elements should
+///                                      also be applied.
+/// @param {boolean} @forced [true]    - Specifies whether the behavior is
+///                                      tagged '!important'.
+///
+/// @group features
 .pointable(@enabled:true, @recursive:true, @forced:true) {
   & when (@enabled = true) {
     & when (@recursive = true) {

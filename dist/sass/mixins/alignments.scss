@@ -1,10 +1,8 @@
-//
 // Requiem-Styles
 // (c) VARIANTE (http://variante.io)
 //
 // This software is released under the MIT License:
 // http://www.opensource.org/licenses/mit-license.php
-//
 
 /// Sets the margin of an element. Similar to the original 'margin' CSS rule,
 /// except for the addition of 2 values: null and ''. If null is specified for
@@ -18,6 +16,29 @@
 ///                         out, the behavior will be similar to the original
 ///                         'margin' CSS rule (i.e. bottom matches top, right
 ///                         matches left, etc).
+///
+/// @example
+///   @include margin(0px);
+///
+///   // margin-top: 0px;
+///   // margin-right: 0px;
+///   // margin-bottom: 0px;
+///   // margin-left: 0px;
+///
+/// @example
+///   @include margin(0px 5px);
+///
+///   // margin-top: 0px;
+///   // margin-right: 5px;
+///   // margin-bottom: 0px;
+///   // margin-left: 5px;
+///
+/// @example
+///   @include margin(0px 5px '' null);
+///
+///   // margin-top: 0px;
+///   // margin-right: 5px;
+///   // margin-bottom: 5px;
 ///
 /// @group alignments
 @mixin margin($margin) {
@@ -87,6 +108,29 @@
 ///                          original 'padding' CSS rule (i.e. bottom matches
 ///                          top, right matches left, etc).
 ///
+/// @example
+///   @include padding(0px);
+///
+///   // padding-top: 0px;
+///   // padding-right: 0px;
+///   // padding-bottom: 0px;
+///   // padding-left: 0px;
+///
+/// @example
+///   @include padding(0px 5px);
+///
+///   // padding-top: 0px;
+///   // padding-right: 5px;
+///   // padding-bottom: 0px;
+///   // padding-left: 5px;
+///
+/// @example
+///   @include padding(0px 5px '' null);
+///
+///   // padding-top: 0px;
+///   // padding-right: 5px;
+///   // padding-bottom: 5px;
+///
 /// @group alignments
 @mixin padding($padding) {
   $top: nth($padding, 1);
@@ -154,6 +198,29 @@
 ///                       behavior will be similar to what the 'padding' and
 ///                       'margin' CSS rules would do (i.e. bottom matches top,
 ///                       right matches left, etc).
+///
+/// @example
+///   @include edge(0px);
+///
+///   // top: 0px;
+///   // right: 0px;
+///   // bottom: 0px;
+///   // left: 0px;
+///
+/// @example
+///   @include edge(0px 5px);
+///
+///   // top: 0px;
+///   // right: 5px;
+///   // bottom: 0px;
+///   // left: 5px;
+///
+/// @example
+///   @include edge(0px 5px '' null);
+///
+///   // top: 0px;
+///   // right: 5px;
+///   // bottom: 5px;
 ///
 /// @group alignments
 @mixin edge($edge) {
@@ -387,8 +454,8 @@
 /// margin/padding rules must be tweaked, it is a better idea to have a child
 /// container and tweak the rules of that instead.
 ///
-/// @param {List}    $diameter [auto]    - Specifies the diameter of this grid,
-///                                        complies to the diameter mixin.
+/// @param {List}    $size [auto]    - Specifies the size of this grid,
+///                                        complies to the size mixin.
 /// @param {string}  $direction [row]    - Specifies the direction of this grid,
 ///                                        complies to the rules supported by
 ///                                        flex-direction.
@@ -426,18 +493,18 @@
 ///                                        grid if there are empty spaces.
 ///
 /// @group alignments
-@mixin flex-grid($diameter:auto, $direction:row, $base-length:auto, $base-count:0, $padding:0px true, $autosize:false) {
+@mixin flex-grid($size:auto, $direction:row, $base-length:auto, $base-count:0, $padding:0px true, $autosize:false) {
   @if ($base-count < 0) { @warn 'Value provided for base-count must be >= 0'; }
 
   $_bordered: if(length($padding) > 1, nth($padding, 2), true);
   $_padding: nth($padding, 1);
   $_basis: auto;
   $_orientation: if($direction == 'row' or $direction == 'row-reverse', 'horizontal', 'vertical');
-  $_width: nth($diameter, 1);
-  $_height: if(length($diameter) > 1, nth($diameter, 2), nth($diameter, 1));
+  $_width: nth($size, 1);
+  $_height: if(length($size) > 1, nth($size, 2), nth($size, 1));
 
   @include flex-block('left', 'top', $direction, true);
-  @include diameter($diameter);
+  @include size($size);
   width: if((type-of($_width) == number) and ($_bordered == false), calc(#{$_width} + #{$_padding}), $_width);
   height: if((type-of($_height) == number) and ($_bordered == false), calc(#{$_height} + #{$_padding}), $_height);
   margin: if($_bordered == true, 0, #{-$_padding} 0 0 #{-$_padding});
@@ -638,6 +705,7 @@
 /// @param {number} $perspective [1] - Tweak this value to adjust perspective.
 ///
 /// @see {mixin} parallax-element
+///
 /// @group alignments
 @mixin parallax-block($perspective:1) {
   height: 100vh;
@@ -653,41 +721,10 @@
 /// @param {number} $z [0] - Position in the z-axis.
 ///
 /// @see {mixin} parallax-block
+///
 /// @group alignments
 @mixin parallax-element($z:0) {
   transform: translateZ(#{$z}px);
-}
-
-/// Sets the diameter of the target selector.
-///
-/// @param {number|List} $diameter     - Specifies the width and height of the
-///                                      selector. If only 1 value is provided,
-///                                      both width and height will use that
-///                                      value. If 2 values are provided, they
-///                                      will be used for the width and height
-///                                      respectively.
-/// @param {boolean}     $oval [false] - Specifies whether the selector is oval
-///                                      shaped (hence rounded corners
-///                                      corresponding to the shortest side).
-///
-/// @group alignments
-@mixin diameter($diameter, $oval:false) {
-  @if (length($size) > 1) {
-    @if (nth($size, 1) != null) { width: nth($size, 1); }
-    @if (nth($size, 2) != null) { width: nth($size, 2); }
-  }
-  @else {
-    @if ($size != null) {
-      width: $size;
-      height: $size;
-    }
-  }
-
-  @if ($oval == true) {
-    @include mask();
-    $d: if(length($diameter) > 1, min(nth($diameter, 1), nth($diameter, 2)), $diameter);
-    border-radius: $d / 2;
-  }
 }
 
 /// Sets the size of the target selector.
@@ -821,7 +858,7 @@
 /// @group alignments
 @mixin cover-video() {
   @include abs-align('left' 50%, 'top' 50%);
-  @include diameter(auto);
+  @include size(auto);
   min-width: 100%;
   min-height: 100%;
   transform: translate3d(-50%, -50%, 0);

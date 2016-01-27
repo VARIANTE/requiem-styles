@@ -1,115 +1,154 @@
-//
 // Requiem-Styles
 // (c) VARIANTE (http://variante.io)
 //
 // This software is released under the MIT License:
 // http://www.opensource.org/licenses/mit-license.php
-//
 
-/// Media query for screens in portrait orientation.
+// Device size thresholds.
+$device-thresholds: (
+  'mobile': (
+    'min': 0px,
+    'max': 599px
+  ),
+  'phablet': (
+    'min': 600px,
+    'max': 767px
+  ),
+  'tablet': (
+    'min': 768px,
+    'max': 1024px
+  ),
+  'desktop': (
+    'min': 1025px,
+    'max': 100000px
+  )
+);
+
+/// Media query mixin that translates a set of descriptors into rules that apply
+/// bounding restrictions to screens. This mixin supports 4 predefined screen
+/// types: 'mobile', 'phablet', 'tablet' and 'desktop' and 2 predefined screen
+/// orientations: 'portrait' and 'landscape'.
+///
+/// @param {List} $descriptors   - List of strings formatted by either
+///                                '{base}{relational_operator}{%s_or_screen_type}'
+///                                or '{orientation}'. If no {base} is specified,
+///                                width will be used. {%s} is also optional.
+/// @param {List} $params [null] - List of values applied in the same order as
+///                                the descriptors for string replacement
+///                                whenever '%s' is used.
+///
+/// @example
+///   @include screen('w<%s', 200px) { ... } // or
+///   @include screen('<%s', 200px) { ... }  // or
+///   @include screen('<', 200px) { ... }
+///
+///   // @media screen and (max-width: 199px) { ... }
+///
+/// @example
+///   @include screen('h>=phablet') { ... }
+///
+///   // @media screen and (min-width: 767px) { ... }
+///
+/// @example
+///   @include screen('w=tablet') { ... }
+///
+///   // @media screen and (min-width: 768px) and (max-width: 1024px) { ... }
+///
+/// @example
+///   @include screen('w>=%s' 'w<%s' 'h>', 200px 400px 150px) { ... }
+///
+///   // @media screen and (min-width: 200px) and (max-width: 399px) and (min-height: 151px) { ... }
 ///
 /// @group media
-@mixin screen-portrait { @media only screen and (orientation: portrait) { @content; } }
+@mixin screen($descriptors, $params:null) {
+  $_bases: (
+    'w': 'width',
+    'width': 'width',
+    'h': 'height',
+    'height': 'height'
+  );
 
-/// Media query for screens in landscape orientation.
-///
-/// @group media
-@mixin screen-landscape { @media only screen and (orientation: landscape) { @content; } }
+  $_queries: ();
+  $_p: 1;
 
-/// Media query for screens at a specified minimum width.
-///
-/// @param {number} $minWidth
-///
-/// @group media
-@mixin screen-min-width($minWidth) { @media only screen and (min-width: #{$minWidth}px) { @content; } }
+  @each $descriptor in $descriptors {
+    $_base: null;
+    $_rule: null;
+    $_min: null;
+    $_max: null;
+    $_orientation: null;
 
-/// Media query for screens at a specified maximum width.
-///
-/// @param {number} $maxWidth
-///
-/// @group media
-@mixin screen-max-width($maxWidth) { @media only screen and (max-width: #{$maxWidth}px) { @content; } }
+    @if (str-index($descriptor, '<=') != null) {
+      $_i: str-index($descriptor, '<=');
+      $_base: str-slice($descriptor, 1, $_i - 1);
+      $_rule: str-slice($descriptor, $_i + 2);
+      $_base: if($_i == 1, map-get($_bases, 'width'), map-get($_bases, $_base));
+      $_min: null;
+      $_max: if(map-get($device-thresholds, $_rule) == null, nth($params, $_p), map-get(map-get($device-thresholds, $_rule), 'max'));
+    }
+    @else if (str-index($descriptor, '<') != null) {
+      $_i: str-index($descriptor, '<');
+      $_base: str-slice($descriptor, 1, $_i - 1);
+      $_rule: str-slice($descriptor, $_i + 1);
+      $_base: if($_i == 1, map-get($_bases, 'width'), map-get($_bases, $_base));
+      $_min: null;
+      $_max: if(map-get($device-thresholds, $_rule) == null, nth($params, $_p) - 1, map-get(map-get($device-thresholds, $_rule), 'min') - 1);
+    }
+    @else if (str-index($descriptor, '>=') != null) {
+      $_i: str-index($descriptor, '>=');
+      $_base: str-slice($descriptor, 1, $_i - 1);
+      $_rule: str-slice($descriptor, $_i + 2);
+      $_base: if($_i == 1, map-get($_bases, 'width'), map-get($_bases, $_base));
+      $_min: if(map-get($device-thresholds, $_rule) == null, nth($params, $_p), map-get(map-get($device-thresholds, $_rule), 'min'));
+      $_max: null;
+    }
+    @else if (str-index($descriptor, '>') != null) {
+      $_i: str-index($descriptor, '>');
+      $_base: str-slice($descriptor, 1, $_i - 1);
+      $_rule: str-slice($descriptor, $_i + 1);
+      $_base: if($_i == 1, map-get($_bases, 'width'), map-get($_bases, $_base));
+      $_min: if(map-get($device-thresholds, $_rule) == null, nth($params, $_p) + 1, map-get(map-get($device-thresholds, $_rule), 'max') + 1);
+      $_max: null;
+    }
+    @else if (str-index($descriptor, '=') != null) {
+      $_i: str-index($descriptor, '=');
+      $_base: str-slice($descriptor, 1, $_i - 1);
+      $_rule: str-slice($descriptor, $_i + 1);
+      $_base: if($_i == 1, map-get($_bases, 'width'), map-get($_bases, $_base));
+      $_min: if(map-get($device-thresholds, $_rule) == null, nth($params, $_p), map-get(map-get($device-thresholds, $_rule), 'min'));
+      $_max: if(map-get($device-thresholds, $_rule) == null, nth($params, $_p), map-get(map-get($device-thresholds, $_rule), 'max'));
+    }
+    @else if ($descriptor == 'portrait') {
+      $_orientation: 'portrait';
+    }
+    @else if ($descriptor == 'landscape') {
+      $_orientation: 'landscape';
+    }
 
-/// Media query for screens at a specified minimum height.
-///
-/// @param {number} $minHeight
-///
-/// @group media
-@mixin screen-min-height($minHeight) { @media only screen and (min-height: #{$minHeight}px) { @content; } }
-
-/// Media query for screens at a specified maximum height.
-///
-/// @param {number} $maxHeight
-///
-/// @group media
-@mixin screen-max-height($maxHeight) { @media only screen and (max-height: #{$maxHeight}px) { @content; } }
-
-/// Media query for the minimum width/height threshold of the specified screen
-/// type.
-///
-/// @param {string}  $screen              - Screen type (supports 'mobile',
-///                                         'phablet', 'tablet', or 'desktop').
-/// @param {boolean} $exclusive [false]   - Specifies whether the media queries
-///                                         should be exclusive to this screen
-///                                         type. If false, the generated media
-///                                         query will use the minimum threshold
-///                                         of the selected screen type, meaning
-///                                         that bigger screen types will apply.
-///                                         If true, the generated media query
-///                                         will be bounded by the minimum and
-///                                         the maximum thresholds, inclusive.
-/// @param {boolean} $invert [false]      - Inverts the generated media query.
-/// @param {string}  $measurement [width] - Specifies width or height
-///                                         measurement to be used for the media
-///                                         queries.
-/// @param {boolean} $touch [false]       - Specifues whether the condition is
-///                                         only valid for touch devices
-///                                         (requires Modernizr feature
-///                                         detection), namely the '.touch'
-///                                         class. If false (default), it does
-///                                         NOT use the '.no-touch' class, but
-///                                         instead applies content normally.
-///
-/// @group media
-@mixin screen($screen, $exclusive:false, $invert:false, $measurement:width, $touch:false) {
-  @if $screen == mobile {
-    $min-threshold: 0px;
-    $max-threshold: 599px;
-  }
-
-  @else if $screen == phablet {
-    $min-threshold: 600px;
-    $max-threshold: 767px;
-  }
-
-  @else if $screen == tablet {
-    $min-threshold: 768px;
-    $max-threshold: 1024px;
-  }
-
-  @else if $screen == desktop {
-    $min-threshold: 1025px;
-    $max-threshold: 100000px; // some ridiculously large arbituary number
-  }
-
-  @if $min-threshold != null and $max-threshold != null {
-    @if $exclusive == true {
-      @if $invert == true {
-        @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
-        @media screen and (min-#{$measurement}: #{$max-threshold + 1px}) { @include touch($touch, false) { @content; } }
-      }
-      @else {
-        @media screen and (min-#{$measurement}: #{$min-threshold}) and (max-#{$measurement}: #{$max-threshold}) { @include touch($touch, false) { @content; } }
-      }
+    @if (map-get($device-thresholds, $_rule) == null) and (($_rule == '%s') or ($_rule == '')) {
+      $_p: $_p + 1;
     }
     @else {
-      @if $invert == true {
-          @media screen and (max-#{$measurement}: #{$min-threshold - 1px}) { @include touch($touch, false) { @content; } }
-      }
-      @else {
-          @media screen and (min-#{$measurement}: $min-threshold) { @include touch($touch, false) { @content; } }
-      }
+      @warn 'Bad format specified: #{$_rule}. Use %s or leave as blank instead';
     }
+
+    @if ($_min != null) { $_queries: append($_queries, '(min-#{$_base}: #{$_min})', 'comma'); }
+    @if ($_max != null) { $_queries: append($_queries, '(max-#{$_base}: #{$_max})', 'comma'); }
+    @if ($_orientation != null) { $_queries: append($_queries, '(orientation: #{$_orientation})'); }
+  }
+
+  $_media: '';
+
+  @each $_query in $_queries {
+    $_media: $_media + ' and ' + $_query;
+  }
+
+  @if ($_media != '') {
+    $_media: 'screen' + $_media;
+    @media #{$_media} { @content };
+  }
+  @else {
+    @warn 'No valid media queries devised from these descriptors: #{$descriptors}';
   }
 }
 

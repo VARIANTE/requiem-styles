@@ -1,10 +1,8 @@
-/**
- * Requiem-Styles
- * (c) VARIANTE (http://variante.io)
- *
- * This software is released under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+// Requiem-Styles
+// (c) VARIANTE (http://variante.io)
+//
+// This software is released under the MIT License:
+// http://www.opensource.org/licenses/mit-license.php
 
 // Default global font size, override this if needed.
 $font-size-reset = 16px
@@ -12,6 +10,9 @@ $font-size-reset = 16px
 // Default global font scale, override this if needed.
 $font-size-scale = 100%
 
+/// Property reset for box elements.
+///
+/// @group general
 box-reset()
   margin: 0
   padding: 0
@@ -19,6 +20,9 @@ box-reset()
   outline: none
   border: none
 
+/// Property reset for text elements.
+///
+/// @group general
 text-reset()
   font-weight: normal
   text-decoration: none
@@ -30,18 +34,28 @@ text-reset()
   text-rendering: optimizeLegibility
   text-size-adjust: 100%
 
-comma-list(list)
+/// Converts a list to a comma-separated list.
+///
+/// @param {List} $list - List to be converted.
+///
+/// @group general
+comma-list($list)
   o = null
-  for item in list
+  for item in $list
     if o == null
       o = item
     else
       o = o, item
   return o
 
-exp-list(list)
+/// Converts a list to a space-separated list.
+///
+/// @param {List} $list - List to be converted.
+///
+/// @group general
+exp-list($list)
   o = null
-  for item in list
+  for item in $list
     if o == null
       o = item
     else
