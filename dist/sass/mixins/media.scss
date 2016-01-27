@@ -125,11 +125,13 @@ $device-thresholds: (
       $_orientation: 'landscape';
     }
 
-    @if (map-get($device-thresholds, $_rule) == null) and (($_rule == '%s') or ($_rule == '')) {
-      $_p: $_p + 1;
-    }
-    @else {
-      @warn 'Bad format specified: #{$_rule}. Use %s or leave as blank instead';
+    @if (map-get($device-thresholds, $_rule) == null) {
+      @if (($_rule == '%s') or ($_rule == '')) {
+        $_p: $_p + 1;
+      }
+      @else {
+        @warn 'Bad format specified: #{$_rule}. Use %s or leave as blank instead';
+      }
     }
 
     @if ($_min != null) { $_queries: append($_queries, '(min-#{$_base}: #{$_min})', 'comma'); }
