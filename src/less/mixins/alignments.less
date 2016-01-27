@@ -503,7 +503,7 @@
 .size(@size, @oval:false) {
   & when (length(@size) > 1) {
     & when not (extract(@size, 1) = ~'') { width: extract(@size, 1); }
-    & when not (extract(@size, 2) = ~'') { width: extract(@size, 2); }
+    & when not (extract(@size, 2) = ~'') { height: extract(@size, 2); }
   }
 
   & when not (length(@size) > 1) {
@@ -538,7 +538,7 @@
 .max-size(@size) {
   & when (length(@size) > 1) {
     & when not (extract(@size, 1) = ~'') { max-width: extract(@size, 1); }
-    & when not (extract(@size, 2) = ~'') { max-width: extract(@size, 2); }
+    & when not (extract(@size, 2) = ~'') { max-height: extract(@size, 2); }
   }
 
   & when not (length(@size) > 1) {
@@ -561,7 +561,7 @@
 .min-size(@size) {
   & when (length(@size) > 1) {
     & when not (extract(@size, 1) = ~'') { min-width: extract(@size, 1); }
-    & when not (extract(@size, 2) = ~'') { min-width: extract(@size, 2); }
+    & when not (extract(@size, 2) = ~'') { min-height: extract(@size, 2); }
   }
 
   & when not (length(@size) > 1) {

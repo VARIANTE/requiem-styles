@@ -743,7 +743,7 @@
 @mixin size($size, $oval:false) {
   @if (length($size) > 1) {
     @if (nth($size, 1) != null) { width: nth($size, 1); }
-    @if (nth($size, 2) != null) { width: nth($size, 2); }
+    @if (nth($size, 2) != null) { height: nth($size, 2); }
   }
   @else {
     @if ($size != null) {
@@ -771,7 +771,7 @@
 @mixin max-size($size) {
   @if (length($size) > 1) {
     @if (nth($size, 1) != null) { max-width: nth($size, 1); }
-    @if (nth($size, 2) != null) { max-width: nth($size, 2); }
+    @if (nth($size, 2) != null) { max-height: nth($size, 2); }
   }
   @else {
     @if ($size != null) {
@@ -793,7 +793,7 @@
 @mixin min-size($size) {
   @if (length($size) > 1) {
     @if (nth($size, 1) != null) { min-width: nth($size, 1); }
-    @if (nth($size, 2) != null) { min-width: nth($size, 2); }
+    @if (nth($size, 2) != null) { min-height: nth($size, 2); }
   }
   @else {
     @if ($size != null) {
