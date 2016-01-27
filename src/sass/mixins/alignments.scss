@@ -380,7 +380,7 @@
     }
   }
 
-  @if   $wrap == true { flex-wrap: wrap;   }
+  @if   $wrap == true { flex-wrap: wrap; flex-shrink: 1; }
   @else               { flex-wrap: nowrap; }
 
   @if $alignH != null and length($alignH) > 0 {

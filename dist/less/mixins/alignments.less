@@ -109,7 +109,7 @@
     }
   }
 
-  & when (@wrap = true)     { flex-wrap: wrap;   }
+  & when (@wrap = true)     { flex-wrap: wrap; flex-shrink: 1; }
   & when not (@wrap = true) { flex-wrap: nowrap; }
 
   & when not (@alignH = ~'') and (length(@alignH) > 0) {
