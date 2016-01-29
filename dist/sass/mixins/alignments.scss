@@ -519,40 +519,40 @@
 
     @if ($base-count > 0) {
       @if ($_bordered == true) {
-        & &.base-1 { flex-basis: calc(#{100 / $base-count * 1}% - #{$_padding}); }
-        &.base-2   { flex-basis: calc(#{100 / $base-count * 2}% - #{$_padding}); }
-        &.base-3   { flex-basis: calc(#{100 / $base-count * 3}% - #{$_padding}); }
-        &.base-4   { flex-basis: calc(#{100 / $base-count * 4}% - #{$_padding}); }
-        &.base-5   { flex-basis: calc(#{100 / $base-count * 5}% - #{$_padding}); }
-        &.base-6   { flex-basis: calc(#{100 / $base-count * 6}% - #{$_padding}); }
+        & &.base-1 { flex-basis: calc(#{100 / $base-count * min(1, $base-count)}% - #{$_padding}); }
+        &.base-2   { flex-basis: calc(#{100 / $base-count * min(2, $base-count)}% - #{$_padding}); }
+        &.base-3   { flex-basis: calc(#{100 / $base-count * min(3, $base-count)}% - #{$_padding}); }
+        &.base-4   { flex-basis: calc(#{100 / $base-count * min(4, $base-count)}% - #{$_padding}); }
+        &.base-5   { flex-basis: calc(#{100 / $base-count * min(5, $base-count)}% - #{$_padding}); }
+        &.base-6   { flex-basis: calc(#{100 / $base-count * min(6, $base-count)}% - #{$_padding}); }
       }
       @else {
-        &, &.base-1 { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 1 + #{$_padding * (1 - 1)}); }
-        &.base-2    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 2 + #{$_padding * (2 - 1)}); }
-        &.base-3    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 3 + #{$_padding * (3 - 1)}); }
-        &.base-4    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 4 + #{$_padding * (4 - 1)}); }
-        &.base-5    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 5 + #{$_padding * (5 - 1)}); }
-        &.base-6    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 6 + #{$_padding * (6 - 1)}); }
+        &, &.base-1 { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(1, $base-count)} + #{$_padding * (min(1, $base-count) - 1)}); }
+        &.base-2    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(2, $base-count)} + #{$_padding * (min(2, $base-count) - 1)}); }
+        &.base-3    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(3, $base-count)} + #{$_padding * (min(3, $base-count) - 1)}); }
+        &.base-4    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(4, $base-count)} + #{$_padding * (min(4, $base-count) - 1)}); }
+        &.base-5    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(5, $base-count)} + #{$_padding * (min(5, $base-count) - 1)}); }
+        &.base-6    { flex-basis: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(6, $base-count)} + #{$_padding * (min(6, $base-count) - 1)}); }
       }
     }
 
     @if ($_orientation == 'horizontal') {
       @if ($base-count > 0) {
         @if ($_bordered == true) {
-          &, &.base-1 { width: calc(#{100 / $base-count * 1}% - #{$_padding}); }
-          &.base-2    { width: calc(#{100 / $base-count * 2}% - #{$_padding}); }
-          &.base-3    { width: calc(#{100 / $base-count * 3}% - #{$_padding}); }
-          &.base-4    { width: calc(#{100 / $base-count * 4}% - #{$_padding}); }
-          &.base-5    { width: calc(#{100 / $base-count * 5}% - #{$_padding}); }
-          &.base-6    { width: calc(#{100 / $base-count * 6}% - #{$_padding}); }
+          &, &.base-1 { width: calc(#{100 / $base-count * min(1, $base-count)}% - #{$_padding}); }
+          &.base-2    { width: calc(#{100 / $base-count * min(2, $base-count)}% - #{$_padding}); }
+          &.base-3    { width: calc(#{100 / $base-count * min(3, $base-count)}% - #{$_padding}); }
+          &.base-4    { width: calc(#{100 / $base-count * min(4, $base-count)}% - #{$_padding}); }
+          &.base-5    { width: calc(#{100 / $base-count * min(5, $base-count)}% - #{$_padding}); }
+          &.base-6    { width: calc(#{100 / $base-count * min(6, $base-count)}% - #{$_padding}); }
         }
         @else {
-          &, &.base-1 { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 1 + #{$_padding * (1 - 1)}); }
-          &.base-2    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 2 + #{$_padding * (2 - 1)}); }
-          &.base-3    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 3 + #{$_padding * (3 - 1)}); }
-          &.base-4    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 4 + #{$_padding * (4 - 1)}); }
-          &.base-5    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 5 + #{$_padding * (5 - 1)}); }
-          &.base-6    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 6 + #{$_padding * (6 - 1)}); }
+          &, &.base-1 { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(1, $base-count)} + #{$_padding * (min(1, $base-count) - 1)}); }
+          &.base-2    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(2, $base-count)} + #{$_padding * (min(2, $base-count) - 1)}); }
+          &.base-3    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(3, $base-count)} + #{$_padding * (min(3, $base-count) - 1)}); }
+          &.base-4    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(4, $base-count)} + #{$_padding * (min(4, $base-count) - 1)}); }
+          &.base-5    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(5, $base-count)} + #{$_padding * (min(5, $base-count) - 1)}); }
+          &.base-6    { width: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(6, $base-count)} + #{$_padding * (min(6, $base-count) - 1)}); }
         }
       }
 
@@ -563,20 +563,20 @@
 
       @if ($base-count > 0) {
         @if ($_bordered == true) {
-          &, &.base-1 { height: calc(#{100 / $base-count * 1}% - #{$_padding}); }
-          &.base-2    { height: calc(#{100 / $base-count * 2}% - #{$_padding}); }
-          &.base-3    { height: calc(#{100 / $base-count * 3}% - #{$_padding}); }
-          &.base-4    { height: calc(#{100 / $base-count * 4}% - #{$_padding}); }
-          &.base-5    { height: calc(#{100 / $base-count * 5}% - #{$_padding}); }
-          &.base-6    { height: calc(#{100 / $base-count * 6}% - #{$_padding}); }
+          &, &.base-1 { height: calc(#{100 / $base-count * min(1, $base-count)}% - #{$_padding}); }
+          &.base-2    { height: calc(#{100 / $base-count * min(2, $base-count)}% - #{$_padding}); }
+          &.base-3    { height: calc(#{100 / $base-count * min(3, $base-count)}% - #{$_padding}); }
+          &.base-4    { height: calc(#{100 / $base-count * min(4, $base-count)}% - #{$_padding}); }
+          &.base-5    { height: calc(#{100 / $base-count * min(5, $base-count)}% - #{$_padding}); }
+          &.base-6    { height: calc(#{100 / $base-count * min(6, $base-count)}% - #{$_padding}); }
         }
         @else {
-          &, &.base-1 { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 1 + #{$_padding * (1 - 1)}); }
-          &.base-2    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 2 + #{$_padding * (2 - 1)}); }
-          &.base-3    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 3 + #{$_padding * (3 - 1)}); }
-          &.base-4    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 4 + #{$_padding * (4 - 1)}); }
-          &.base-5    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 5 + #{$_padding * (5 - 1)}); }
-          &.base-6    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * 6 + #{$_padding * (6 - 1)}); }
+          &, &.base-1 { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(1, $base-count)} + #{$_padding * (min(1, $base-count) - 1)}); }
+          &.base-2    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(2, $base-count)} + #{$_padding * (min(2, $base-count) - 1)}); }
+          &.base-3    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(3, $base-count)} + #{$_padding * (min(3, $base-count) - 1)}); }
+          &.base-4    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(4, $base-count)} + #{$_padding * (min(4, $base-count) - 1)}); }
+          &.base-5    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(5, $base-count)} + #{$_padding * (min(5, $base-count) - 1)}); }
+          &.base-6    { height: calc((100% - #{$_padding * ($base-count)}) / #{$base-count} * #{min(6, $base-count)} + #{$_padding * (min(6, $base-count) - 1)}); }
         }
       }
     }

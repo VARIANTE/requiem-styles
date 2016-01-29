@@ -604,59 +604,59 @@ flex-grid($size=auto, $direction=row, $base-length=auto, $base-count=0, $padding
     if $base-count > 0
       if $_bordered == true
         &, &.base-1
-          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 1))
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * min(1, $base-count)))
         &.base-2
-          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 2))
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * min(2, $base-count)))
         &.base-3
-          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 3))
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * min(3, $base-count)))
         &.base-4
-          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 4))
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * min(4, $base-count)))
         &.base-5
-          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 5))
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * min(5, $base-count)))
         &.base-6
-          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * 6))
+          flex-basis: s('calc(%s% - $_padding)', (100 / $base-count * min(6, $base-count)))
       else
         &, &.base-1
-          flex-basis: s('calc((100% - %s) / %s * 1 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (1 - 1)))
+          flex-basis: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(1, $base-count), $base-count, ($_padding * (min(1, $base-count) - 1)))
         &.base-2
-          flex-basis: s('calc((100% - %s) / %s * 2 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (2 - 1)))
+          flex-basis: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(2, $base-count), $base-count, ($_padding * (min(2, $base-count) - 1)))
         &.base-3
-          flex-basis: s('calc((100% - %s) / %s * 3 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (3 - 1)))
+          flex-basis: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(3, $base-count), $base-count, ($_padding * (min(3, $base-count) - 1)))
         &.base-4
-          flex-basis: s('calc((100% - %s) / %s * 4 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (4 - 1)))
+          flex-basis: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(4, $base-count), $base-count, ($_padding * (min(4, $base-count) - 1)))
         &.base-5
-          flex-basis: s('calc((100% - %s) / %s * 5 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (5 - 1)))
+          flex-basis: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(5, $base-count), $base-count, ($_padding * (min(5, $base-count) - 1)))
         &.base-6
-          flex-basis: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
+          flex-basis: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(6, $base-count), $base-count, ($_padding * (min(6, $base-count) - 1)))
 
     if $_orientation == 'horizontal'
       if $base-count > 0
         if $_bordered == true
           &, &.base-1
-            width: s('calc(%s% - $_padding)', (100 / $base-count * 1))
+            width: s('calc(%s% - $_padding)', (100 / $base-count * min(1, $base-count)))
           &.base-2
-            width: s('calc(%s% - $_padding)', (100 / $base-count * 2))
+            width: s('calc(%s% - $_padding)', (100 / $base-count * min(2, $base-count)))
           &.base-3
-            width: s('calc(%s% - $_padding)', (100 / $base-count * 3))
+            width: s('calc(%s% - $_padding)', (100 / $base-count * min(3, $base-count)))
           &.base-4
-            width: s('calc(%s% - $_padding)', (100 / $base-count * 4))
+            width: s('calc(%s% - $_padding)', (100 / $base-count * min(4, $base-count)))
           &.base-5
-            width: s('calc(%s% - $_padding)', (100 / $base-count * 5))
+            width: s('calc(%s% - $_padding)', (100 / $base-count * min(5, $base-count)))
           &.base-6
-            width: s('calc(%s% - $_padding)', (100 / $base-count * 6))
+            width: s('calc(%s% - $_padding)', (100 / $base-count * min(6, $base-count)))
         else
           &, &.base-1
-            width: s('calc((100% - %s) / %s * 1 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (1 - 1)))
+            width: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(1, $base-count), $base-count, ($_padding * (min(1, $base-count) - 1)))
           &.base-2
-            width: s('calc((100% - %s) / %s * 2 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (2 - 1)))
+            width: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(2, $base-count), $base-count, ($_padding * (min(2, $base-count) - 1)))
           &.base-3
-            width: s('calc((100% - %s) / %s * 3 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (3 - 1)))
+            width: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(3, $base-count), $base-count, ($_padding * (min(3, $base-count) - 1)))
           &.base-4
-            width: s('calc((100% - %s) / %s * 4 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (4 - 1)))
+            width: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(4, $base-count), $base-count, ($_padding * (min(4, $base-count) - 1)))
           &.base-5
-            width: s('calc((100% - %s) / %s * 5 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (5 - 1)))
+            width: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(5, $base-count), $base-count, ($_padding * (min(5, $base-count) - 1)))
           &.base-6
-            width: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
+            width: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(6, $base-count), $base-count, ($_padding * (min(6, $base-count) - 1)))
 
       height: $base-length
     else
@@ -665,30 +665,30 @@ flex-grid($size=auto, $direction=row, $base-length=auto, $base-count=0, $padding
       if $base-count > 0
         if $_bordered == true
           &, &.base-1
-            height: s('calc(%s% - $_padding)', (100 / $base-count * 1))
+            height: s('calc(%s% - $_padding)', (100 / $base-count * min(1, $base-count)))
           &.base-2
-            height: s('calc(%s% - $_padding)', (100 / $base-count * 2))
+            height: s('calc(%s% - $_padding)', (100 / $base-count * min(2, $base-count)))
           &.base-3
-            height: s('calc(%s% - $_padding)', (100 / $base-count * 3))
+            height: s('calc(%s% - $_padding)', (100 / $base-count * min(3, $base-count)))
           &.base-4
-            height: s('calc(%s% - $_padding)', (100 / $base-count * 4))
+            height: s('calc(%s% - $_padding)', (100 / $base-count * min(4, $base-count)))
           &.base-5
-            height: s('calc(%s% - $_padding)', (100 / $base-count * 5))
+            height: s('calc(%s% - $_padding)', (100 / $base-count * min(5, $base-count)))
           &.base-6
-            height: s('calc(%s% - $_padding)', (100 / $base-count * 6))
+            height: s('calc(%s% - $_padding)', (100 / $base-count * min(6, $base-count)))
         else
           &, &.base-1
-            height: s('calc((100% - %s) / %s * 1 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (1 - 1)))
+            height: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(1, $base-count), $base-count, ($_padding * (min(1, $base-count) - 1)))
           &.base-2
-            height: s('calc((100% - %s) / %s * 2 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (2 - 1)))
+            height: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(2, $base-count), $base-count, ($_padding * (min(2, $base-count) - 1)))
           &.base-3
-            height: s('calc((100% - %s) / %s * 3 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (3 - 1)))
+            height: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(3, $base-count), $base-count, ($_padding * (min(3, $base-count) - 1)))
           &.base-4
-            height: s('calc((100% - %s) / %s * 4 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (4 - 1)))
+            height: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(4, $base-count), $base-count, ($_padding * (min(4, $base-count) - 1)))
           &.base-5
-            height: s('calc((100% - %s) / %s * 5 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (5 - 1)))
+            height: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(5, $base-count), $base-count, ($_padding * (min(5, $base-count) - 1)))
           &.base-6
-            height: s('calc((100% - %s) / %s * 6 + %s)', ($_padding * ($base-count)), $base-count, ($_padding * (6 - 1)))
+            height: s('calc((100% - %s) / %s * %s + %s)', ($_padding * ($base-count)), min(6, $base-count), $base-count, ($_padding * (min(6, $base-count) - 1)))
 
 /// Aligns an element horizontally and vertically.
 ///
