@@ -102,17 +102,17 @@ pointable($enabled=true, $recursive=true, $forced=true)
     if $recursive == true
       if $forced == true
         &, *
-          pointer-events: initial !important
+          pointer-events: auto !important
       else
         &, *
-          pointer-events: initial
+          pointer-events: auto
     else
       if $forced == true
         &
-          pointer-events: initial !important
+          pointer-events: auto !important
       else
         &
-          pointer-events: initial
+          pointer-events: auto
   else
     if $recursive == true
       if $forced == true

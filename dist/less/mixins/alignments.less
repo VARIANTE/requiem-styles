@@ -100,7 +100,10 @@
     white-space: normal;
   }
 
-  & > * { flex-shrink: 0; }
+  & > * {
+    & when (@wrap = true) { flex-shrink: 1; }
+    & when not (@wrap = true) { flex-shrink: 0; }
+  }
 
   & when (@uniform = true) {
     & > * {
@@ -373,10 +376,10 @@
 ///
 /// @group alignments
 .abs-align(@alignH:'left', @alignV:'top') {
-  top: initial;
-  right: initial;
-  bottom: initial;
-  left: initial;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
   margin: 0;
   position: absolute;
 

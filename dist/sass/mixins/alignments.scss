@@ -371,7 +371,9 @@
   line-height: normal;
   white-space: normal;
 
-  & > * { flex-shrink: 0; }
+  & > * {
+    flex-shrink: if($wrap == true, 1, 0);
+  }
 
   @if $uniform == true {
     & > * {
@@ -622,7 +624,7 @@
 ///
 /// @group alignments
 @mixin abs-align($alignH:'left', $alignV:'top') {
-  @include edge(initial);
+  @include edge(auto);
   @include margin(0);
   position: absolute;
 

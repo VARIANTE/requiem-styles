@@ -147,21 +147,21 @@
   & when (@enabled = true) {
     & when (@recursive = true) {
       & when (@forced = true) {
-        &, * { pointer-events: initial !important; }
+        &, * { pointer-events: auto !important; }
       }
 
       & when not (@forced = true) {
-        &, * { pointer-events: initial; }
+        &, * { pointer-events: auto; }
       }
     }
 
     & when not (@recursive = true) {
       & when (@forced = true) {
-        & { pointer-events: initial !important; }
+        & { pointer-events: auto !important; }
       }
 
       & when not (@forced = true) {
-        & { pointer-events: initial; }
+        & { pointer-events: auto; }
       }
     }
   }
