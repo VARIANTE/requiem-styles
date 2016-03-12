@@ -1,10 +1,9 @@
 {
   "name": "requiem-styles",
-  "version": "0.18.9",
+  "version": "0.19.0",
   "description": "An experimental stylesheet library.",
   "homepage": "http://VARIANTE.github.io/requiem-styles",
   "license": "MIT",
-  "main": "dist/requiem.scss",
   "authors": [
     "Andrew Wei <andrew@variante.io>"
   ],
@@ -12,29 +11,46 @@
     "type": "git",
     "url": "https://github.com/VARIANTE/requiem-styles.git"
   },
+  "scripts": {
+    "clean": "rimraf dist && rimraf lib",
+    "clean:docs": "rimraf docs",
+    "clean:play": "rimraf playground/public",
+    "build": "npm run clean && npm run build:css:sass && npm run build:sass && npm run build:less && npm run build:stylus",
+    "build:css:sass": "mkdir -p dist && node-sass src/sass/requiem.scss dist/requiem.css --output-style=expanded --include-path=src/sass && node-sass src/sass/requiem.scss dist/requiem.min.css --output-style=compressed --include-path=src/sass",
+    "build:css:less": "mkdir -p dist && lessc src/less/requiem.less dist/requiem.css --include-path=src/less && lessc src/less/requiem.less dist/requiem.min.css --include-path=src/less --compress",
+    "build:css:stylus": "mkdir -p dist && stylus src/stylus/requiem.styl -o dist/requiem.css -I src/stylus --include-css && stylus src/stylus/requiem.styl -o dist/requiem.min.css -I src/stylus --include-css -c",
+    "build:sass": "mkdir -p lib/sass && ncp src/sass lib/sass",
+    "build:less": "mkdir -p lib/less && ncp src/less lib/less",
+    "build:stylus": "mkdir -p lib/stylus && ncp src/stylus lib/stylus",
+    "build:docs": "sassdoc src/sass -d docs",
+    "build:play:templates": "jade -O \"{basedir:'playground/app/templates'}\" -o playground/public playground/app/templates/index.jade",
+    "build:play:scripts": "webpack --colors --profile --config ./playground/webpack.config.babel.js --display-error-details",
+    "serve:play": "webpack-dev-server --progress --inline --hot --config playground/webpack.config.babel.js --content-base playground/public --port 8080",
+    "docs": "npm run clean:docs && npm run build:docs",
+    "play": "npm run clean && npm run build && npm run clean:play && npm run build:play:templates && npm run serve:play",
+    "test": "npm run build"
+  },
+  "files": [
+    "dist",
+    "lib"
+  ],
   "devDependencies": {
-    "autoprefixer": "^6.2.3",
     "babel-core": "^6.4.0",
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",
-    "browser-sync": "^2.11.0",
-    "del": "^2.2.0",
-    "gulp": "^3.8.11",
-    "gulp-csso": "^1.0.0",
-    "gulp-gh-pages": "^0.5.4",
-    "gulp-jade": "^1.1.0",
-    "gulp-less": "^3.0.5",
-    "gulp-postcss": "^6.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.1",
-    "gulp-size": "^2.0.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-stylus": "^2.2.0",
-    "gulp-util": "^3.0.7",
-    "merge-stream": "^1.0.0",
-    "requiem": "^0.28.0",
-    "run-sequence": "^1.1.5",
+    "css-loader": "^0.23.1",
+    "jade": "^1.11.0",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.2",
+    "ncp": "^2.0.0",
+    "node-sass": "^3.4.2",
+    "rimraf": "^2.5.2",
+    "sass-loader": "^3.2.0",
     "sassdoc": "^2.1.19",
-    "webpack": "^1.12.11"
+    "style-loader": "^0.13.0",
+    "stylus": "^0.54.2",
+    "stylus-loader": "^1.5.1",
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
   }
 }
