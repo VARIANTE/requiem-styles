@@ -51,10 +51,10 @@
   @if ($bottom == '') { $bottom: $right; }
   @if ($left == '') { $left: $bottom; }
 
-  @if ($top != null) { margin-top: $top; }
-  @if ($right != null) { margin-right: $right; }
-  @if ($bottom != null) { margin-bottom: $bottom; }
-  @if ($left != null) { margin-left: $left; }
+  @if ($top != null) and ($top != '-') { margin-top: $top; }
+  @if ($right != null) and ($right != '-') { margin-right: $right; }
+  @if ($bottom != null) and ($bottom != '-') { margin-bottom: $bottom; }
+  @if ($left != null) and ($left != '-') { margin-left: $left; }
 }
 
 /// Sets the horizontal margins (i.e. left and right respectively). Values are
@@ -72,8 +72,8 @@
 
   @if ($right == '') { $right: $left; }
 
-  @if ($left != null) { margin-left: $left; }
-  @if ($right != null) { margin-right: $right; }
+  @if ($left != null) and ($left != '-') { margin-left: $left; }
+  @if ($right != null) and ($right != '-') { margin-right: $right; }
 }
 
 /// Sets the vertical margins (i.e. top and bottom respectively). Values are
@@ -91,8 +91,8 @@
 
   @if ($bottom == '') { $right: $top; }
 
-  @if ($top != null) { margin-top: $top; }
-  @if ($bottom != null) { margin-bottom: $bottom; }
+  @if ($top != null) and ($top != '-') { margin-top: $top; }
+  @if ($bottom != null) and ($bottom != '-') { margin-bottom: $bottom; }
 }
 
 /// Sets the padding of an element. Similar to the original 'padding' CSS rule,
@@ -142,10 +142,10 @@
   @if ($bottom == '') { $bottom: $right; }
   @if ($left == '') { $left: $bottom; }
 
-  @if ($top != null) { padding-top: $top; }
-  @if ($right != null) { padding-right: $right; }
-  @if ($bottom != null) { padding-bottom: $bottom; }
-  @if ($left != null) { padding-left: $left; }
+  @if ($top != null) and ($top != '-') { padding-top: $top; }
+  @if ($right != null) and ($right != '-') { padding-right: $right; }
+  @if ($bottom != null) and ($bottom != '-') { padding-bottom: $bottom; }
+  @if ($left != null) and ($left != '-') { padding-left: $left; }
 }
 
 /// Sets the horizontal paddings (i.e. left and right respectively). Values are
@@ -163,8 +163,8 @@
 
   @if ($right == '') { $right: $left; }
 
-  @if ($left != null) { padding-left: $left; }
-  @if ($right != null) { padding-right: $right; }
+  @if ($left != null) and ($left != '-') { padding-left: $left; }
+  @if ($right != null) and ($right != '-') { padding-right: $right; }
 }
 
 /// Sets the vertical paddings (i.e. top and bottom respectively). Values are
@@ -182,8 +182,8 @@
 
   @if ($bottom == '') { $right: $top; }
 
-  @if ($top != null) { padding-top: $top; }
-  @if ($bottom != null) { padding-bottom: $bottom; }
+  @if ($top != null) and ($top != '-') { padding-top: $top; }
+  @if ($bottom != null) and ($bottom != '-') { padding-bottom: $bottom; }
 }
 
 /// Sets the edge of an element (i.e. top, right, bottom and left). This mixin
@@ -233,10 +233,10 @@
   @if ($bottom == '') { $bottom: $right; }
   @if ($left == '') { $left: $bottom; }
 
-  @if ($top != null) { top: $top; }
-  @if ($right != null) { right: $right; }
-  @if ($bottom != null) { bottom: $bottom; }
-  @if ($left != null) { left: $left; }
+  @if ($top != null) and ($top != '-') { top: $top; }
+  @if ($right != null) and ($right != '-') { right: $right; }
+  @if ($bottom != null) and ($bottom != '-') { bottom: $bottom; }
+  @if ($left != null) and ($left != '-') { left: $left; }
 }
 
 /// Sets the horizontal edges (i.e. left and right respectively). Values are
@@ -254,8 +254,8 @@
 
   @if ($right == '') { $right: $left; }
 
-  @if ($left != null) { left: $left; }
-  @if ($right != null) { right: $right; }
+  @if ($left != null) and ($left != '-') { left: $left; }
+  @if ($right != null) and ($right != '-') { right: $right; }
 }
 
 /// Sets the vertical edges (i.e. top and bottom respectively). Values are
@@ -273,8 +273,8 @@
 
   @if ($bottom == '') { $right: $top; }
 
-  @if ($top != null) { top: $top; }
-  @if ($bottom != null) { bottom: $bottom; }
+  @if ($top != null) and ($top != '-') { top: $top; }
+  @if ($bottom != null) and ($bottom != '-') { bottom: $bottom; }
 }
 
 /// Clearfix hack for floated elements.

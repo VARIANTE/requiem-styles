@@ -56,16 +56,16 @@ margin($margin)
   if $left == ''
     $left = $bottom
 
-  if $top != null
+  if $top != null and $top != '-'
     margin-top: $top
 
-  if $right != null
+  if $right != null and $right != '-'
     margin-right: $right
 
-  if $bottom != null
+  if $bottom != null and $bottom != '-'
     margin-bottom: $bottom
 
-  if $left != null
+  if $left != null and $left != '-'
     margin-left: $left
 
 /// Sets the horizontal margins (i.e. left and right respectively). Values are
@@ -84,10 +84,10 @@ marginH($margin)
   if $right == ''
     $right = $left
 
-  if $left != null
+  if $left != null and $left != '-'
     margin-left: $left
 
-  if $right != null
+  if $right != null and $right != '-'
     margin-right: $right
 
 /// Sets the vertical margins (i.e. top and bottom respectively). Values are
@@ -106,10 +106,10 @@ marginV($margin)
   if $bottom == ''
     $right = $top
 
-  if $top != null
+  if $top != null and $top != '-'
     margin-top: $top
 
-  if $bottom != null
+  if $bottom != null and $bottom != '-'
     margin-bottom: $bottom
 
 /// Sets the padding of an element. Similar to the original 'padding' CSS rule,
@@ -164,16 +164,16 @@ padding($padding)
   if $left == ''
     $left = $bottom
 
-  if $top != null
+  if $top != null and $top != '-'
     padding-top: $top
 
-  if $right != null
+  if $right != null and $right != '-'
     padding-right: $right
 
-  if $bottom != null
+  if $bottom != null and $bottom != '-'
     padding-bottom: $bottom
 
-  if $left != null
+  if $left != null and $left != '-'
     padding-left: $left
 
 /// Sets the horizontal paddings (i.e. left and right respectively). Values are
@@ -192,10 +192,10 @@ paddingH($padding)
   if $right == ''
     $right = $left
 
-  if $left != null
+  if $left != null and $left != '-'
     padding-left: $left
 
-  if $right != null
+  if $right != null and $right != '-'
     padding-right: $right
 
 /// Sets the vertical paddings (i.e. top and bottom respectively). Values are
@@ -214,10 +214,10 @@ paddingV($padding)
   if $bottom == ''
     $right = $top
 
-  if $top != null
+  if $top != null and $top != '-'
     padding-top: $top
 
-  if $bottom != null
+  if $bottom != null and $bottom != '-'
     padding-bottom: $bottom
 
 /// Sets the edge of an element (i.e. top, right, bottom and left). This mixin
@@ -272,16 +272,16 @@ edge($edge)
   if $left == ''
     $left = $bottom
 
-  if $top != null
+  if $top != null and $top != '-'
     top: $top
 
-  if $right != null
+  if $right != null and $right != '-'
     right: $right
 
-  if $bottom != null
+  if $bottom != null and $bottom != '-'
     bottom: $bottom
 
-  if $left != null
+  if $left != null and $left != '-'
     left: $left
 
 /// Sets the horizontal edges (i.e. left and right respectively). Values are
@@ -300,10 +300,10 @@ edgeH($edge)
   if $right == ''
     $right = $left
 
-  if $left != null
+  if $left != null and $left != '-'
     left: $left
 
-  if $right != null
+  if $right != null and $right != '-'
     right: $right
 
 /// Sets the vertical edges (i.e. top and bottom respectively). Values are
@@ -322,10 +322,10 @@ edgeV($edge)
   if $bottom == ''
     $right = $top
 
-  if $top != null
+  if $top != null and $top != '-'
     top: $top
 
-  if $bottom != null
+  if $bottom != null and $bottom != '-'
     bottom: $bottom
 
 /// Clearfix hack for floated elements.
