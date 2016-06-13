@@ -1,10 +1,10 @@
-# Requiem-Styles [![Circle CI](https://circleci.com/gh/VARIANTE/requiem-styles/tree/master.svg?style=svg)](https://circleci.com/gh/VARIANTE/requiem-styles/tree/master) [![npm version](https://badge.fury.io/js/requiem-styles.svg)](https://badge.fury.io/js/requiem-styles)
+# Requiem-Styles [![Circle CI](https://circleci.com/gh/andrewscwei/requiem-styles/tree/master.svg?style=svg)](https://circleci.com/gh/andrewscwei/requiem-styles/tree/master) [![npm version](https://badge.fury.io/js/requiem-styles.svg)](https://badge.fury.io/js/requiem-styles)
 
-### This repo is now deprecated. See [Minuet](https://github.com/VARIANTE/minuet) for its successor.
+### This repo is now deprecated. See [Minuet](https://github.com/andrewscwei/minuet) for its successor.
 
-Requiem-Styles is VARIANTE's on-going pet project for experimenting with web UI styling techniques. It is a stand-alone stylesheet library that supports vanilla CSS, Sass, LESS (deprecated) and Stylus. At its current state, it is not production ready, has an ever-changing API, and lacks proper documentation. Its features are driven by internal requirements and is meant for internal use only.
+Requiem-Styles is andrewscwei's on-going pet project for experimenting with web UI styling techniques. It is a stand-alone stylesheet library that supports vanilla CSS, Sass, LESS (deprecated) and Stylus. At its current state, it is not production ready, has an ever-changing API, and lacks proper documentation. Its features are driven by internal requirements and is meant for internal use only.
 
-Requiem-Styles is packaged with many handy mixins and functions to accomodate efficient styling. It pairs well with [Requiem](https://github.com/VARIANTE/requiem).
+Requiem-Styles is packaged with many handy mixins and functions to accomodate efficient styling. It pairs well with [Requiem](https://github.com/andrewscwei/requiem).
 
 # Usage
 
@@ -14,7 +14,7 @@ $ npm install requiem-styles
 
 # API
 
-Documentation is available [here](http://VARIANTE.github.io/requiem-styles).
+Documentation is available [here](http://andrewscwei.github.io/requiem-styles).
 
 # Change Log
 

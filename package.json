@@ -1,15 +1,15 @@
 {
   "name": "requiem-styles",
-  "version": "0.20.2",
+  "version": "0.20.1",
   "description": "An experimental stylesheet library.",
-  "homepage": "http://VARIANTE.github.io/requiem-styles",
+  "homepage": "http://andrewscwei.github.io/requiem-styles",
   "license": "MIT",
   "authors": [
     "Andrew Wei <andrew@variante.io>"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/VARIANTE/requiem-styles.git"
+    "url": "https://github.com/andrewscwei/requiem-styles.git"
   },
   "scripts": {
     "clean": "rimraf dist && rimraf lib",
