@@ -19,7 +19,3 @@ Documentation is available [here](http://andrewscwei.github.io/requiem-styles).
 # Change Log
 
 **2016.01.26** As of v0.18.0, LESS is no longer supported. existing features will be maintained but no new features will be added.
-
-## License
-
-This software is released under the [MIT License](http://opensource.org/licenses/MIT).
