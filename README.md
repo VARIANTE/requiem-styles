@@ -1,4 +1,4 @@
-# Requiem-Styles ![](https://img.shields.io/maintenance/no/2016) [![Circle CI](https://circleci.com/gh/andrewscwei/requiem-styles/tree/master.svg?style=svg)](https://circleci.com/gh/andrewscwei/requiem-styles/tree/master) [![npm version](https://badge.fury.io/js/requiem-styles.svg)](https://badge.fury.io/js/requiem-styles)
+# Requiem-Styles ![](https://img.shields.io/maintenance/no/2016)
 
 ### This repo is now deprecated. See [Minuet](https://github.com/andrewscwei/minuet) for its successor.
 
